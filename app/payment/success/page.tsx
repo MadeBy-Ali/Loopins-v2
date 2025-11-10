@@ -2,10 +2,10 @@
 
 import { motion } from 'framer-motion'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { api } from '@/lib/api'
 
-export default function PaymentSuccessPage() {
+function PaymentSuccessContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const orderId = searchParams.get('orderId')
@@ -14,31 +14,33 @@ export default function PaymentSuccessPage() {
   const [paymentStatus, setPaymentStatus] = useState<'success' | 'failed' | 'pending'>('pending')
 
   useEffect(() => {
+    const verifyPaymentAsync = async () => {
+      try {
+        setIsVerifying(true)
+        const response = await api.verifyPayment(orderId!)
+        
+        if (response.success && response.status === 'paid') {
+          setPaymentStatus('success')
+        } else {
+          setPaymentStatus('failed')
+        }
+      } catch (error) {
+        console.error('Payment verification error:', error)
+        setPaymentStatus('failed')
+      } finally {
+        setIsVerifying(false)
+      }
+    }
+
     if (orderId) {
-      verifyPayment()
+      verifyPaymentAsync()
     } else {
       setIsVerifying(false)
       setPaymentStatus('failed')
     }
   }, [orderId])
 
-  const verifyPayment = async () => {
-    try {
-      setIsVerifying(true)
-      const response = await api.verifyPayment(orderId!)
-      
-      if (response.success && response.status === 'paid') {
-        setPaymentStatus('success')
-      } else {
-        setPaymentStatus('failed')
-      }
-    } catch (error) {
-      console.error('Payment verification error:', error)
-      setPaymentStatus('failed')
-    } finally {
-      setIsVerifying(false)
-    }
-  }
+
 
   if (isVerifying) {
     return (
@@ -108,7 +110,7 @@ export default function PaymentSuccessPage() {
               transition={{ delay: 0.5 }}
               className="bg-earth-green/20 backdrop-blur-sm rounded-lg p-8 border border-light-cream/10 mb-8"
             >
-              <h2 className="text-2xl font-bold text-light-cream mb-4">What's Next?</h2>
+              <h2 className="text-2xl font-bold text-light-cream mb-4">What&apos;s Next?</h2>
               <div className="space-y-4 text-left">
                 <div className="flex items-start gap-4">
                   <div className="w-8 h-8 bg-soft-brown/30 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
@@ -117,7 +119,7 @@ export default function PaymentSuccessPage() {
                   <div>
                     <h3 className="text-light-cream font-semibold mb-1">Order Confirmation</h3>
                     <p className="text-light-cream/70 text-sm">
-                      You'll receive an email confirmation with your order details shortly.
+                      You&apos;ll receive an email confirmation with your order details shortly.
                     </p>
                   </div>
                 </div>
@@ -129,7 +131,7 @@ export default function PaymentSuccessPage() {
                   <div>
                     <h3 className="text-light-cream font-semibold mb-1">Processing</h3>
                     <p className="text-light-cream/70 text-sm">
-                      We'll prepare your order and get it ready for shipping.
+                      We&apos;ll prepare your order and get it ready for shipping.
                     </p>
                   </div>
                 </div>
@@ -212,5 +214,23 @@ export default function PaymentSuccessPage() {
         </motion.div>
       </div>
     </main>
+  )
+}
+
+export default function PaymentSuccessPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-dark-green flex items-center justify-center">
+        <div className="text-center">
+          <svg className="animate-spin h-16 w-16 text-soft-brown mx-auto mb-4" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <p className="text-light-cream text-xl">Loading...</p>
+        </div>
+      </main>
+    }>
+      <PaymentSuccessContent />
+    </Suspense>
   )
 }

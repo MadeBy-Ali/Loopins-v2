@@ -31,7 +31,7 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold text-soft-brown mb-4">Our Story</h2>
             <p className="text-light-cream/80 leading-relaxed mb-4">
               Loopins was born from a passion for timeless fashion and exceptional craftsmanship. 
-              We believe that a vest is more than just a garment—it's a statement of confidence, 
+              We believe that a vest is more than just a garment—it&apos;s a statement of confidence, 
               elegance, and individuality.
             </p>
             <p className="text-light-cream/80 leading-relaxed">
@@ -70,8 +70,8 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold text-soft-brown mb-4">Our Mission</h2>
             <p className="text-light-cream/80 leading-relaxed">
               To provide discerning individuals with premium vests that embody elegance, 
-              comfort, and versatility. We're dedicated to helping you express your unique 
-              style with confidence, whether you're dressing for business, leisure, or special occasions.
+              comfort, and versatility. We&apos;re dedicated to helping you express your unique 
+              style with confidence, whether you&apos;re dressing for business, leisure, or special occasions.
             </p>
           </div>
         </motion.div>

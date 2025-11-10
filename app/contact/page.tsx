@@ -37,21 +37,19 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-dark-green pt-24 pb-16">
       <div className="container mx-auto px-4 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-5xl md:text-6xl font-bold text-light-cream mb-4">
-            Get In Touch
-          </h1>
-          <p className="text-xl text-light-cream/80">
-            We'd love to hear from you
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h1 className="text-5xl md:text-6xl font-bold text-light-cream mb-4">
+              Get In Touch
+            </h1>
+            <p className="text-xl text-light-cream/80">
+              We&apos;d love to hear from you
+            </p>
+          </motion.div>        <div className="grid md:grid-cols-2 gap-8">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
