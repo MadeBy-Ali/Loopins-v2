@@ -8,13 +8,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'earth-green': '#5a6b3b',
-        'soft-brown': '#c49b7a',
-        'light-cream': '#f5f3f0',
-        'dark-green': '#2c3e2d',
+        'earth-green': '#703315',
+        'soft-brown': '#A65D3F',
+        'light-cream': '#F5E6D3',
+        'dark-green': '#703315',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
+      },
+      fontWeight: {
+        light: '300',
+        bold: '700',
       },
     },
   },

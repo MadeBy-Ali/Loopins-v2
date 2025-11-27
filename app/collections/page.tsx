@@ -22,7 +22,7 @@ const collections = [
 
 export default function CollectionsPage() {
   return (
-    <main className="min-h-screen bg-dark-green pt-24 pb-16">
+    <main className="min-h-screen bg-light-cream pt-24 pb-16">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -30,10 +30,10 @@ export default function CollectionsPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className="text-5xl md:text-6xl font-bold text-light-cream mb-4">
+          <h1 className="text-5xl md:text-6xl font-bold text-dark-green mb-4">
             Our Collections
           </h1>
-          <p className="text-xl text-light-cream/80">
+          <p className="text-xl text-dark-green/80">
             Explore our curated vest collections
           </p>
         </motion.div>
@@ -47,18 +47,18 @@ export default function CollectionsPage() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <Link href={`/collections/${collection.slug}`}>
-                <div className="group relative h-96 bg-gradient-to-br from-earth-green to-soft-brown rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300">
+                <div className="group relative h-96 bg-white rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border border-soft-brown/20">
                   {/* Placeholder */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-64 h-64 bg-light-cream/10 rounded-lg backdrop-blur-sm border-2 border-light-cream/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                      <span className="text-light-cream/50 text-8xl font-bold">
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-light-cream to-white">
+                    <div className="w-64 h-64 bg-dark-green/5 rounded-lg border-2 border-dark-green/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                      <span className="text-dark-green/30 text-8xl font-bold">
                         {collection.title.charAt(0)}
                       </span>
                     </div>
                   </div>
 
                   {/* Content Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-dark-green/90 to-transparent">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-dark-green to-dark-green/80">
                     <h2 className="text-3xl font-bold text-light-cream mb-2">
                       {collection.title}
                     </h2>

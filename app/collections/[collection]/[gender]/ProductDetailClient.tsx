@@ -22,7 +22,7 @@ const products = {
         'Crafted from premium materials with meticulous attention to detail, every stitch reflects our commitment to quality. The earth-toned palette draws inspiration from natural herbs and spices, creating a connection between tradition and contemporary fashion.',
         'This vest is more than just clothing—it&apos;s a statement piece that bridges cultures and generations. Whether you&apos;re dressing for a business meeting or a casual gathering, the Mbok Jamu vest brings sophistication and cultural pride to your wardrobe.',
       ],
-      sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+      sizes: ['S-M', 'L-XL'],
       features: [
         'Premium cotton blend fabric',
         'Traditional-inspired earth tone design',
@@ -46,7 +46,7 @@ const products = {
         'Crafted from premium materials with meticulous attention to detail, every stitch reflects our commitment to quality. The earth-toned palette draws inspiration from natural herbs and spices, creating a connection between tradition and contemporary fashion.',
         'This vest is more than just clothing—it&apos;s a statement piece that bridges cultures and generations. Perfect for both professional settings and casual elegance, the Mbok Jamu vest brings sophistication and cultural pride to your wardrobe.',
       ],
-      sizes: ['XS', 'S', 'M', 'L', 'XL'],
+      sizes: ['S-M', 'L-XL'],
       features: [
         'Premium cotton blend fabric',
         'Traditional-inspired earth tone design',
@@ -78,12 +78,12 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
 
   if (!product) {
     return (
-      <main className="min-h-screen bg-dark-green pt-24 pb-16 flex items-center justify-center">
+      <main className="min-h-screen bg-light-cream pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-light-cream mb-4">Collection Not Found</h1>
+          <h1 className="text-4xl font-bold text-dark-green mb-4">Collection Not Found</h1>
           <button
             onClick={() => router.push('/collections')}
-            className="px-6 py-3 bg-soft-brown text-light-cream rounded-full hover:bg-soft-brown/80 transition-colors"
+            className="px-6 py-3 bg-dark-green text-light-cream rounded-full hover:bg-soft-brown transition-colors"
           >
             Back to Collections
           </button>
@@ -117,11 +117,12 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
   }
 
   return (
-    <main className="min-h-screen bg-dark-green pt-24 pb-16">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <main className="min-h-screen bg-light-cream pt-24">
+      {/* Hero Section - sticky for parallax */}
+      <section className="relative z-0">
+        <div className="sticky top-0 bg-light-cream pb-16">
+          <div className="container mx-auto px-4">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
             
             {/* Product Image Carousel */}
             <motion.div
@@ -131,7 +132,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               className="relative"
             >
               {/* Main Image Display */}
-              <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl bg-dark-green">
+              <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl bg-white">
                 <motion.img
                   key={currentImageIndex}
                   src={product.images[currentImageIndex]}
@@ -144,7 +145,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 />
                 
                 {/* Limited Edition Badge */}
-                <div className="absolute top-6 right-6 bg-soft-brown text-light-cream px-4 py-2 rounded-full font-bold text-sm shadow-lg z-10">
+                <div className="absolute top-6 right-6 bg-dark-green text-light-cream px-4 py-2 rounded-full font-bold text-sm shadow-lg z-10">
                   Limited Edition
                 </div>
 
@@ -153,7 +154,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                   <>
                     <button
                       onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1))}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-dark-green/80 backdrop-blur-sm rounded-full flex items-center justify-center text-light-cream hover:bg-dark-green transition-all duration-300 z-10 group"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-dark-green hover:bg-white transition-all duration-300 z-10 group shadow-md"
                     >
                       <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -161,7 +162,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     </button>
                     <button
                       onClick={() => setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1))}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-dark-green/80 backdrop-blur-sm rounded-full flex items-center justify-center text-light-cream hover:bg-dark-green transition-all duration-300 z-10 group"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-dark-green hover:bg-white transition-all duration-300 z-10 group shadow-md"
                     >
                       <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -194,8 +195,8 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     onClick={() => setCurrentImageIndex(index)}
                     className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
                       currentImageIndex === index
-                        ? 'border-soft-brown shadow-lg scale-110'
-                        : 'border-light-cream/20 hover:border-light-cream/50'
+                        ? 'border-dark-green shadow-lg scale-110'
+                        : 'border-dark-green/20 hover:border-dark-green/50'
                     }`}
                   >
                     <img
@@ -219,20 +220,20 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 <p className="text-soft-brown font-semibold mb-2 uppercase tracking-wider">
                   {collection.replace('-', ' ')} Collection
                 </p>
-                <h1 className="text-4xl md:text-6xl font-bold text-light-cream mb-4">
+                <h1 className="text-4xl md:text-6xl font-bold text-dark-green mb-4">
                   {product.name}
                 </h1>
                 <p className="text-3xl font-bold text-soft-brown mb-4">
                   Rp {product.price.toLocaleString('id-ID')}
                 </p>
-                <p className="text-light-cream/80 text-lg leading-relaxed">
+                <p className="text-dark-green/80 text-lg leading-relaxed">
                   {product.description}
                 </p>
               </div>
 
               {/* Size Selection */}
               <div>
-                <label className="block text-light-cream font-bold mb-3 text-lg">
+                <label className="block text-dark-green font-bold mb-3 text-lg">
                   Select Size
                 </label>
                 <div className="flex flex-wrap gap-3">
@@ -240,10 +241,10 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`w-16 h-16 rounded-lg font-bold text-lg transition-all duration-300 ${
+                      className={`px-6 py-4 rounded-lg font-bold text-lg transition-all duration-300 ${
                         selectedSize === size
-                          ? 'bg-soft-brown text-light-cream shadow-lg scale-110'
-                          : 'bg-earth-green/20 text-light-cream/70 border border-light-cream/20 hover:bg-earth-green/30'
+                          ? 'bg-dark-green text-light-cream shadow-lg scale-105'
+                          : 'bg-white text-dark-green border border-dark-green/20 hover:border-dark-green/50'
                       }`}
                     >
                       {size}
@@ -254,22 +255,22 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
 
               {/* Quantity Selection */}
               <div>
-                <label className="block text-light-cream font-bold mb-3 text-lg">
+                <label className="block text-dark-green font-bold mb-3 text-lg">
                   Quantity
                 </label>
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-12 h-12 bg-earth-green/20 border border-light-cream/20 rounded-lg text-light-cream font-bold text-xl hover:bg-earth-green/30 transition-colors"
+                    className="w-12 h-12 bg-white border border-dark-green/20 rounded-lg text-dark-green font-bold text-xl hover:border-dark-green/50 transition-colors"
                   >
                     -
                   </button>
-                  <span className="text-2xl font-bold text-light-cream w-16 text-center">
+                  <span className="text-2xl font-bold text-dark-green w-16 text-center">
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="w-12 h-12 bg-earth-green/20 border border-light-cream/20 rounded-lg text-light-cream font-bold text-xl hover:bg-earth-green/30 transition-colors"
+                    className="w-12 h-12 bg-white border border-dark-green/20 rounded-lg text-dark-green font-bold text-xl hover:border-dark-green/50 transition-colors"
                   >
                     +
                   </button>
@@ -280,83 +281,166 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               <button
                 onClick={handleAddToCart}
                 disabled={isAdding}
-                className="w-full py-4 bg-gradient-to-r from-soft-brown to-earth-green text-light-cream font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="w-full py-4 bg-dark-green text-light-cream font-bold text-lg rounded-full hover:bg-soft-brown hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 {isAdding ? 'Adding...' : 'Add to Cart'}
               </button>
+
+              {/* Size Guide Table */}
+              <div className="mt-8">
+                <h3 className="text-dark-green font-bold text-lg mb-4">Size Guide</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-dark-green/20">
+                        <th className="text-left py-2 pr-4 text-dark-green/70 font-medium">Measurement (cm)</th>
+                        <th className="text-center py-2 px-2 text-dark-green/70 font-medium">S-M</th>
+                        <th className="text-center py-2 px-2 text-dark-green/70 font-medium">L-XL</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-dark-green">
+                      {gender === 'women' ? (
+                        <>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Length</td>
+                            <td className="text-center py-2 px-2">55</td>
+                            <td className="text-center py-2 px-2">58</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Bust</td>
+                            <td className="text-center py-2 px-2">94</td>
+                            <td className="text-center py-2 px-2">104</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Waist</td>
+                            <td className="text-center py-2 px-2">75</td>
+                            <td className="text-center py-2 px-2">85</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Hip</td>
+                            <td className="text-center py-2 px-2">98</td>
+                            <td className="text-center py-2 px-2">106</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Shoulder Width</td>
+                            <td className="text-center py-2 px-2">41</td>
+                            <td className="text-center py-2 px-2">45</td>
+                          </tr>
+                        </>
+                      ) : (
+                        <>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Length</td>
+                            <td className="text-center py-2 px-2">65</td>
+                            <td className="text-center py-2 px-2">70</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Bust</td>
+                            <td className="text-center py-2 px-2">106</td>
+                            <td className="text-center py-2 px-2">114</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Waist</td>
+                            <td className="text-center py-2 px-2">100</td>
+                            <td className="text-center py-2 px-2">109</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Hip</td>
+                            <td className="text-center py-2 px-2">106</td>
+                            <td className="text-center py-2 px-2">116</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Shoulder Width</td>
+                            <td className="text-center py-2 px-2">45</td>
+                            <td className="text-center py-2 px-2">50</td>
+                          </tr>
+                        </>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-dark-green/60 text-xs mt-3">
+                  <span className="font-medium">Care:</span> Wash separately by hand / Dry clean, Iron medium
+                </p>
+              </div>
             </motion.div>
 
           </div>
         </div>
+        </div>
       </section>
 
-      {/* Story Section */}
-      <section className="py-20 bg-earth-green/10">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-light-cream mb-4">
-              The Story Behind
-            </h2>
-            <div className="w-24 h-1 bg-soft-brown mx-auto"></div>
-          </motion.div>
+      {/* Story Section - overlaps Hero with shadow */}
+      <section className="relative z-10 -mt-8">
+        <div className="bg-dark-green rounded-t-[3rem] shadow-[0_-20px_60px_-15px_rgba(112,51,21,0.4)] py-24">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-light-cream mb-4">
+                The Story Behind
+              </h2>
+              <div className="w-24 h-1 bg-soft-brown mx-auto"></div>
+            </motion.div>
 
-          <div className="space-y-6">
-            {product.story.map((paragraph, index) => (
-              <motion.p
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="text-light-cream/80 text-lg leading-relaxed text-center"
-              >
-                {paragraph}
-              </motion.p>
-            ))}
+            <div className="space-y-6">
+              {product.story.map((paragraph, index) => (
+                <motion.p
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  className="text-light-cream/80 text-lg leading-relaxed text-center"
+                >
+                  {paragraph}
+                </motion.p>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-light-cream mb-4">
-              Features & Details
-            </h2>
-            <div className="w-24 h-1 bg-soft-brown mx-auto"></div>
-          </motion.div>
+      {/* Features Section - overlaps Story with shadow */}
+      <section className="relative z-20 -mt-8">
+        <div className="bg-light-cream rounded-t-[3rem] shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.3)] py-24">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-dark-green mb-4">
+                Features & Details
+              </h2>
+              <div className="w-24 h-1 bg-soft-brown mx-auto"></div>
+            </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {product.features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-earth-green/20 backdrop-blur-sm rounded-lg p-6 border border-light-cream/10 text-center hover:bg-earth-green/30 transition-colors"
-              >
-                <div className="w-12 h-12 bg-soft-brown/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-6 h-6 text-light-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <p className="text-light-cream font-semibold">{feature}</p>
-              </motion.div>
-            ))}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {product.features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white rounded-lg p-6 border border-dark-green/10 text-center hover:shadow-lg transition-all"
+                >
+                  <div className="w-12 h-12 bg-dark-green/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-6 h-6 text-dark-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <p className="text-dark-green font-semibold">{feature}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

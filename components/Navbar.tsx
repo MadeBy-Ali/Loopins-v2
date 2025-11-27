@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useCartStore } from '@/lib/cart-store'
 
 export default function Navbar() {
@@ -28,8 +29,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-soft-brown tracking-wider">
-            LOOPINS
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/images/Top-navabar_logo-removebg-preview.png"
+              alt="Loopins"
+              width={120}
+              height={40}
+              className="h-10 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Menu */}
@@ -62,16 +70,24 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 space-y-2">
-            <Link href="/" className="block py-2 text-light-cream hover:text-soft-brown">Home</Link>
-            <Link href="/collections" className="block py-2 text-light-cream hover:text-soft-brown">Collections</Link>
-            <Link href="/about" className="block py-2 text-light-cream hover:text-soft-brown">About</Link>
-            <Link href="/contact" className="block py-2 text-light-cream hover:text-soft-brown">Contact</Link>
-            <Link href="/cart" className="block py-2 text-light-cream hover:text-soft-brown">
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-light-cream hover:text-soft-brown">Home</Link>
+            <Link href="/collections" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-light-cream hover:text-soft-brown">Collections</Link>
+            <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-light-cream hover:text-soft-brown">About</Link>
+            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-light-cream hover:text-soft-brown">Contact</Link>
+            <Link href="/cart" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-light-cream hover:text-soft-brown">
               Cart {cartCount > 0 && `(${cartCount})`}
             </Link>
           </div>
         )}
       </div>
+
+      {/* Backdrop overlay - click to close mobile menu */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 top-16 bg-black/50 md:hidden z-[-1]"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
 
       <style jsx>{`
         .nav-link {
