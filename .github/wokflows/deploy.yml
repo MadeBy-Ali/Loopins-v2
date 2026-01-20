@@ -1,0 +1,39 @@
+name: Deploy Frontend to VPS
+
+on:
+  push:
+    branches:
+      - main   # or deploy / production
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Deploy build
+        run: |
+          sudo rm -rf /home/loopins/apps/loopins_web/*
+          sudo cp -r out/* /home/loopins/apps/loopins_web/
+
+      - name: Fix permissions
+        run: |
+          sudo chown -R loopins:www-data /home/loopins/apps/loopins_web
+          sudo find /home/loopins/apps/loopins_web -type d -exec chmod 755 {} \;
+          sudo find /home/loopins/apps/loopins_web -type f -exec chmod 644 {} \;
+
+      - name: Reload Nginx
+        run: sudo systemctl reload nginx
