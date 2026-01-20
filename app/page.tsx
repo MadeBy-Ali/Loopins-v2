@@ -53,7 +53,7 @@ export default function Home() {
 
         {/* Content */}
         <div className="relative z-10 text-center px-6">
-          <p className="text-white text-4xl md:text-5xl font-serif font-light mb-8">
+          <p className="text-white text-4xl md:text-5xl font-medium mb-8">
             like you, it carries a story of becoming.
           </p>
           <a
@@ -69,7 +69,7 @@ export default function Home() {
       <section className="w-full bg-light-cream py-20">
         <div className="px-6">
           {/* Section Title */}
-          <h2 className="text-4xl md:text-5xl font-serif font-light text-center text-dark-brown mb-12">
+          <h2 className="text-4xl md:text-5xl font-semibold text-center text-dark-brown mb-12">
             Featured Picks
           </h2>
 

@@ -50,7 +50,7 @@ export default function CollectionSection({ title, description, slug, imagePosit
               className="relative flex items-center justify-center w-full"
             >
               <div className="w-full aspect-square max-w-lg bg-gradient-to-br from-soft-brown/20 to-earth-green/20 flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-700 group overflow-hidden">
-                <span className="text-earth-green/30 text-8xl font-serif font-light group-hover:scale-110 transition-transform duration-700">
+                <span className="text-earth-green/30 text-8xl font-light group-hover:scale-110 transition-transform duration-700">
                   {title.charAt(0)}
                 </span>
               </div>
@@ -64,7 +64,7 @@ export default function CollectionSection({ title, description, slug, imagePosit
             transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
             className="w-full md:w-1/2 text-center md:text-left"
           >
-            <h2 className="text-4xl md:text-6xl font-serif font-light mb-8 text-dark-brown tracking-tight">
+            <h2 className="text-4xl md:text-6xl font-semibold mb-8 text-dark-brown tracking-tight">
               {title}
             </h2>
             <p className="text-lg md:text-xl text-dark-brown/70 mb-10 leading-relaxed max-w-xl">

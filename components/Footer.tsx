@@ -19,7 +19,7 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-serif font-semibold text-soft-brown mb-4">Loopins</h3>
+            <h3 className="text-2xl font-bold text-soft-brown mb-4">Loopins</h3>
             <p className="text-light-cream/70 mb-6 leading-relaxed">
               Premium vest collections inspired by Indonesian heritage. Where style meets sophistication.
             </p>
