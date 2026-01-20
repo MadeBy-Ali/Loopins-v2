@@ -1,97 +1,171 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCartStore } from '@/lib/cart-store'
+import { ShoppingBag, Search, Menu, X } from 'lucide-react'
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
   const cartItems = useCartStore((state) => state.items)
   
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
+  const isHomePage = pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 80)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Determine navbar styles based on page and scroll state
+  const navbarBg = isHomePage 
+    ? (isScrolled ? 'bg-white shadow-md' : 'bg-transparent')
+    : 'bg-white shadow-md'
+  
+  const navbarPadding = isHomePage
+    ? (isScrolled ? 'py-4' : 'py-6')
+    : 'py-4'
+  
+  const textColor = isHomePage && !isScrolled
+    ? 'text-white hover:text-white/80'
+    : 'text-gray-800 hover:text-earth-green'
+  
+  const logoFilter = isHomePage && !isScrolled
+    ? 'brightness-0 invert'
+    : 'brightness-0'
+  
+  const iconColor = isHomePage && !isScrolled
+    ? 'text-white hover:text-white/80'
+    : 'text-gray-800 hover:text-earth-green'
+  
+  const badgeBg = isHomePage && !isScrolled
+    ? 'bg-white text-earth-green'
+    : 'bg-earth-green text-white'
+
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-dark-green/98 shadow-lg' : 'bg-dark-green/95'
-      } backdrop-blur-md`}
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out ${navbarBg} ${navbarPadding}`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex justify-between items-center">
+          {/* Left: Navigation Links */}
+          <div className="hidden lg:flex items-center space-x-10 flex-1">
+            <Link 
+              href="/" 
+              className={`nav-link transition-colors duration-500 ${textColor}`}
+            >
+              Home
+            </Link>
+            <Link 
+              href="/collections" 
+              className={`nav-link transition-colors duration-500 ${textColor}`}
+            >
+              Collections
+            </Link>
+            <Link 
+              href="/about" 
+              className={`nav-link transition-colors duration-500 ${textColor}`}
+            >
+              About
+            </Link>
+            <Link 
+              href="/contact" 
+              className={`nav-link transition-colors duration-500 ${textColor}`}
+            >
+              Contact
+            </Link>
+          </div>
+
+          {/* Center: Logo */}
+          <Link href="/" className="flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 z-10">
             <Image
               src="/images/Top-navabar_logo-removebg-preview.png"
               alt="Loopins"
-              width={120}
-              height={40}
-              className="h-10 w-auto"
+              width={140}
+              height={50}
+              className={`h-12 w-auto transition-all duration-500 ${logoFilter}`}
               priority
             />
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="nav-link">Home</Link>
-            <Link href="/collections" className="nav-link">Collections</Link>
-            <Link href="/about" className="nav-link">About</Link>
-            <Link href="/contact" className="nav-link">Contact</Link>
-            <Link href="/cart" className="relative nav-link">
-              Cart
+          {/* Right: Icons */}
+          <div className="flex items-center space-x-6 flex-1 justify-end">
+            <button 
+              className={`hidden md:block transition-colors duration-500 ${iconColor}`}
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+            
+            <Link 
+              href="/cart" 
+              className={`relative transition-colors duration-500 ${iconColor}`}
+            >
+              <ShoppingBag className="w-5 h-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-soft-brown text-dark-green text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                <span className={`absolute -top-2 -right-2 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center transition-colors duration-500 ${badgeBg}`}>
                   {cartCount}
                 </span>
               )}
             </Link>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex flex-col gap-1"
-          >
-            <span className={`block w-6 h-0.5 bg-light-cream transition-transform ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
-            <span className={`block w-6 h-0.5 bg-light-cream transition-opacity ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`block w-6 h-0.5 bg-light-cream transition-transform ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
-          </button>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`lg:hidden transition-colors duration-500 ${iconColor}`}
+              aria-label="Menu"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-2">
-            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-light-cream hover:text-soft-brown">Home</Link>
-            <Link href="/collections" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-light-cream hover:text-soft-brown">Collections</Link>
-            <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-light-cream hover:text-soft-brown">About</Link>
-            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-light-cream hover:text-soft-brown">Contact</Link>
-            <Link href="/cart" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-light-cream hover:text-soft-brown">
-              Cart {cartCount > 0 && `(${cartCount})`}
+          <div className="lg:hidden pt-6 pb-4 space-y-4">
+            <Link 
+              href="/" 
+              onClick={() => setIsMobileMenuOpen(false)} 
+              className={`block py-2 text-base transition-colors ${textColor}`}
+            >
+              Home
+            </Link>
+            <Link 
+              href="/collections" 
+              onClick={() => setIsMobileMenuOpen(false)} 
+              className={`block py-2 text-base transition-colors ${textColor}`}
+            >
+              Collections
+            </Link>
+            <Link 
+              href="/about" 
+              onClick={() => setIsMobileMenuOpen(false)} 
+              className={`block py-2 text-base transition-colors ${textColor}`}
+            >
+              About
+            </Link>
+            <Link 
+              href="/contact" 
+              onClick={() => setIsMobileMenuOpen(false)} 
+              className={`block py-2 text-base transition-colors ${textColor}`}
+            >
+              Contact
             </Link>
           </div>
         )}
       </div>
 
-      {/* Backdrop overlay - click to close mobile menu */}
-      {isMobileMenuOpen && (
-        <div 
-          className="fixed inset-0 top-16 bg-black/50 md:hidden z-[-1]"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
-
       <style jsx>{`
         .nav-link {
-          @apply text-light-cream font-medium transition-all duration-300 hover:text-soft-brown relative;
+          @apply text-sm font-medium uppercase tracking-wider relative;
+          letter-spacing: 0.08em;
         }
         .nav-link::after {
           content: '';

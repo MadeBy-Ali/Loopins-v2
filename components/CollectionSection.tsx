@@ -33,25 +33,24 @@ export default function CollectionSection({ title, description, slug, imagePosit
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen flex items-center overflow-hidden"
-      style={{ backgroundColor: imagePosition === 'left' ? '#2c3e2d' : '#5a6b3b' }}
+      className="relative flex items-center py-16 bg-light-cream"
     >
-      <div className="container mx-auto px-4">
-        <div className={`flex flex-col ${imagePosition === 'left' ? 'md:flex-row' : 'md:flex-row-reverse'} items-center justify-between gap-12 md:gap-16`}>
+      <div className="container mx-auto px-6">
+        <div className={`flex flex-col ${imagePosition === 'left' ? 'md:flex-row' : 'md:flex-row-reverse'} items-center justify-between gap-16 md:gap-24`}>
           
           {/* Image Placeholder */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
             className="w-full md:w-1/2 flex justify-center"
           >
             <div
               ref={imageRef}
-              className="relative flex items-center justify-center"
+              className="relative flex items-center justify-center w-full"
             >
-              <div className="w-80 h-80 md:w-96 md:h-96 bg-gradient-to-br from-soft-brown/30 to-earth-green/30 rounded-lg backdrop-blur-sm border-2 border-light-cream/20 flex items-center justify-center shadow-2xl hover:scale-105 transition-transform duration-500">
-                <span className="text-light-cream/50 text-6xl font-bold">
+              <div className="w-full aspect-square max-w-lg bg-gradient-to-br from-soft-brown/20 to-earth-green/20 flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-700 group overflow-hidden">
+                <span className="text-earth-green/30 text-8xl font-serif font-light group-hover:scale-110 transition-transform duration-700">
                   {title.charAt(0)}
                 </span>
               </div>
@@ -60,22 +59,22 @@ export default function CollectionSection({ title, description, slug, imagePosit
 
           {/* Content */}
           <motion.div
-            initial={{ opacity: 0, x: imagePosition === 'left' ? 50 : -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: imagePosition === 'left' ? 50 : -50 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
             className="w-full md:w-1/2 text-center md:text-left"
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 text-light-cream">
+            <h2 className="text-4xl md:text-6xl font-serif font-light mb-8 text-dark-brown tracking-tight">
               {title}
             </h2>
-            <p className="text-lg md:text-xl text-light-cream/80 mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-dark-brown/70 mb-10 leading-relaxed max-w-xl">
               {description}
             </p>
             <Link
               href={`/collections/${slug}`}
-              className="inline-block px-8 py-3 bg-soft-brown text-light-cream font-bold rounded-full hover:bg-soft-brown/80 transition-all duration-300 hover:scale-105 shadow-lg"
+              className="inline-block px-12 py-4 bg-dark-brown text-light-cream font-medium text-sm uppercase tracking-widest hover:bg-earth-green transition-all duration-500 hover:scale-105"
             >
-              Shop {title}
+              Explore {title}
             </Link>
           </motion.div>
 

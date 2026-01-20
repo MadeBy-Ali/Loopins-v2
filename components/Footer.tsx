@@ -7,10 +7,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="relative z-30 -mt-8 bg-dark-green rounded-t-[3rem] shadow-[0_-20px_60px_-15px_rgba(112,51,21,0.4)] mt-auto">
-      <div className="container mx-auto px-4 py-12">
+    <footer className="relative z-30 bg-dark-brown text-light-cream mt-auto">
+      <div className="container mx-auto px-6 py-16">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           
           {/* Brand Section */}
           <motion.div
@@ -19,8 +19,8 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold text-soft-brown mb-4">Loopins</h3>
-            <p className="text-light-cream/70 mb-4">
+            <h3 className="text-2xl font-serif font-semibold text-soft-brown mb-4">Loopins</h3>
+            <p className="text-light-cream/70 mb-6 leading-relaxed">
               Premium vest collections inspired by Indonesian heritage. Where style meets sophistication.
             </p>
             <div className="flex gap-4">
@@ -28,7 +28,7 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-earth-green/20 rounded-full flex items-center justify-center text-light-cream hover:bg-soft-brown transition-colors"
+                className="w-10 h-10 bg-soft-brown/20 rounded-full flex items-center justify-center text-light-cream hover:bg-soft-brown hover:text-white transition-all duration-300"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@ export default function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-earth-green/20 rounded-full flex items-center justify-center text-light-cream hover:bg-soft-brown transition-colors"
+                className="w-10 h-10 bg-soft-brown/20 rounded-full flex items-center justify-center text-light-cream hover:bg-soft-brown hover:text-white transition-all duration-300"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

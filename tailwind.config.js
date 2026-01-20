@@ -8,16 +8,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'earth-green': '#703315',
-        'soft-brown': '#A65D3F',
-        'light-cream': '#F5E6D3',
-        'dark-green': '#703315',
+        'earth-green': '#8B7355',
+        'soft-brown': '#C6A37E',
+        'light-cream': '#F5F3F0',
+        'dark-brown': '#5C4033',
+        'warm-beige': '#E8DDD3',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
       },
       fontWeight: {
         light: '300',
+        regular: '400',
+        medium: '500',
+        semibold: '600',
         bold: '700',
       },
     },

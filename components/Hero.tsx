@@ -35,7 +35,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden bg-dark-green">
+    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden bg-warm-beige">
       {/* Background Carousel */}
       <div className="absolute inset-0 w-full h-full">
         <AnimatePresence mode="wait">
@@ -44,7 +44,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: 'easeInOut' }}
+            transition={{ duration: 2, ease: 'easeInOut' }}
             className="absolute inset-0"
           >
             <div
@@ -57,48 +57,55 @@ export default function Hero() {
                 className="w-full h-full object-cover"
               />
             </div>
-            {/* Dark overlay for better text readability */}
-            <div className="absolute inset-0 bg-dark-green/40" />
+            {/* Subtle overlay for elegance */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40" />
           </motion.div>
         </AnimatePresence>
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl">
+      <div className="relative z-10 text-center px-6 max-w-5xl">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-5xl md:text-7xl font-bold mb-4 text-light-cream"
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+          className="text-5xl md:text-7xl lg:text-8xl font-serif font-light mb-6 text-white tracking-tight"
           style={{
-            textShadow: '0 4px 20px rgba(0, 0, 0, 0.8), 0 2px 10px rgba(0, 0, 0, 0.6), 0 8px 40px rgba(0, 0, 0, 0.5)'
+            textShadow: '0 2px 30px rgba(0, 0, 0, 0.3)'
           }}
         >
-          Premium Vest Collection
+          Crafted with Purpose
         </motion.h1>
         
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="text-xl md:text-2xl mb-8 text-light-cream"
+          transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
+          className="text-lg md:text-xl lg:text-2xl mb-12 text-white/95 font-light tracking-wide max-w-3xl mx-auto"
           style={{
-            textShadow: '0 2px 15px rgba(0, 0, 0, 0.8), 0 1px 8px rgba(0, 0, 0, 0.6)'
+            textShadow: '0 2px 20px rgba(0, 0, 0, 0.3)'
           }}
         >
-          Where Style Meets Sophistication
+          Where Timeless Design Meets Sustainable Elegance
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
+          transition={{ duration: 1.2, delay: 0.6, ease: 'easeOut' }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <Link
             href="/collections"
-            className="inline-block px-10 py-4 bg-gradient-to-r from-soft-brown to-earth-green text-light-cream font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105"
+            className="inline-block px-10 py-4 bg-white text-dark-brown font-medium text-sm uppercase tracking-widest hover:bg-warm-beige transition-all duration-500 hover:scale-105"
           >
             Explore Collection
+          </Link>
+          <Link
+            href="/about"
+            className="inline-block px-10 py-4 bg-transparent text-white font-medium text-sm uppercase tracking-widest border-2 border-white hover:bg-white hover:text-dark-brown transition-all duration-500 hover:scale-105"
+          >
+            Our Story
           </Link>
         </motion.div>
       </div>
@@ -109,10 +116,10 @@ export default function Hero() {
           <button
             key={index}
             onClick={() => setCurrentImageIndex(index)}
-            className={`transition-all duration-300 ${
+            className={`transition-all duration-500 ${
               currentImageIndex === index
-                ? 'w-12 h-3 bg-soft-brown'
-                : 'w-3 h-3 bg-light-cream/50 hover:bg-light-cream/80'
+                ? 'w-12 h-1.5 bg-white'
+                : 'w-8 h-1.5 bg-white/40 hover:bg-white/60'
             } rounded-full`}
             aria-label={`Go to slide ${index + 1}`}
           />
@@ -126,7 +133,9 @@ export default function Hero() {
         transition={{ duration: 1, delay: 1 }}
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
       >
-        <div className="w-8 h-8 border-2 border-light-cream border-t-0 border-l-0 rotate-45 animate-bounce" />
+        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+          <div className="w-1 h-2 bg-white rounded-full mt-2 animate-bounce" />
+        </div>
       </motion.div>
     </section>
   )
