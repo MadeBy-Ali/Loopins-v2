@@ -30,10 +30,10 @@ export default function CollectionsPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className="text-5xl md:text-6xl font-bold text-dark-green mb-4">
+          <h1 className="text-5xl md:text-6xl font-bold text-dark-brown mb-4">
             Our Collections
           </h1>
-          <p className="text-xl text-dark-green/80">
+          <p className="text-xl text-dark-brown/70">
             Explore our curated vest collections
           </p>
         </motion.div>
@@ -58,14 +58,14 @@ export default function CollectionsPage() {
                   </div>
 
                   {/* Content Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-dark-green to-dark-green/80">
-                    <h2 className="text-3xl font-bold text-light-cream mb-2">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white to-white/95">
+                    <h2 className="text-3xl font-bold text-dark-brown mb-2">
                       {collection.title}
                     </h2>
-                    <p className="text-light-cream/80 mb-2">
+                    <p className="text-dark-brown/70 mb-2">
                       {collection.description}
                     </p>
-                    <p className="text-soft-brown font-semibold">
+                    <p className="text-earth-green font-semibold">
                       {collection.itemCount} items
                     </p>
                   </div>
