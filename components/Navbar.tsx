@@ -73,7 +73,7 @@ export default function Navbar() {
               href="/about" 
               className={`nav-link transition-colors duration-500 ${textColor}`}
             >
-              About
+              Abouts
             </Link>
             <Link 
               href="/contact" 
