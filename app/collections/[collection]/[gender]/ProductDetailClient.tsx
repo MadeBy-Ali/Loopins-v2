@@ -80,10 +80,10 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
     return (
       <main className="min-h-screen bg-light-cream pt-24 pb-16 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-dark-green mb-4">Collection Not Found</h1>
+          <h1 className="text-4xl font-bold text-dark-brown mb-4">Collection Not Found</h1>
           <button
             onClick={() => router.push('/collections')}
-            className="px-6 py-3 bg-dark-green text-light-cream rounded-full hover:bg-soft-brown transition-colors"
+            className="px-6 py-3 bg-dark-brown text-white rounded-full hover:bg-earth-green transition-colors"
           >
             Back to Collections
           </button>
@@ -145,7 +145,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 />
                 
                 {/* Limited Edition Badge */}
-                <div className="absolute top-6 right-6 bg-dark-green text-light-cream px-4 py-2 rounded-full font-bold text-sm shadow-lg z-10">
+                <div className="absolute top-6 right-6 bg-dark-brown text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg z-10">
                   Limited Edition
                 </div>
 
@@ -154,7 +154,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                   <>
                     <button
                       onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1))}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-dark-green hover:bg-white transition-all duration-300 z-10 group shadow-md"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-dark-brown hover:bg-white transition-all duration-300 z-10 group shadow-md"
                     >
                       <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -162,7 +162,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     </button>
                     <button
                       onClick={() => setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1))}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-dark-green hover:bg-white transition-all duration-300 z-10 group shadow-md"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-dark-brown hover:bg-white transition-all duration-300 z-10 group shadow-md"
                     >
                       <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -195,8 +195,8 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     onClick={() => setCurrentImageIndex(index)}
                     className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
                       currentImageIndex === index
-                        ? 'border-dark-green shadow-lg scale-110'
-                        : 'border-dark-green/20 hover:border-dark-green/50'
+                        ? 'border-dark-brown shadow-lg scale-110'
+                        : 'border-dark-brown/20 hover:border-dark-brown/50'
                     }`}
                   >
                     <img
@@ -217,23 +217,23 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               className="space-y-6"
             >
               <div>
-                <p className="text-soft-brown font-semibold mb-2 uppercase tracking-wider">
+                <p className="text-earth-green font-semibold mb-2 uppercase tracking-wider">
                   {collection.replace('-', ' ')} Collection
                 </p>
-                <h1 className="text-4xl md:text-6xl font-bold text-dark-green mb-4">
+                <h1 className="text-4xl md:text-6xl font-bold text-dark-brown mb-4">
                   {product.name}
                 </h1>
-                <p className="text-3xl font-bold text-soft-brown mb-4">
+                <p className="text-3xl font-bold text-earth-green mb-4">
                   Rp {product.price.toLocaleString('id-ID')}
                 </p>
-                <p className="text-dark-green/80 text-lg leading-relaxed">
+                <p className="text-dark-brown/70 text-lg leading-relaxed">
                   {product.description}
                 </p>
               </div>
 
               {/* Size Selection */}
               <div>
-                <label className="block text-dark-green font-bold mb-3 text-lg">
+                <label className="block text-dark-brown font-bold mb-3 text-lg">
                   Select Size
                 </label>
                 <div className="flex flex-wrap gap-3">
@@ -243,8 +243,8 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                       onClick={() => setSelectedSize(size)}
                       className={`px-6 py-4 rounded-lg font-bold text-lg transition-all duration-300 ${
                         selectedSize === size
-                          ? 'bg-dark-green text-light-cream shadow-lg scale-105'
-                          : 'bg-white text-dark-green border border-dark-green/20 hover:border-dark-green/50'
+                          ? 'bg-dark-brown text-white shadow-lg scale-105'
+                          : 'bg-white text-dark-brown border border-dark-brown/20 hover:border-dark-brown/50'
                       }`}
                     >
                       {size}
@@ -255,22 +255,22 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
 
               {/* Quantity Selection */}
               <div>
-                <label className="block text-dark-green font-bold mb-3 text-lg">
+                <label className="block text-dark-brown font-bold mb-3 text-lg">
                   Quantity
                 </label>
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-12 h-12 bg-white border border-dark-green/20 rounded-lg text-dark-green font-bold text-xl hover:border-dark-green/50 transition-colors"
+                    className="w-12 h-12 bg-white border border-dark-brown/20 rounded-lg text-dark-brown font-bold text-xl hover:border-dark-brown/50 transition-colors"
                   >
                     -
                   </button>
-                  <span className="text-2xl font-bold text-dark-green w-16 text-center">
+                  <span className="text-2xl font-bold text-dark-brown w-16 text-center">
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="w-12 h-12 bg-white border border-dark-green/20 rounded-lg text-dark-green font-bold text-xl hover:border-dark-green/50 transition-colors"
+                    className="w-12 h-12 bg-white border border-dark-brown/20 rounded-lg text-dark-brown font-bold text-xl hover:border-dark-brown/50 transition-colors"
                   >
                     +
                   </button>
@@ -281,21 +281,21 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               <button
                 onClick={handleAddToCart}
                 disabled={isAdding}
-                className="w-full py-4 bg-dark-green text-light-cream font-bold text-lg rounded-full hover:bg-soft-brown hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="w-full py-4 bg-dark-brown text-white font-bold text-lg rounded-full hover:bg-earth-green hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 {isAdding ? 'Adding...' : 'Add to Cart'}
               </button>
 
               {/* Size Guide Table */}
               <div className="mt-8">
-                <h3 className="text-dark-green font-bold text-lg mb-4">Size Guide</h3>
+                <h3 className="text-dark-brown font-bold text-lg mb-4">Size Guide</h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-dark-green/20">
-                        <th className="text-left py-2 pr-4 text-dark-green/70 font-medium">Measurement (cm)</th>
-                        <th className="text-center py-2 px-2 text-dark-green/70 font-medium">S-M</th>
-                        <th className="text-center py-2 px-2 text-dark-green/70 font-medium">L-XL</th>
+                      <tr className="border-b border-dark-brown/20">
+                        <th className="text-left py-2 pr-4 text-dark-brown/70 font-medium">Measurement (cm)</th>
+                        <th className="text-center py-2 px-2 text-dark-brown/70 font-medium">S-M</th>
+                        <th className="text-center py-2 px-2 text-dark-brown/70 font-medium">L-XL</th>
                       </tr>
                     </thead>
                     <tbody className="text-dark-green">
@@ -359,7 +359,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     </tbody>
                   </table>
                 </div>
-                <p className="text-dark-green/60 text-xs mt-3">
+                <p className="text-dark-brown/60 text-xs mt-3">
                   <span className="font-medium">Care:</span> Wash separately by hand / Dry clean, Iron medium
                 </p>
               </div>
@@ -416,7 +416,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-dark-green mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold text-dark-brown mb-4">
                 Features & Details
               </h2>
               <div className="w-24 h-1 bg-soft-brown mx-auto"></div>
@@ -430,14 +430,14 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-white rounded-lg p-6 border border-dark-green/10 text-center hover:shadow-lg transition-all"
+                  className="bg-white rounded-lg p-6 border border-dark-brown/10 text-center hover:shadow-lg transition-all"
                 >
-                  <div className="w-12 h-12 bg-dark-green/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-6 h-6 text-dark-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-12 h-12 bg-dark-brown/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-6 h-6 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <p className="text-dark-green font-semibold">{feature}</p>
+                  <p className="text-dark-brown font-semibold">{feature}</p>
                 </motion.div>
               ))}
             </div>
