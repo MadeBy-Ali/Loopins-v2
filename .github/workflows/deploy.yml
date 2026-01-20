@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Build Next.js
-        run: npm run build
+        run: npx next build && npx next export
 
       - name: Deploy build
         run: |
