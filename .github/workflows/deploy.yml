@@ -3,7 +3,7 @@ name: Deploy Frontend to VPS
 on:
   push:
     branches:
-      - main   # or deploy / production
+      - main
 
 jobs:
   deploy:
@@ -17,17 +17,37 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Next.js
-        run: npx next build && npx next export
-
-      - name: Deploy build
+      - name: Build Next.js (static export)
         run: |
-          sudo rm -rf /home/loopins/apps/loopins_web/*
-          sudo cp -r out/* /home/loopins/apps/loopins_web/
+          npx next build
+          npx next export
+
+      - name: Validate build output
+        run: |
+          if [ ! -d "out" ]; then
+            echo "❌ out/ directory missing"
+            exit 1
+          fi
+
+          if [ ! -f "out/index.html" ]; then
+            echo "❌ index.html missing in out/"
+            exit 1
+          fi
+
+      - name: Deploy build (atomic)
+        run: |
+          sudo mkdir -p /home/loopins/apps/loopins_web_new
+          sudo rm -rf /home/loopins/apps/loopins_web_new/*
+          sudo cp -r out/* /home/loopins/apps/loopins_web_new/
+
+          sudo rm -rf /home/loopins/apps/loopins_web_old || true
+          sudo mv /home/loopins/apps/loopins_web /home/loopins/apps/loopins_web_old || true
+          sudo mv /home/loopins/apps/loopins_web_new /home/loopins/apps/loopins_web
 
       - name: Fix permissions
         run: |
