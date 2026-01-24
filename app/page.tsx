@@ -1,95 +1,113 @@
 import Hero from '@/components/Hero'
-import CollectionSection from '@/components/CollectionSection'
+import Link from 'next/link'
 
 export default function Home() {
   return (
     <main className="bg-light-cream">
       <Hero />
       
-      <CollectionSection
-        title="Men's Collection"
-        description="Discover our curated Mbok Jamu collection for men. Crafted with precision and designed for the modern gentleman who values both style and comfort."
-        slug="mbok-jamu/men"
-        imagePosition="left"
-      />
-
-      <CollectionSection
-        title="Women's Collection"
-        description="Explore our elegant Mbok Jamu collection for women. Each piece is thoughtfully designed to blend sophistication with versatility for the contemporary woman."
-        slug="mbok-jamu/women"
-        imagePosition="right"
-      />
-
-      {/* Poetic Quote Section */}
-      <section className="w-full bg-white flex items-center justify-center" style={{ height: '350px' }}>
-        <div className="text-center px-6 max-w-5xl">
-          <p className="text-black leading-relaxed" style={{ fontSize: '33px' }}>
+      {/* First Poetic Quote Section */}
+      <section className="w-full bg-white py-24">
+        <div className="text-center px-8 max-w-6xl mx-auto">
+          <p className="text-black leading-relaxed mb-12" style={{ fontSize: '36px' }}>
             Every Loopins piece begins with heritage and craftsmanship. Each one is alive.
             <br />
             These garments carry texture, energy, and memory.
             <br />
             Like you, each has their own story.
           </p>
-        </div>
-      </section>
-
-      {/* Discover Section */}
-      <section 
-        className="relative w-full flex flex-col items-center justify-center overflow-hidden"
-        style={{ height: '350px' }}
-      >
-        {/* Background Image with Blur */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ 
-            backgroundImage: 'url(/images/discover_section_background.PNG)',
-            filter: 'blur(2px)',
-            transform: 'scale(1.1)'
-          }}
-        />
-        
-        {/* Overlay for better text visibility */}
-        <div className="absolute inset-0 bg-black/30" />
-
-        {/* Content */}
-        <div className="relative z-10 text-center px-6">
-          <p className="text-white text-4xl md:text-5xl font-medium mb-8">
-            like you, it carries a story of becoming.
-          </p>
-          <a
-            href="/collections"
-            className="inline-block px-10 py-3 border-2 border-white bg-transparent text-white font-medium text-sm uppercase tracking-widest hover:bg-white hover:text-dark-brown transition-all duration-500"
-          >
-            Discover Your Fit
-          </a>
-        </div>
-      </section>
-
-      {/* Featured Picks Section */}
-      <section className="w-full bg-light-cream py-20">
-        <div className="px-6">
-          {/* Section Title */}
-          <h2 className="text-4xl md:text-5xl font-semibold text-center text-dark-brown mb-12">
-            Featured Picks
-          </h2>
-
-          {/* Images Grid */}
-          <div className="flex justify-center items-center gap-2">
-            {[1, 2, 3, 4, 5].map((num) => (
-              <div
-                key={num}
-                className="relative overflow-hidden group cursor-pointer flex-shrink-0"
-                style={{ width: '280px', height: '520px' }}
-              >
-                <img
-                  src={`/images/featured_ptrt_${num}.png`}
-                  alt={`Featured ${num}`}
-                  className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-75"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-            ))}
+          <div className="flex justify-center">
+            <img 
+              src="/images/poetic_divider.svg" 
+              alt="Divider" 
+              className="h-12 w-auto"
+            />
           </div>
+        </div>
+      </section>
+
+      {/* Collection Showcase Section - 4 Square Grid */}
+      <section className="w-full">
+        {/* Women's Collection - Top Row */}
+        <div className="flex w-full">
+          {/* Left Box - Women's Image */}
+          <div className="w-1/2 aspect-square relative overflow-hidden group">
+            <img
+              src="/images/featured_ptrt_5.png"
+              alt="Women's Collection"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+          
+          {/* Right Box - Women's Text & Button */}
+          <div className="w-1/2 aspect-square bg-earth-green flex items-center justify-center p-16">
+            <div className="text-center max-w-lg">
+              <h2 className="text-5xl font-semibold text-light-cream mb-8">
+                Women's Collection
+              </h2>
+              <p className="text-light-cream text-lg mb-12 leading-relaxed">
+                Explore our elegant collection for women. Each piece is thoughtfully designed to blend sophistication with versatility for the contemporary woman.
+              </p>
+              <Link
+                href="/collections/mbok-jamu/women"
+                className="inline-block px-12 py-4 bg-light-cream text-dark-green font-medium text-sm uppercase tracking-widest hover:bg-soft-brown hover:text-white transition-all duration-500"
+              >
+                Browse Now
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Men's Collection - Bottom Row */}
+        <div className="flex w-full">
+          {/* Left Box - Men's Text & Button */}
+          <div className="w-1/2 aspect-square bg-light-cream flex items-center justify-center p-16">
+            <div className="text-center max-w-lg">
+              <h2 className="text-5xl font-semibold text-dark-brown mb-8">
+                Men's Collection
+              </h2>
+              <p className="text-dark-brown text-lg mb-12 leading-relaxed">
+                Discover our curated collection for men. Crafted with precision and designed for the modern gentleman who values both style and comfort.
+              </p>
+              <Link
+                href="/collections/mbok-jamu/men"
+                className="inline-block px-12 py-4 bg-soft-brown text-white font-medium text-sm uppercase tracking-widest hover:bg-earth-green transition-all duration-500"
+              >
+                Browse Now
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Box - Men's Image */}
+          <div className="w-1/2 aspect-square relative overflow-hidden group">
+            <img
+              src="/images/featured_ptrt_3.png"
+              alt="Men's Collection"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Second Poetic Quote Section */}
+      <section className="w-full bg-white py-24">
+        <div className="text-center px-8 max-w-6xl mx-auto">
+          <div className="flex justify-center mb-12">
+            <img 
+              src="/images/poetic_divider.svg" 
+              alt="Divider" 
+              className="h-12 w-auto"
+            />
+          </div>
+          <p className="text-black leading-relaxed mb-16" style={{ fontSize: '36px' }}>
+            “Loopins Studio is not merely selling garments, but telling stories. Each pattern speaks, each collection reflects, each collaboration acts. We believe true luxury is born from meaning, not merely appearance.“
+          </p>
+          <Link
+            href="/collections"
+            className="inline-block px-12 py-4 bg-earth-green text-light-cream font-medium text-sm uppercase tracking-widest hover:bg-dark-green transition-all duration-500"
+          >
+            Discover Our Collection
+          </Link>
         </div>
       </section>
     </main>

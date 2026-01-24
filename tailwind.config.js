@@ -8,11 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'earth-green': '#8B7355',
-        'soft-brown': '#C6A37E',
-        'light-cream': '#F5F3F0',
-        'dark-brown': '#5C4033',
-        'warm-beige': '#E8DDD3',
+        'earth-green': '#431E0C', //hover color
+        'soft-brown': '#703315',
+        'light-cream': '#F5F3F0',  //background color
+        'dark-brown': '#703315',   //primary text color -> TERRACOTA
+        'warm-beige': '#703315',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
