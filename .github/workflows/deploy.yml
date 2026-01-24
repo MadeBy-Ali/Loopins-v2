@@ -40,19 +40,19 @@ jobs:
 
       - name: Deploy build (atomic)
         run: |
-          sudo mkdir -p /home/loopins/apps/loopins_web_new
-          sudo rm -rf /home/loopins/apps/loopins_web_new/*
-          sudo cp -r out/* /home/loopins/apps/loopins_web_new/
+          mkdir -p /home/loopins/apps/loopins_web_new
+          rm -rf /home/loopins/apps/loopins_web_new/*
+          cp -r out/* /home/loopins/apps/loopins_web_new/
 
-          sudo rm -rf /home/loopins/apps/loopins_web_old || true
-          sudo mv /home/loopins/apps/loopins_web /home/loopins/apps/loopins_web_old || true
-          sudo mv /home/loopins/apps/loopins_web_new /home/loopins/apps/loopins_web
+          rm -rf /home/loopins/apps/loopins_web_old || true
+          mv /home/loopins/apps/loopins_web /home/loopins/apps/loopins_web_old || true
+          mv /home/loopins/apps/loopins_web_new /home/loopins/apps/loopins_web
 
       - name: Fix permissions
         run: |
-          sudo chown -R loopins:www-data /home/loopins/apps/loopins_web
-          sudo find /home/loopins/apps/loopins_web -type d -exec chmod 755 {} \;
-          sudo find /home/loopins/apps/loopins_web -type f -exec chmod 644 {} \;
+          chown -R loopins:www-data /home/loopins/apps/loopins_web
+          find /home/loopins/apps/loopins_web -type d -exec chmod 755 {} \;
+          find /home/loopins/apps/loopins_web -type f -exec chmod 644 {} \;
 
       - name: Reload Nginx
         run: sudo systemctl reload nginx
