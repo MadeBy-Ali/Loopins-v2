@@ -43,7 +43,7 @@ export default function Home() {
           <div className="w-1/2 aspect-square bg-earth-green flex items-center justify-center p-16">
             <div className="text-center max-w-lg">
               <h2 className="text-5xl font-semibold text-light-cream mb-8">
-                Women's Collection
+                Women&#39;s Collection
               </h2>
               <p className="text-light-cream text-lg mb-12 leading-relaxed">
                 Explore our elegant collection for women. Each piece is thoughtfully designed to blend sophistication with versatility for the contemporary woman.
@@ -64,7 +64,7 @@ export default function Home() {
           <div className="w-1/2 aspect-square bg-light-cream flex items-center justify-center p-16">
             <div className="text-center max-w-lg">
               <h2 className="text-5xl font-semibold text-dark-brown mb-8">
-                Men's Collection
+                Men&#39;s Collection
               </h2>
               <p className="text-dark-brown text-lg mb-12 leading-relaxed">
                 Discover our curated collection for men. Crafted with precision and designed for the modern gentleman who values both style and comfort.
