@@ -25,7 +25,6 @@ jobs:
       - name: Build Next.js (static export)
         run: |
           npx next build
-          npx next export
 
       - name: Validate build output
         run: |
