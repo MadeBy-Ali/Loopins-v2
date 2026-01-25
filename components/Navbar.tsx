@@ -6,10 +6,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useCartStore } from '@/lib/cart-store'
 import { ShoppingBag, Search, Menu, X } from 'lucide-react'
+import SearchOverlay from './SearchOverlay'
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const pathname = usePathname()
   const cartItems = useCartStore((state) => state.items)
   
@@ -98,6 +100,7 @@ export default function Navbar() {
           {/* Right: Icons */}
           <div className="flex items-center space-x-6 flex-1 justify-end">
             <button 
+              onClick={() => setIsSearchOpen(true)}
               className={`hidden md:block transition-colors duration-500 ${iconColor}`}
               aria-label="Search"
             >
@@ -181,6 +184,9 @@ export default function Navbar() {
           width: 100%;
         }
       `}</style>
+
+      {/* Search Overlay */}
+      <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </nav>
   )
 }
