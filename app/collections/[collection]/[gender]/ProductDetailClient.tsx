@@ -124,7 +124,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
       <section className="relative z-0">
         <div className="sticky top-0 bg-light-cream pb-8 sm:pb-12 md:pb-16">
           <div className="container mx-auto px-4 sm:px-6">
-            <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-start">\n            
+            <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-start">
             {/* Product Image Carousel */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
