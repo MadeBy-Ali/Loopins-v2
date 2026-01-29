@@ -48,6 +48,39 @@ export default function CheckoutPage() {
     return Object.keys(newErrors).length === 0
   }
 
+  const generateWhatsAppLink = (orderId: string): string => {
+    const brandName = "Loopins Studio"
+    const phoneNumber = "6281393220729"
+    
+    // Get product details
+    const productDetails = items.map((item, index) => 
+      `${index + 1}. ${item.name} (Size: ${item.size || 'N/A'}, Qty: ${item.quantity}) - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}`
+    ).join('%0A')
+    
+    // Create the message template
+    const message = `*Checkout Details:*%0A%0A` +
+      `Hello *${formData.name}*` +
+      `Thank you for placing an order with *${brandName}*.%0A%0A` +
+      `*Order Information:*%0A` +
+      `━━━━━━━━━━━━━━━━━━━━%0A` +
+      `1. Name: ${formData.name}%0A` +
+      `2. Email: ${formData.email}%0A` +
+      `3. Address: ${formData.address}, ${formData.city}, ${formData.postalCode}%0A` +
+      `4. Phone Number: ${formData.phone}%0A` +
+      `5. Order ID: ${orderId}%0A%0A` +
+      `*Products:*%0A` +
+      `${productDetails}%0A%0A` +
+      `*Total: Rp ${getTotalPrice().toLocaleString('id-ID')}*%0A` +
+      `━━━━━━━━━━━━━━━━━━━━%0A%0A` +
+      `Please complete your payment to proceed with your order.%0A` +
+      `Once payment is confirmed, we will start processing your order.%0A%0A` +
+      `If you have any questions, feel free to contact us.%0A%0A` +
+      `Best regards,%0A` +
+      `*${brandName}*`
+    
+    return `https://wa.me/${phoneNumber}?text=${message}`
+  }
+
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault()
     
@@ -74,6 +107,12 @@ export default function CheckoutPage() {
       const response = await api.createOrder(checkoutData)
 
       if (response.success) {
+        // Generate WhatsApp link
+        const whatsappLink = generateWhatsAppLink(response.orderId)
+        
+        // Open WhatsApp in a new tab
+        window.open(whatsappLink, '_blank')
+        
         // Clear cart after successful order
         clearCart()
         
