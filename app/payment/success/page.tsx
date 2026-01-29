@@ -4,11 +4,14 @@ import { motion } from 'framer-motion'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useEffect, useState, Suspense } from 'react'
 import { api } from '@/lib/api'
+import { useNotificationStore } from '@/lib/notification-store'
+import SuccessNotification from '@/components/SuccessNotification'
 
 function PaymentSuccessContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const orderId = searchParams.get('orderId')
+  const { isVisible, message, showNotification } = useNotificationStore()
   
   const [isVerifying, setIsVerifying] = useState(true)
   const [paymentStatus, setPaymentStatus] = useState<'success' | 'failed' | 'pending'>('pending')
@@ -21,6 +24,10 @@ function PaymentSuccessContent() {
         
         if (response.success && response.status === 'paid') {
           setPaymentStatus('success')
+          // Show success notification after a short delay
+          setTimeout(() => {
+            showNotification()
+          }, 500)
         } else {
           setPaymentStatus('failed')
         }
@@ -213,6 +220,9 @@ function PaymentSuccessContent() {
           </div>
         </motion.div>
       </div>
+
+      {/* Success Notification */}
+      <SuccessNotification isVisible={isVisible} message={message} />
     </main>
   )
 }

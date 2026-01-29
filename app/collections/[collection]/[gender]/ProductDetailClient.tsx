@@ -4,6 +4,8 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCartStore } from '@/lib/cart-store'
+import { useNotificationStore } from '@/lib/notification-store'
+import SuccessNotification from '@/components/SuccessNotification'
 
 // Mock product data - this will come from your API later
 const products = {
@@ -67,6 +69,7 @@ interface ProductDetailClientProps {
 export default function ProductDetailClient({ collection, gender }: ProductDetailClientProps) {
   const router = useRouter()
   const addItem = useCartStore((state) => state.addItem)
+  const { isVisible, message, showNotification } = useNotificationStore()
   
   const [selectedSize, setSelectedSize] = useState('')
   const [quantity, setQuantity] = useState(1)
@@ -111,8 +114,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
 
     setTimeout(() => {
       setIsAdding(false)
-      // Show success feedback
-      alert('Added to cart!')
+      showNotification()
     }, 500)
   }
 
@@ -444,6 +446,9 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
           </div>
         </div>
       </section>
+
+      {/* Success Notification */}
+      <SuccessNotification isVisible={isVisible} message={message} />
     </main>
   )
 }
