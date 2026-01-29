@@ -64,12 +64,12 @@ export default function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 text-center px-6 max-w-5xl">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: 'easeOut' }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-white tracking-tight"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 text-white tracking-tight"
           style={{
             textShadow: '0 2px 30px rgba(0, 0, 0, 0.3)'
           }}
@@ -81,7 +81,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
-          className="text-lg md:text-xl lg:text-2xl mb-12 text-white/95 font-light tracking-wide max-w-3xl mx-auto"
+          className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-12 text-white/95 font-light tracking-wide max-w-3xl mx-auto px-2"
           style={{
             textShadow: '0 2px 20px rgba(0, 0, 0, 0.3)'
           }}
@@ -93,17 +93,17 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.6, ease: 'easeOut' }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto"
         >
           <Link
             href="/collections"
-            className="inline-block px-10 py-4 bg-white text-dark-brown font-medium text-sm uppercase tracking-widest hover:bg-warm-beige transition-all duration-500 hover:scale-105"
+            className="inline-block w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 bg-white text-dark-brown font-medium text-xs sm:text-sm uppercase tracking-widest hover:bg-warm-beige transition-all duration-500 hover:scale-105 text-center"
           >
             Explore Collection
           </Link>
           <Link
             href="/about"
-            className="inline-block px-10 py-4 bg-transparent text-white font-medium text-sm uppercase tracking-widest border-2 border-white hover:bg-white hover:text-dark-brown transition-all duration-500 hover:scale-105"
+            className="inline-block w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 bg-transparent text-white font-medium text-xs sm:text-sm uppercase tracking-widest border-2 border-white hover:bg-white hover:text-dark-brown transition-all duration-500 hover:scale-105 text-center"
           >
             Our Story
           </Link>
@@ -111,15 +111,15 @@ export default function Hero() {
       </div>
 
       {/* Carousel Indicators */}
-      <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 z-10 flex gap-3">
+      <div className="absolute bottom-20 sm:bottom-24 left-1/2 transform -translate-x-1/2 z-10 flex gap-2 sm:gap-3">
         {heroImages.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentImageIndex(index)}
             className={`transition-all duration-500 ${
               currentImageIndex === index
-                ? 'w-12 h-1.5 bg-white'
-                : 'w-8 h-1.5 bg-white/40 hover:bg-white/60'
+                ? 'w-8 sm:w-12 h-1 sm:h-1.5 bg-white'
+                : 'w-6 sm:w-8 h-1 sm:h-1.5 bg-white/40 hover:bg-white/60'
             } rounded-full`}
             aria-label={`Go to slide ${index + 1}`}
           />
@@ -131,7 +131,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-8 sm:bottom-10 left-1/2 transform -translate-x-1/2"
       >
         <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
           <div className="w-1 h-2 bg-white rounded-full mt-2 animate-bounce" />

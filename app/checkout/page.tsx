@@ -98,23 +98,23 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <main className="min-h-screen bg-dark-green pt-24 pb-16">
-        <div className="container mx-auto px-4">
+      <main className="min-h-screen bg-dark-green pt-20 sm:pt-24 pb-12 sm:pb-16">
+        <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-md mx-auto"
           >
-            <div className="w-32 h-32 mx-auto mb-6 bg-earth-green/20 rounded-full flex items-center justify-center">
-              <svg className="w-16 h-16 text-light-cream/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-4 sm:mb-6 bg-earth-green/20 rounded-full flex items-center justify-center">
+              <svg className="w-12 h-12 sm:w-16 sm:h-16 text-light-cream/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
             </div>
-            <h1 className="text-4xl font-bold text-light-cream mb-4">Your cart is empty</h1>
-            <p className="text-light-cream/70 mb-8">Add some items before checking out</p>
+            <h1 className="text-3xl sm:text-4xl font-bold text-light-cream mb-3 sm:mb-4">Your cart is empty</h1>
+            <p className="text-light-cream/70 mb-6 sm:mb-8">Add some items before checking out</p>
             <button
               onClick={() => router.push('/collections')}
-              className="inline-block px-8 py-3 bg-soft-brown text-light-cream font-bold rounded-full hover:bg-soft-brown/80 transition-all duration-300"
+              className="inline-block px-6 sm:px-8 py-2.5 sm:py-3 bg-soft-brown text-light-cream font-bold rounded-full hover:bg-soft-brown/80 transition-all duration-300"
             >
               Browse Collections
             </button>
@@ -125,18 +125,18 @@ export default function CheckoutPage() {
   }
 
   return (
-    <main className="min-h-screen bg-dark-green pt-24 pb-16">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <main className="min-h-screen bg-dark-green pt-20 sm:pt-24 pb-12 sm:pb-16">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-light-cream mb-2">Checkout</h1>
-          <p className="text-light-cream/70">Complete your order</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-light-cream mb-2">Checkout</h1>
+          <p className="text-light-cream/70 text-sm sm:text-base">Complete your order</p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Checkout Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -144,10 +144,10 @@ export default function CheckoutPage() {
             transition={{ delay: 0.2 }}
             className="lg:col-span-2"
           >
-            <form onSubmit={handleCheckout} className="bg-earth-green/20 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-light-cream/10">
-              <h2 className="text-2xl font-bold text-light-cream mb-6">Shipping Information</h2>
+            <form onSubmit={handleCheckout} className="bg-earth-green/20 backdrop-blur-sm rounded-lg p-4 sm:p-6 md:p-8 border border-light-cream/10">
+              <h2 className="text-xl sm:text-2xl font-bold text-light-cream mb-4 sm:mb-6">Shipping Information</h2>
               
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-light-cream font-semibold mb-2">
                     Full Name <span className="text-soft-brown">*</span>

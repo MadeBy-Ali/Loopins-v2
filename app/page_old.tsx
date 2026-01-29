@@ -90,21 +90,21 @@ export default function Home() {
       </section>
 
       {/* Second Poetic Quote Section */}
-      <section className="w-full bg-white py-12 sm:py-16 md:py-24">
-        <div className="text-center px-4 sm:px-6 md:px-8 max-w-6xl mx-auto">
-          <div className="flex justify-center mb-8 sm:mb-12">
+      <section className="w-full bg-white py-24">
+        <div className="text-center px-8 max-w-6xl mx-auto">
+          <div className="flex justify-center mb-12">
             <img 
               src="/images/poetic_divider.svg" 
               alt="Divider" 
-              className="h-8 sm:h-10 md:h-12 w-auto"
+              className="h-12 w-auto"
             />
           </div>
-          <p className="text-black leading-relaxed mb-10 sm:mb-12 md:mb-16 text-lg sm:text-2xl md:text-3xl lg:text-4xl">
-            &quot;Loopins Studio is not merely selling garments, but telling stories. Each pattern speaks, each collection reflects, each collaboration acts. We believe true luxury is born from meaning, not merely appearance.&quot;
+          <p className="text-black leading-relaxed mb-16" style={{ fontSize: '36px' }}>
+            “Loopins Studio is not merely selling garments, but telling stories. Each pattern speaks, each collection reflects, each collaboration acts. We believe true luxury is born from meaning, not merely appearance.“
           </p>
           <Link
             href="/collections"
-            className="inline-block px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 bg-earth-green text-light-cream font-medium text-xs sm:text-sm uppercase tracking-widest hover:bg-dark-green transition-all duration-500"
+            className="inline-block px-12 py-4 bg-earth-green text-light-cream font-medium text-sm uppercase tracking-widest hover:bg-dark-green transition-all duration-500"
           >
             Discover Our Collection
           </Link>
