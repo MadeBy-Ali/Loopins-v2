@@ -123,19 +123,17 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
   }
 
   return (
-    <main className="min-h-screen bg-light-cream pt-20 sm:pt-24">
-      {/* Hero Section - sticky for parallax */}
-      <section className="relative z-0">
-        <div className="sticky top-0 bg-light-cream pb-8 sm:pb-12 md:pb-16">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-start">
-            {/* Product Image Carousel */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-              className="relative"
-            >
+    <main className="min-h-screen bg-white">
+      {/* Mobile Layout - Stacked */}
+      <div className="lg:hidden pt-20 sm:pt-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          {/* Product Image Carousel - Mobile */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="relative mb-6"
+          >
               {/* Main Image Display */}
               <div className="relative aspect-square rounded-lg sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl bg-white">
                 <motion.img
@@ -214,10 +212,10 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               </div>
             </motion.div>
 
-            {/* Product Details */}
+            {/* Product Details - Mobile */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="space-y-4 sm:space-y-6"
             >
@@ -370,84 +368,292 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               </div>
             </motion.div>
 
-          </div>
-        </div>
-        </div>
-      </section>
-
-      {/* Story Section - overlaps Hero with shadow */}
-      <section className="relative z-10 -mt-4 sm:-mt-8">
-        <div className="bg-dark-green rounded-t-[2rem] sm:rounded-t-[3rem] shadow-[0_-20px_60px_-15px_rgba(112,51,21,0.4)] py-12 sm:py-16 md:py-24">
-          <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center mb-8 sm:mb-12">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-light-cream mb-3 sm:mb-4">
-                The Story Behind
-              </h2>
-              <div className="w-16 sm:w-24 h-0.5 sm:h-1 bg-soft-brown mx-auto"></div>
-            </motion.div>
-
-            <div className="space-y-4 sm:space-y-6">
-              {product.story.map((paragraph, index) => (
-                <motion.p
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                  className="text-light-cream/80 text-sm sm:text-base md:text-lg leading-relaxed text-center"
-                >
-                  {paragraph}
-                </motion.p>
-              ))}
+            {/* Story Section - Mobile */}
+            <div className="mt-8 bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-dark-brown/10">
+              <div className="mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-dark-brown mb-3">
+                  The Story Behind
+                </h2>
+                <div className="w-16 h-0.5 bg-soft-brown"></div>
+              </div>
+              <div className="space-y-4">
+                {product.story.map((paragraph, index) => (
+                  <p
+                    key={index}
+                    className="text-dark-brown text-sm sm:text-base leading-relaxed"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Features Section - overlaps Story with shadow */}
-      <section className="relative z-20 -mt-4 sm:-mt-8">
-        <div className="bg-light-cream rounded-t-[2rem] sm:rounded-t-[3rem] shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.3)] py-12 sm:py-16 md:py-24">
-          <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center mb-8 sm:mb-12"
-            >
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-dark-brown mb-3 sm:mb-4">
-                Features & Details
-              </h2>
-              <div className="w-16 sm:w-24 h-0.5 sm:h-1 bg-soft-brown mx-auto"></div>
-            </motion.div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {product.features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-lg p-4 sm:p-6 border border-dark-brown/10 text-center hover:shadow-lg transition-all"
-                >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-dark-brown/10 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
+            {/* Features Section - Mobile */}
+            <div className="mt-8 mb-12">
+              <div className="text-center mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-dark-brown mb-3">
+                  Features & Details
+                </h2>
+                <div className="w-16 h-0.5 bg-soft-brown mx-auto"></div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                {product.features.map((feature, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-lg p-3 sm:p-4 border border-dark-brown/10 text-center shadow-sm"
+                  >
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-dark-brown/10 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="text-dark-brown font-semibold text-xs sm:text-sm">{feature}</p>
                   </div>
-                  <p className="text-dark-brown font-semibold text-sm sm:text-base">{feature}</p>
-                </motion.div>
-              ))}
+                ))}
+              </div>
             </div>
+        </div>
+      </div>
+
+      {/* Desktop Layout - Split Screen */}
+      <div className="hidden lg:flex lg:fixed lg:inset-0 lg:pt-20 lg:z-40">
+        {/* Left Side - Images Only */}
+        <div className="w-1/2 h-full overflow-y-auto bg-white p-8 scrollbar-hide">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="w-full max-w-2xl mx-auto space-y-6 pb-32"
+          >
+            {/* Limited Edition Badge */}
+            <div className="flex justify-end mb-4">
+              <div className="bg-dark-brown text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg">
+                Limited Edition
+              </div>
+            </div>
+            
+            {/* Vertically Stacked Images */}
+            {product.images.map((image, index) => (
+              <div
+                key={index}
+                className="relative aspect-square rounded-2xl overflow-hidden shadow-xl bg-white"
+              >
+                <img
+                  src={image}
+                  alt={`${product.name} - View ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Right Side - All Details (Scrollable) */}
+        <div className="w-1/2 h-full overflow-y-auto bg-white scrollbar-hide">
+          <div className="max-w-3xl mx-auto p-12 pb-32">
+            {/* Product Info */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
+              <div>
+                <p className="text-earth-green font-semibold mb-2 uppercase tracking-wider text-sm">
+                  {collection.replace('-', ' ')} Collection
+                </p>
+                <h1 className="text-5xl font-bold text-dark-brown mb-4">
+                  {product.name}
+                </h1>
+                <p className="text-3xl font-bold text-earth-green mb-4">
+                  Rp {product.price.toLocaleString('id-ID')}
+                </p>
+                <p className="text-dark-brown/70 text-lg leading-relaxed">
+                  {product.description}
+                </p>
+              </div>
+
+              {/* Size Selection */}
+              <div>
+                <label className="block text-dark-brown font-bold mb-3 text-lg">
+                  Select Size
+                </label>
+                <div className="flex gap-3">
+                  {product.sizes.map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 ${
+                        selectedSize === size
+                          ? 'bg-dark-brown text-white shadow-lg scale-105'
+                          : 'bg-white text-dark-brown border border-dark-brown/20 hover:border-dark-brown/50'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Quantity Selection */}
+              <div>
+                <label className="block text-dark-brown font-bold mb-3 text-lg">
+                  Quantity
+                </label>
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="w-12 h-12 bg-white border border-dark-brown/20 rounded-lg text-dark-brown font-bold text-xl hover:border-dark-brown/50 transition-colors"
+                  >
+                    -
+                  </button>
+                  <span className="text-2xl font-bold text-dark-brown w-16 text-center">
+                    {quantity}
+                  </span>
+                  <button
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="w-12 h-12 bg-white border border-dark-brown/20 rounded-lg text-dark-brown font-bold text-xl hover:border-dark-brown/50 transition-colors"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              {/* Add to Cart Button */}
+              <button
+                onClick={handleAddToCart}
+                disabled={isAdding}
+                className="w-full py-4 bg-dark-brown text-white font-bold text-lg rounded-full hover:bg-earth-green hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              >
+                {isAdding ? 'Adding...' : 'Add to Cart'}
+              </button>
+
+              {/* Size Guide Table */}
+              <div className="mt-8">
+                <h3 className="text-dark-brown font-bold text-lg mb-4">Size Guide</h3>
+                <div className="overflow-x-auto bg-white rounded-lg p-6 shadow-sm">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-dark-brown/20">
+                        <th className="text-left py-2 pr-4 text-dark-brown/70 font-medium">Measurement (cm)</th>
+                        <th className="text-center py-2 px-2 text-dark-brown/70 font-medium">S-M</th>
+                        <th className="text-center py-2 px-2 text-dark-brown/70 font-medium">L-XL</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-dark-green">
+                      {gender === 'women' ? (
+                        <>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Length</td>
+                            <td className="text-center py-2 px-2">55</td>
+                            <td className="text-center py-2 px-2">58</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Bust</td>
+                            <td className="text-center py-2 px-2">94</td>
+                            <td className="text-center py-2 px-2">104</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Waist</td>
+                            <td className="text-center py-2 px-2">75</td>
+                            <td className="text-center py-2 px-2">85</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Hip</td>
+                            <td className="text-center py-2 px-2">98</td>
+                            <td className="text-center py-2 px-2">106</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Shoulder Width</td>
+                            <td className="text-center py-2 px-2">41</td>
+                            <td className="text-center py-2 px-2">45</td>
+                          </tr>
+                        </>
+                      ) : (
+                        <>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Length</td>
+                            <td className="text-center py-2 px-2">65</td>
+                            <td className="text-center py-2 px-2">70</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Bust</td>
+                            <td className="text-center py-2 px-2">106</td>
+                            <td className="text-center py-2 px-2">114</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Waist</td>
+                            <td className="text-center py-2 px-2">100</td>
+                            <td className="text-center py-2 px-2">109</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Hip</td>
+                            <td className="text-center py-2 px-2">106</td>
+                            <td className="text-center py-2 px-2">116</td>
+                          </tr>
+                          <tr className="border-b border-dark-green/10">
+                            <td className="py-2 pr-4">Shoulder Width</td>
+                            <td className="text-center py-2 px-2">45</td>
+                            <td className="text-center py-2 px-2">50</td>
+                          </tr>
+                        </>
+                      )}
+                    </tbody>
+                  </table>
+                  <p className="text-dark-brown/60 text-xs mt-3">
+                    <span className="font-medium">Care:</span> Wash separately by hand / Dry clean, Iron medium
+                  </p>
+                </div>
+              </div>
+
+              {/* Story Section */}
+              <div className="mt-12 bg-white rounded-2xl shadow-xl p-8 border border-dark-brown/10">
+                <div className="mb-6">
+                  <h2 className="text-3xl font-bold text-dark-brown mb-3">
+                    The Story Behind
+                  </h2>
+                  <div className="w-16 h-1 bg-soft-brown"></div>
+                </div>
+                <div className="space-y-4">
+                  {product.story.map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className="text-dark-brown text-base leading-relaxed"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Features Section */}
+              <div className="mt-12 mb-12">
+                <div className="mb-6">
+                  <h2 className="text-3xl font-bold text-dark-brown mb-3">
+                    Features & Details
+                  </h2>
+                  <div className="w-16 h-1 bg-soft-brown"></div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  {product.features.map((feature, index) => (
+                    <div
+                      key={index}
+                      className="bg-white rounded-lg p-5 border border-dark-brown/10 hover:shadow-lg transition-all"
+                    >
+                      <div className="w-10 h-10 bg-dark-brown/10 rounded-full flex items-center justify-center mb-3">
+                        <svg className="w-5 h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <p className="text-dark-brown font-semibold text-sm">{feature}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Success Notification */}
       <SuccessNotification isVisible={isVisible} message={message} />
