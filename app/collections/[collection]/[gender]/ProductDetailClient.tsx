@@ -15,8 +15,10 @@ const products = {
       name: 'Mbok Jamu Classic Vest - Men',
       price: 850000,
       images: [
-        '/images/men_mbokjamu_front.JPG',
-        '/images/men_mbokjamu_back.JPG',
+        '/images/mbok jamu_detail_men_front.PNG',
+        '/images/mbok jamu_detail_men_left.PNG',
+        '/images/mbok jamu_detail_men_right.PNG',
+        '/images/mbok jamu_detail_men_back.PNG',
       ],
       description: 'A masterpiece of traditional Indonesian craftsmanship meets contemporary design. The Mbok Jamu collection pays homage to the iconic traditional Indonesian beverage sellers, known for their distinctive style and elegance.',
       story: [
@@ -39,8 +41,10 @@ const products = {
       name: 'Mbok Jamu Classic Vest - Women',
       price: 850000,
       images: [
-        '/images/women_mbokjamu_front.JPG',
-        '/images/women_mbokjamu_back.JPG',
+        '/images/mbok jamu_detail_women_front.PNG',
+        '/images/mbok jamu_detail_women_left.PNG',
+        '/images/mbok jamu_detail_women_right.PNG',
+        '/images/mbok jamu_detail_women_back.PNG',
       ],
       description: 'A masterpiece of traditional Indonesian craftsmanship meets contemporary design. The Mbok Jamu collection celebrates the iconic traditional Indonesian beverage sellers and their timeless elegance.',
       story: [
