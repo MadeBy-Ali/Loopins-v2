@@ -107,7 +107,7 @@ export default function Navbar() {
             {/* Center: Logo */}
             <Link href="/" className="flex items-center justify-center lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 z-10">
               <Image
-                src="/images/Top-navabar_logo-removebg-preview.png"
+                src="/images/Top-navbar_logo-removebg-preview.png"
                 alt="Loopins"
                 width={140}
                 height={50}
@@ -197,7 +197,7 @@ export default function Navbar() {
               <div className="p-6 border-b border-gray-200">
                 <div className="flex items-center justify-between mb-4">
                   <Image
-                    src="/images/Top-navabar_logo-removebg-preview.png"
+                    src="/images/Top-navbar_logo-removebg-preview.png"
                     alt="Loopins"
                     width={120}
                     height={40}

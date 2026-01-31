@@ -84,7 +84,10 @@ export default function CheckoutPage() {
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    console.log('🛒 Starting checkout process...')
+    
     if (!validateForm()) {
+      console.log('❌ Form validation failed')
       return
     }
 
@@ -103,32 +106,43 @@ export default function CheckoutPage() {
         totalAmount: getTotalPrice()
       }
 
+      console.log('📦 Checkout data:', checkoutData)
+
       // Call API to create order and get payment URL
       const response = await api.createOrder(checkoutData)
+      console.log('📬 API Response:', response)
 
       if (response.success) {
+        console.log('✅ Order created successfully:', response.orderId)
+        
         // Generate WhatsApp link
         const whatsappLink = generateWhatsAppLink(response.orderId)
+        console.log('💬 WhatsApp Link:', whatsappLink)
         
         // Open WhatsApp in a new tab
+        console.log('🔗 Opening WhatsApp...')
         window.open(whatsappLink, '_blank')
         
         // Clear cart after successful order
         clearCart()
         
-        // Redirect to payment page or success page
-        if (response.paymentUrl) {
-          // In production, this will be Xendit/Midtrans payment URL
-          window.location.href = response.paymentUrl
-        } else {
-          // Fallback to success page
-          router.push(`/payment/success?orderId=${response.orderId}`)
-        }
+        // Small delay to ensure WhatsApp opens, then redirect
+        setTimeout(() => {
+          console.log('🔄 Redirecting to success page...')
+          if (response.paymentUrl) {
+            // In production, this will be Xendit/Midtrans payment URL
+            window.location.href = response.paymentUrl
+          } else {
+            // Fallback to success page
+            router.push(`/payment/success?orderId=${response.orderId}`)
+          }
+        }, 1000)
       } else {
+        console.error('❌ Order creation failed:', response.message)
         alert(response.message || 'Failed to create order. Please try again.')
       }
     } catch (error) {
-      console.error('Checkout error:', error)
+      console.error('💥 Checkout error:', error)
       alert('An error occurred during checkout. Please try again.')
     } finally {
       setIsProcessing(false)
@@ -175,21 +189,22 @@ export default function CheckoutPage() {
           <p className="text-light-cream/70 text-sm sm:text-base">Complete your order</p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
-          {/* Checkout Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="lg:col-span-2"
-          >
-            <form onSubmit={handleCheckout} className="bg-earth-green/20 backdrop-blur-sm rounded-lg p-4 sm:p-6 md:p-8 border border-light-cream/10">
-              <h2 className="text-xl sm:text-2xl font-bold text-light-cream mb-4 sm:mb-6">Shipping Information</h2>
+        <form onSubmit={handleCheckout}>
+          <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
+            {/* Checkout Form */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="lg:col-span-2"
+            >
+              <div className="bg-white rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl">
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">Delivery Information</h2>
               
-              <div className="space-y-3 sm:space-y-4">
+              <div className="space-y-5">
                 <div>
-                  <label htmlFor="name" className="block text-light-cream font-semibold mb-2">
-                    Full Name <span className="text-soft-brown">*</span>
+                  <label htmlFor="name" className="block text-gray-700 font-medium mb-2 text-sm">
+                    Full Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -197,18 +212,18 @@ export default function CheckoutPage() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-dark-green/50 border rounded-lg text-light-cream focus:outline-none focus:border-soft-brown transition-colors ${
-                      errors.name ? 'border-red-500' : 'border-light-cream/20'
+                    className={`w-full px-4 py-3 bg-gray-50 border rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-earth-green/30 focus:border-earth-green transition-all ${
+                      errors.name ? 'border-red-400 bg-red-50' : 'border-gray-200'
                     }`}
                     placeholder="John Doe"
                   />
-                  {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
+                  {errors.name && <p className="text-red-500 text-xs mt-1.5">{errors.name}</p>}
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="email" className="block text-light-cream font-semibold mb-2">
-                      Email <span className="text-soft-brown">*</span>
+                    <label htmlFor="email" className="block text-gray-700 font-medium mb-2 text-sm">
+                      Email Address <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="email"
@@ -216,17 +231,17 @@ export default function CheckoutPage() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 bg-dark-green/50 border rounded-lg text-light-cream focus:outline-none focus:border-soft-brown transition-colors ${
-                        errors.email ? 'border-red-500' : 'border-light-cream/20'
+                      className={`w-full px-4 py-3 bg-gray-50 border rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-earth-green/30 focus:border-earth-green transition-all ${
+                        errors.email ? 'border-red-400 bg-red-50' : 'border-gray-200'
                       }`}
                       placeholder="john@example.com"
                     />
-                    {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
+                    {errors.email && <p className="text-red-500 text-xs mt-1.5">{errors.email}</p>}
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-light-cream font-semibold mb-2">
-                      Phone <span className="text-soft-brown">*</span>
+                    <label htmlFor="phone" className="block text-gray-700 font-medium mb-2 text-sm">
+                      Phone Number <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="tel"
@@ -234,18 +249,18 @@ export default function CheckoutPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 bg-dark-green/50 border rounded-lg text-light-cream focus:outline-none focus:border-soft-brown transition-colors ${
-                        errors.phone ? 'border-red-500' : 'border-light-cream/20'
+                      className={`w-full px-4 py-3 bg-gray-50 border rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-earth-green/30 focus:border-earth-green transition-all ${
+                        errors.phone ? 'border-red-400 bg-red-50' : 'border-gray-200'
                       }`}
                       placeholder="+62 812 3456 7890"
                     />
-                    {errors.phone && <p className="text-red-400 text-sm mt-1">{errors.phone}</p>}
+                    {errors.phone && <p className="text-red-500 text-xs mt-1.5">{errors.phone}</p>}
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="address" className="block text-light-cream font-semibold mb-2">
-                    Address <span className="text-soft-brown">*</span>
+                  <label htmlFor="address" className="block text-gray-700 font-medium mb-2 text-sm">
+                    Street Address <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     id="address"
@@ -253,18 +268,18 @@ export default function CheckoutPage() {
                     value={formData.address}
                     onChange={handleChange}
                     rows={3}
-                    className={`w-full px-4 py-3 bg-dark-green/50 border rounded-lg text-light-cream focus:outline-none focus:border-soft-brown transition-colors resize-none ${
-                      errors.address ? 'border-red-500' : 'border-light-cream/20'
+                    className={`w-full px-4 py-3 bg-gray-50 border rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-earth-green/30 focus:border-earth-green transition-all resize-none ${
+                      errors.address ? 'border-red-400 bg-red-50' : 'border-gray-200'
                     }`}
                     placeholder="Street address, apartment, suite, etc."
                   />
-                  {errors.address && <p className="text-red-400 text-sm mt-1">{errors.address}</p>}
+                  {errors.address && <p className="text-red-500 text-xs mt-1.5">{errors.address}</p>}
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="city" className="block text-light-cream font-semibold mb-2">
-                      City <span className="text-soft-brown">*</span>
+                    <label htmlFor="city" className="block text-gray-700 font-medium mb-2 text-sm">
+                      City <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -272,17 +287,17 @@ export default function CheckoutPage() {
                       name="city"
                       value={formData.city}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 bg-dark-green/50 border rounded-lg text-light-cream focus:outline-none focus:border-soft-brown transition-colors ${
-                        errors.city ? 'border-red-500' : 'border-light-cream/20'
+                      className={`w-full px-4 py-3 bg-gray-50 border rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-earth-green/30 focus:border-earth-green transition-all ${
+                        errors.city ? 'border-red-400 bg-red-50' : 'border-gray-200'
                       }`}
                       placeholder="Jakarta"
                     />
-                    {errors.city && <p className="text-red-400 text-sm mt-1">{errors.city}</p>}
+                    {errors.city && <p className="text-red-500 text-xs mt-1.5">{errors.city}</p>}
                   </div>
 
                   <div>
-                    <label htmlFor="postalCode" className="block text-light-cream font-semibold mb-2">
-                      Postal Code <span className="text-soft-brown">*</span>
+                    <label htmlFor="postalCode" className="block text-gray-700 font-medium mb-2 text-sm">
+                      Postal Code <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -290,16 +305,16 @@ export default function CheckoutPage() {
                       name="postalCode"
                       value={formData.postalCode}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 bg-dark-green/50 border rounded-lg text-light-cream focus:outline-none focus:border-soft-brown transition-colors ${
-                        errors.postalCode ? 'border-red-500' : 'border-light-cream/20'
+                      className={`w-full px-4 py-3 bg-gray-50 border rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-earth-green/30 focus:border-earth-green transition-all ${
+                        errors.postalCode ? 'border-red-400 bg-red-50' : 'border-gray-200'
                       }`}
                       placeholder="12345"
                     />
-                    {errors.postalCode && <p className="text-red-400 text-sm mt-1">{errors.postalCode}</p>}
+                    {errors.postalCode && <p className="text-red-500 text-xs mt-1.5">{errors.postalCode}</p>}
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
           </motion.div>
 
           {/* Order Summary */}
@@ -309,20 +324,20 @@ export default function CheckoutPage() {
             transition={{ delay: 0.3 }}
             className="lg:col-span-1"
           >
-            <div className="bg-earth-green/20 backdrop-blur-sm rounded-lg p-6 border border-light-cream/10 sticky top-24">
-              <h2 className="text-2xl font-bold text-light-cream mb-6">Order Summary</h2>
+            <div className="bg-white rounded-2xl p-6 shadow-xl sticky top-24">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Order Summary</h2>
               
               <div className="space-y-4 mb-6 max-h-64 overflow-y-auto">
                 {items.map((item) => (
-                  <div key={item.id} className="flex gap-3 pb-4 border-b border-light-cream/10">
-                    <div className="w-16 h-16 bg-soft-brown/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-light-cream/50 text-xl font-bold">
+                  <div key={item.id} className="flex gap-3 pb-4 border-b border-gray-100">
+                    <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <span className="text-soft-brown text-xl font-bold">
                         {item.name.charAt(0)}
                       </span>
                     </div>
                     <div className="flex-grow">
-                      <h3 className="text-light-cream font-semibold text-sm mb-1">{item.name}</h3>
-                      <p className="text-light-cream/60 text-xs">
+                      <h3 className="text-gray-800 font-semibold text-sm mb-1">{item.name}</h3>
+                      <p className="text-gray-500 text-xs">
                         Size: {item.size} | Qty: {item.quantity}
                       </p>
                       <p className="text-soft-brown font-bold text-sm mt-1">
@@ -334,25 +349,25 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-3 mb-6">
-                <div className="flex justify-between text-light-cream/80">
+                <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
                   <span>Rp {getTotalPrice().toLocaleString('id-ID')}</span>
                 </div>
-                <div className="flex justify-between text-light-cream/80">
+                <div className="flex justify-between text-gray-600">
                   <span>Shipping</span>
-                  <span className="text-soft-brown">FREE</span>
+                  <span className="text-soft-brown font-medium">FREE</span>
                 </div>
-                <div className="h-px bg-light-cream/20"></div>
-                <div className="flex justify-between text-light-cream text-xl font-bold">
+                <div className="h-px bg-gray-200"></div>
+                <div className="flex justify-between text-gray-800 text-xl font-bold">
                   <span>Total</span>
                   <span className="text-soft-brown">Rp {getTotalPrice().toLocaleString('id-ID')}</span>
                 </div>
               </div>
 
               <button
-                onClick={handleCheckout}
+                type="submit"
                 disabled={isProcessing}
-                className="w-full py-4 bg-gradient-to-r from-soft-brown to-earth-green text-light-cream font-bold text-lg rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="w-full py-4 bg-soft-brown text-white font-bold text-lg rounded-xl hover:bg-soft-brown/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isProcessing ? (
                   <span className="flex items-center justify-center gap-2">
@@ -367,12 +382,13 @@ export default function CheckoutPage() {
                 )}
               </button>
 
-              <p className="text-light-cream/50 text-xs text-center mt-4">
+              <p className="text-gray-400 text-xs text-center mt-4">
                 By placing this order, you agree to our terms and conditions
               </p>
             </div>
           </motion.div>
-        </div>
+          </div>
+        </form>
       </div>
     </main>
   )

@@ -90,7 +90,7 @@ function PaymentSuccessContent() {
               transition={{ delay: 0.2 }}
               className="text-4xl md:text-5xl font-bold text-light-cream mb-4"
             >
-              Payment Successful!
+              Order Created!
             </motion.h1>
 
             <motion.p
