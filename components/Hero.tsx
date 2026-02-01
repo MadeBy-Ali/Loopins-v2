@@ -97,7 +97,7 @@ export default function Hero() {
         >
           <Link
             href="/collections"
-            className="inline-block w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 bg-white text-dark-brown font-medium text-xs sm:text-sm uppercase tracking-widest hover:bg-warm-beige transition-all duration-500 hover:scale-105 text-center"
+            className="inline-block w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 bg-white text-dark-brown font-medium text-xs sm:text-sm uppercase tracking-widest hover:bg-warm-beige transition-all duration-500 hover:text-white scale-105 text-center"
           >
             Explore Collection
           </Link>
