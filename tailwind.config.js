@@ -13,6 +13,7 @@ module.exports = {
         'light-cream': '#F5F3F0',  //background color
         'dark-brown': '#703315',   //primary text color -> TERRACOTA
         'warm-beige': '#703315',
+        'bright-red': '#f30303',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],

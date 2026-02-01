@@ -212,7 +212,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 />
                 
                 {/* Limited Edition Badge */}
-                <div className="absolute top-3 sm:top-6 right-3 sm:right-6 bg-dark-brown text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-lg z-10">
+                <div className="absolute top-3 sm:top-6 right-3 sm:right-6 bg-bright-red text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-lg z-10">
                   Only 60 Pcs
                 </div>
 
@@ -501,7 +501,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
           >
             {/* Limited Edition Badge */}
             <div className="flex justify-end mb-4">
-              <div className="bg-dark-brown text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg">
+              <div className="bg-bright-red text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg">
                 Only 60 Pcs
               </div>
             </div>
