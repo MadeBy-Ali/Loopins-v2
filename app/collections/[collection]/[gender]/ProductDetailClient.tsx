@@ -12,8 +12,9 @@ const products = {
   'mbok-jamu': {
     men: {
       id: 'mbok-jamu-men-vest-001',
-      name: 'Mbok Jamu Classic Vest - Men',
-      price: 850000,
+      name: 'Mbok Jamu Batik Vest - Men',
+      price: 599000,
+      originalPrice: 699000,
       images: [
         '/images/mbok jamu_detail_men_front.PNG',
         '/images/mbok jamu_detail_men_left.PNG',
@@ -26,20 +27,22 @@ const products = {
         'Crafted from premium materials with meticulous attention to detail, every stitch reflects our commitment to quality. The earth-toned palette draws inspiration from natural herbs and spices, creating a connection between tradition and contemporary fashion.',
         'This vest is more than just clothing—it&apos;s a statement piece that bridges cultures and generations. Whether you&apos;re dressing for a business meeting or a casual gathering, the Mbok Jamu vest brings sophistication and cultural pride to your wardrobe.',
       ],
-      sizes: ['S-M', 'L-XL'],
+      sizes: ['1', '2'],
       features: [
-        'Premium cotton blend fabric',
-        'Traditional-inspired earth tone design',
-        'Adjustable back strap',
-        'Multiple interior pockets',
-        'Handcrafted buttons',
-        'Limited edition collection',
+        'Wash with hands / Dry clean',
+        'Do not use bleach',
+        'Do not machine wash',
+        'Iron with low heat only',
+        'Line Dry',
+        'Do not expose to direct sunlight',
+        'Dry clean recommended',
       ],
     },
     women: {
       id: 'mbok-jamu-women-vest-001',
-      name: 'Mbok Jamu Classic Vest - Women',
-      price: 850000,
+      name: 'Mbok Jamu Batik Vest - Women',
+      price: 649000,
+      originalPrice: 749000,
       images: [
         '/images/mbok jamu_detail_women_front.PNG',
         '/images/mbok jamu_detail_women_left.PNG',
@@ -82,6 +85,67 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
 
   // Get product data
   const product = products[collection as keyof typeof products]?.[gender as 'men' | 'women']
+
+  // Helper function to get icon for each care instruction
+  const getCareIcon = (feature: string) => {
+    const lowerFeature = feature.toLowerCase()
+    
+    if (lowerFeature.includes('wash') || lowerFeature.includes('hand')) {
+      return (
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+        </svg>
+      )
+    }
+    if (lowerFeature.includes('bleach')) {
+      return (
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+        </svg>
+      )
+    }
+    if (lowerFeature.includes('machine')) {
+      return (
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      )
+    }
+    if (lowerFeature.includes('iron')) {
+      return (
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      )
+    }
+    if (lowerFeature.includes('dry') && !lowerFeature.includes('clean')) {
+      return (
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+        </svg>
+      )
+    }
+    if (lowerFeature.includes('sunlight') || lowerFeature.includes('sun')) {
+      return (
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      )
+    }
+    if (lowerFeature.includes('dry clean')) {
+      return (
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      )
+    }
+    // Default icon
+    return (
+      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+      </svg>
+    )
+  }
 
   if (!product) {
     return (
@@ -149,7 +213,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 
                 {/* Limited Edition Badge */}
                 <div className="absolute top-3 sm:top-6 right-3 sm:right-6 bg-dark-brown text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-lg z-10">
-                  Limited Edition
+                  Only 60 Pcs
                 </div>
 
                 {/* Navigation Arrows */}
@@ -226,9 +290,21 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-dark-brown mb-3 sm:mb-4">
                   {product.name}
                 </h1>
-                <p className="text-2xl sm:text-3xl font-bold text-earth-green mb-3 sm:mb-4">
-                  Rp {product.price.toLocaleString('id-ID')}
-                </p>
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-soft-brown flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                  </svg>
+                  <div className="flex items-baseline gap-3">
+                    <p className="text-2xl sm:text-3xl font-bold text-earth-green">
+                      Rp {product.price.toLocaleString('id-ID')}
+                    </p>
+                    {product.originalPrice && (
+                      <p className="text-lg sm:text-xl font-medium text-gray-400 line-through">
+                        Rp {product.originalPrice.toLocaleString('id-ID')}
+                      </p>
+                    )}
+                  </div>
+                </div>
                 <p className="text-dark-brown/70 text-sm sm:text-base md:text-lg leading-relaxed">
                   {product.description}
                 </p>
@@ -297,8 +373,8 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     <thead>
                       <tr className="border-b border-dark-brown/20">
                         <th className="text-left py-2 pr-2 sm:pr-4 text-dark-brown/70 font-medium">Measurement (cm)</th>
-                        <th className="text-center py-2 px-1 sm:px-2 text-dark-brown/70 font-medium">S-M</th>
-                        <th className="text-center py-2 px-1 sm:px-2 text-dark-brown/70 font-medium">L-XL</th>
+                        <th className="text-center py-2 px-1 sm:px-2 text-dark-brown/70 font-medium">1</th>
+                        <th className="text-center py-2 px-1 sm:px-2 text-dark-brown/70 font-medium">2</th>
                       </tr>
                     </thead>
                     <tbody className="text-dark-green">
@@ -392,7 +468,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
             <div className="mt-8 mb-12">
               <div className="text-center mb-6">
                 <h2 className="text-2xl sm:text-3xl font-bold text-dark-brown mb-3">
-                  Features & Details
+                  Fabric Care Guide
                 </h2>
                 <div className="w-16 h-0.5 bg-soft-brown mx-auto"></div>
               </div>
@@ -403,9 +479,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     className="bg-white rounded-lg p-3 sm:p-4 border border-dark-brown/10 text-center shadow-sm"
                   >
                     <div className="w-8 h-8 sm:w-10 sm:h-10 bg-dark-brown/10 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
+                      {getCareIcon(feature)}
                     </div>
                     <p className="text-dark-brown font-semibold text-xs sm:text-sm">{feature}</p>
                   </div>
@@ -428,7 +502,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
             {/* Limited Edition Badge */}
             <div className="flex justify-end mb-4">
               <div className="bg-dark-brown text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg">
-                Limited Edition
+                Only 60 Pcs
               </div>
             </div>
             
@@ -465,9 +539,21 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 <h1 className="text-5xl font-bold text-dark-brown mb-4">
                   {product.name}
                 </h1>
-                <p className="text-3xl font-bold text-earth-green mb-4">
-                  Rp {product.price.toLocaleString('id-ID')}
-                </p>
+                <div className="flex items-center gap-3 mb-4">
+                  <svg className="w-6 h-6 text-soft-brown flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                  </svg>
+                  <div className="flex items-baseline gap-3">
+                    <p className="text-3xl font-bold text-earth-green">
+                      Rp {product.price.toLocaleString('id-ID')}
+                    </p>
+                    {product.originalPrice && (
+                      <p className="text-xl font-medium text-gray-400 line-through">
+                        Rp {product.originalPrice.toLocaleString('id-ID')}
+                      </p>
+                    )}
+                  </div>
+                </div>
                 <p className="text-dark-brown/70 text-lg leading-relaxed">
                   {product.description}
                 </p>
@@ -536,8 +622,8 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     <thead>
                       <tr className="border-b border-dark-brown/20">
                         <th className="text-left py-2 pr-4 text-dark-brown/70 font-medium">Measurement (cm)</th>
-                        <th className="text-center py-2 px-2 text-dark-brown/70 font-medium">S-M</th>
-                        <th className="text-center py-2 px-2 text-dark-brown/70 font-medium">L-XL</th>
+                        <th className="text-center py-2 px-2 text-dark-brown/70 font-medium">1</th>
+                        <th className="text-center py-2 px-2 text-dark-brown/70 font-medium">2</th>
                       </tr>
                     </thead>
                     <tbody className="text-dark-green">
@@ -630,7 +716,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               <div className="mt-12 mb-12">
                 <div className="mb-6">
                   <h2 className="text-3xl font-bold text-dark-brown mb-3">
-                    Features & Details
+                    Fabric Care Guide
                   </h2>
                   <div className="w-16 h-1 bg-soft-brown"></div>
                 </div>
@@ -641,9 +727,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                       className="bg-white rounded-lg p-5 border border-dark-brown/10 hover:shadow-lg transition-all"
                     >
                       <div className="w-10 h-10 bg-dark-brown/10 rounded-full flex items-center justify-center mb-3">
-                        <svg className="w-5 h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        {getCareIcon(feature)}
                       </div>
                       <p className="text-dark-brown font-semibold text-sm">{feature}</p>
                     </div>
