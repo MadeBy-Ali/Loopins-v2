@@ -59,7 +59,7 @@ export default function CheckoutPage() {
     
     // Create the message template
     const message = `*Checkout Details:*%0A%0A` +
-      `Hello *${formData.name}*` +
+      `Hello *${formData.name}*,%0A` +
       `Thank you for placing an order with *${brandName}*.%0A%0A` +
       `*Order Information:*%0A` +
       `━━━━━━━━━━━━━━━━━━━━%0A` +
@@ -78,6 +78,7 @@ export default function CheckoutPage() {
       `Best regards,%0A` +
       `*${brandName}*`
     
+    console.log('📱 Generated WhatsApp Link:', `https://wa.me/${phoneNumber}?text=${message}`)
     return `https://wa.me/${phoneNumber}?text=${message}`
   }
 
@@ -117,11 +118,21 @@ export default function CheckoutPage() {
         
         // Generate WhatsApp link
         const whatsappLink = generateWhatsAppLink(response.orderId)
-        console.log('💬 WhatsApp Link:', whatsappLink)
+        console.log('💬 WhatsApp Link Generated:', whatsappLink)
+        console.log('💬 Link Length:', whatsappLink.length)
         
         // Open WhatsApp in a new tab
-        console.log('🔗 Opening WhatsApp...')
-        window.open(whatsappLink, '_blank')
+        console.log('🔗 Opening WhatsApp in new tab...')
+        const whatsappWindow = window.open(whatsappLink, '_blank')
+        
+        if (!whatsappWindow) {
+          console.error('❌ Pop-up blocked! Please allow pop-ups for this site.')
+          alert('Please allow pop-ups to open WhatsApp. Then click "Place Order" again.')
+          setIsProcessing(false)
+          return
+        }
+        
+        console.log('✅ WhatsApp window opened successfully')
         
         // Clear cart after successful order
         clearCart()
