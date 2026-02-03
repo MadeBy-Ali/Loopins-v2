@@ -62,10 +62,9 @@ export default function Footer() {
                 className="w-10 h-10 bg-soft-brown/20 rounded-full flex items-center justify-center text-light-cream hover:bg-soft-brown hover:text-white transition-all duration-300"
                 aria-label="Tokopedia"
               >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 1C7.03 1 3 5.03 3 10c0 3.39 1.92 6.26 4.73 7.8-0.33 0.84-1.19 3.47-1.24 3.61-0.06 0.18-0.26 0.27-0.44 0.23-1.13-0.26-4.65-2.16-4.65-7.65 0-5.73 4.66-10.39 10.39-10.39S19.87 4.37 19.87 10.1c0 5.49-3.52 7.39-4.65 7.65-0.18 0.04-0.38-0.05-0.44-0.23-0.05-0.14-0.91-2.77-1.24-3.61C19.08 16.26 21 13.39 21 10c0-4.97-4.03-9-9-9zm-1 14c0-0.55 0.45-1 1-1s1 0.45 1 1c0 0.55-0.45 1-1 1s-1-0.45-1-1zm-3-3c0-0.83 0.67-1.5 1.5-1.5S12 11.17 12 12s-0.67 1.5-1.5 1.5S8 12.83 8 12zm9.5-1.5c0-0.83-0.67-1.5-1.5-1.5S14.5 9.67 14.5 10.5 15.17 12 16 12s1.5-0.67 1.5-1.5z"/>
-              </svg>
-
+                <svg className="w-5 h-5" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" fill="none">
+                  <path fill="currentColor" fillRule="evenodd" d="M96 28c-9.504 0-17.78 5.307-22.008 13.127C82.736 42.123 88.89 44 96 47.332c7.11-3.332 13.264-5.209 22.008-6.205C113.781 33.31 105.506 28 96 28Zm0-12c-15.973 0-29.568 10.117-34.754 24.28C52.932 40 42.462 40 28.53 40H28a6 6 0 0 0-6 6v124a6 6 0 0 0 6 6h92c27.614 0 50-22.386 50-50V46a6 6 0 0 0-6-6h-.531c-13.931 0-24.401 0-32.715.28C125.566 26.113 111.97 16 96 16ZM34 52.001V164h86c20.987 0 38-17.013 38-38V52.001c-18.502.009-29.622.098-37.872.966-8.692.915-13.999 2.677-21.445 6.4a6 6 0 0 1-5.366 0c-7.446-3.723-12.753-5.485-21.445-6.4-8.25-.868-19.37-.957-37.872-.966ZM50 96c0-9.941 8.059-18 18-18s18 8.059 18 18-8.059 18-18 18-18-8.059-18-18Zm18-30c-16.569 0-30 13.431-30 30 0 16.569 13.431 30 30 30 1.126 0 2.238-.062 3.332-.183l20.425 20.426a6 6 0 0 0 8.486 0l20.425-20.426c1.094.121 2.206.183 3.332.183 16.569 0 30-13.431 30-30 0-16.569-13.431-30-30-30-12.764 0-23.666 7.971-28 19.207C91.666 73.971 80.764 66 68 66Zm40.082 55.433A30.1 30.1 0 0 1 96 106.793a30.101 30.101 0 0 1-12.082 14.64L96 133.515l12.082-12.082ZM124 78c-9.941 0-18 8.059-18 18s8.059 18 18 18 18-8.059 18-18-8.059-18-18-18ZM76 96a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm48 8a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" clipRule="evenodd"/>
+                </svg>
               </a>
             </div>
           </motion.div>
@@ -80,27 +79,27 @@ export default function Footer() {
             <h4 className="text-lg font-bold text-light-cream mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-light-cream/70 hover:text-soft-brown transition-colors">
+                <Link href="/" className="text-light-cream/70 hover:text-light-cream transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/collections" className="text-light-cream/70 hover:text-soft-brown transition-colors">
+                <Link href="/collections" className="text-light-cream/70 hover:text-light-cream transition-colors">
                   Collections
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-light-cream/70 hover:text-soft-brown transition-colors">
+                <Link href="/about" className="text-light-cream/70 hover:text-light-cream transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-light-cream/70 hover:text-soft-brown transition-colors">
+                <Link href="/contact" className="text-light-cream/70 hover:text-light-cream transition-colors">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/cart" className="text-light-cream/70 hover:text-soft-brown transition-colors">
+                <Link href="/cart" className="text-light-cream/70 hover:text-light-cream transition-colors">
                   Shopping Cart
                 </Link>
               </li>
@@ -129,7 +128,7 @@ export default function Footer() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 <a href="tel:+6281393220729" className="text-light-cream/70 hover:text-light-cream transition-colors text-sm">
-                  +62 813 9322 0729
+                  +62 821 169 5547
                 </a>
               </li>
               <li className="flex items-center gap-3">

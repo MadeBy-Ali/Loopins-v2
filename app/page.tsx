@@ -104,7 +104,11 @@ export default function Home() {
           </p>
           <Link
             href="/collections"
-            className="inline-block px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 bg-earth-green text-light-cream font-medium text-xs sm:text-sm uppercase tracking-widest hover:bg-dark-green transition-all duration-500"
+            className="inline-block px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 md:py-4 
+                      bg-earth-green text-light-cream font-medium text-xs sm:text-sm 
+                      uppercase tracking-widest 
+                      hover:bg-earth-green/80 
+                      transition-all duration-500"
           >
             Discover Our Collection
           </Link>
