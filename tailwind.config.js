@@ -17,7 +17,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        serif: ['Montserrat', 'sans-serif'],
       },
       fontWeight: {
         light: '300',
