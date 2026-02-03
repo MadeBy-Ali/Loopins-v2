@@ -34,7 +34,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-3">
               <a
-                href="https://instagram.com/loopins.id"
+                href="https://www.instagram.com/loopinsstudio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-soft-brown/20 rounded-full flex items-center justify-center text-light-cream hover:bg-soft-brown hover:text-white transition-all duration-300"
@@ -45,7 +45,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://tiktok.com/@loopins.id"
+                href="https://www.tokopedia.com/loopins-studio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-soft-brown/20 rounded-full flex items-center justify-center text-light-cream hover:bg-soft-brown hover:text-white transition-all duration-300"
