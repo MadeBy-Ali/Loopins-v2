@@ -4,6 +4,7 @@ import Script from 'next/script'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import SiteWrapper from '@/components/SiteWrapper'
 
 const montserrat = Montserrat({ 
   subsets: ['latin'],
@@ -44,11 +45,13 @@ export default function RootLayout({
         />
       </head>
       <body className={`${montserrat.className} flex flex-col min-h-screen`}>
-        <Navbar />
-        <div className="flex-grow">
-          {children}
-        </div>
-        <Footer />
+        <SiteWrapper>
+          <Navbar />
+          <div className="flex-grow">
+            {children}
+          </div>
+          <Footer />
+        </SiteWrapper>
       </body>
     </html>
   )
