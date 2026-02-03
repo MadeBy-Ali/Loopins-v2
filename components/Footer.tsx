@@ -56,7 +56,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://tokopedia.com/loopins"
+                href="https://www.tokopedia.com/loopins-studio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-soft-brown/20 rounded-full flex items-center justify-center text-light-cream hover:bg-soft-brown hover:text-white transition-all duration-300"
