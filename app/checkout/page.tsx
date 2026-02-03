@@ -6,6 +6,20 @@ import { useRouter } from 'next/navigation'
 import { useCartStore } from '@/lib/cart-store'
 import { api, type CheckoutData } from '@/lib/api'
 
+// Declare Midtrans Snap types
+declare global {
+  interface Window {
+    snap: {
+      pay: (token: string, options: {
+        onSuccess?: (result: any) => void
+        onPending?: (result: any) => void
+        onError?: (result: any) => void
+        onClose?: () => void
+      }) => void
+    }
+  }
+}
+
 export default function CheckoutPage() {
   const router = useRouter()
   const { items, getTotalPrice, clearCart } = useCartStore()
@@ -116,38 +130,74 @@ export default function CheckoutPage() {
       if (response.success) {
         console.log('✅ Order created successfully:', response.orderId)
         
-        // Generate WhatsApp link
-        const whatsappLink = generateWhatsAppLink(response.orderId)
-        console.log('💬 WhatsApp Link Generated:', whatsappLink)
-        console.log('💬 Link Length:', whatsappLink.length)
-        
-        // Open WhatsApp in a new tab
-        console.log('🔗 Opening WhatsApp in new tab...')
-        const whatsappWindow = window.open(whatsappLink, '_blank')
-        
-        if (!whatsappWindow) {
-          console.error('❌ Pop-up blocked! Please allow pop-ups for this site.')
-          alert('Please allow pop-ups to open WhatsApp. Then click "Place Order" again.')
-          setIsProcessing(false)
-          return
-        }
-        
-        console.log('✅ WhatsApp window opened successfully')
-        
-        // Clear cart after successful order
-        clearCart()
-        
-        // Small delay to ensure WhatsApp opens, then redirect
-        setTimeout(() => {
-          console.log('🔄 Redirecting to success page...')
-          if (response.paymentUrl) {
-            // In production, this will be Xendit/Midtrans payment URL
-            window.location.href = response.paymentUrl
+        // ========== MIDTRANS PAYMENT INTEGRATION ==========
+        try {
+          console.log('💳 Fetching Midtrans payment token...')
+          
+          // Call Spring backend to get Midtrans Snap token
+          const midtransResponse = await api.getMidtransToken(response.orderId)
+          console.log('🎫 Midtrans Token Response:', midtransResponse)
+          
+          if (midtransResponse.success && midtransResponse.data.token) {
+            console.log('✅ Midtrans token received:', midtransResponse.data.token)
+            
+            // Check if Snap is loaded
+            if (typeof window.snap === 'undefined') {
+              throw new Error('Midtrans Snap is not loaded. Please refresh the page.')
+            }
+            
+            // Show Midtrans payment popup
+            console.log('🎬 Opening Midtrans payment popup...')
+            window.snap.pay(midtransResponse.data.token, {
+              onSuccess: (result) => {
+                console.log('✅ Payment Success:', result)
+                clearCart()
+                router.push(`/payment/success?orderId=${response.orderId}`)
+              },
+              onPending: (result) => {
+                console.log('⏳ Payment Pending:', result)
+                alert('Payment is pending. Please complete your payment.')
+              },
+              onError: (result) => {
+                console.error('❌ Payment Error:', result)
+                alert('Payment failed. Please try again.')
+                setIsProcessing(false)
+              },
+              onClose: () => {
+                console.log('🔒 Payment popup closed')
+                setIsProcessing(false)
+              }
+            })
           } else {
-            // Fallback to success page
-            router.push(`/payment/success?orderId=${response.orderId}`)
+            throw new Error('Failed to get payment token from backend')
           }
-        }, 1000)
+        } catch (midtransError) {
+          console.error('❌ Midtrans integration error:', midtransError)
+          console.log('📱 Falling back to WhatsApp...')
+          
+          // FALLBACK: Use WhatsApp if Midtrans fails
+          const whatsappLink = generateWhatsAppLink(response.orderId)
+          console.log('💬 WhatsApp Link Generated:', whatsappLink)
+          console.log('💬 Link Length:', whatsappLink.length)
+          
+          const whatsappWindow = window.open(whatsappLink, '_blank')
+          
+          if (!whatsappWindow) {
+            console.error('❌ Pop-up blocked! Please allow pop-ups for this site.')
+            alert('Please allow pop-ups to open WhatsApp. Then click "Place Order" again.')
+            setIsProcessing(false)
+            return
+          }
+          
+          console.log('✅ WhatsApp window opened successfully')
+          clearCart()
+          
+          setTimeout(() => {
+            console.log('🔄 Redirecting to success page...')
+            router.push(`/payment/success?orderId=${response.orderId}`)
+          }, 1000)
+        }
+        // ========== END MIDTRANS INTEGRATION ==========
       } else {
         console.error('❌ Order creation failed:', response.message)
         alert(response.message || 'Failed to create order. Please try again.')

@@ -57,12 +57,13 @@ const products = {
       ],
       sizes: ['1', '2'],
       features: [
-        'Premium cotton blend fabric',
-        'Traditional-inspired earth tone design',
-        'Tailored fit for women',
-        'Multiple interior pockets',
-        'Handcrafted buttons',
-        'Limited edition collection',
+        'Wash with hands / Dry clean',
+        'Do not use bleach',
+        'Do not machine wash',
+        'Iron with low heat only',
+        'Line Dry',
+        'Do not expose to direct sunlight',
+        'Dry clean recommended',
       ],
     },
   },
@@ -90,58 +91,72 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
   const getCareIcon = (feature: string) => {
     const lowerFeature = feature.toLowerCase()
     
-    if (lowerFeature.includes('wash') || lowerFeature.includes('hand')) {
+    if (lowerFeature.includes('wash') && lowerFeature.includes('hand')) {
       return (
-        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-        </svg>
+        <img 
+          src="/images/fabric_care_hand_wash.svg" 
+          alt="Hand wash" 
+          className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+        />
       )
     }
     if (lowerFeature.includes('bleach')) {
       return (
-        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-        </svg>
+        <img 
+          src="/images/fabric_care_do_not_bleach.svg" 
+          alt="Do not bleach" 
+          className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+        />
       )
     }
     if (lowerFeature.includes('machine')) {
       return (
-        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <img 
+          src="/images/fabric_care_do_not_machine_wash.svg" 
+          alt="Do not machine wash" 
+          className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+        />
       )
     }
     if (lowerFeature.includes('iron')) {
       return (
-        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
+        <img 
+          src="/images/fabric_care_iron_low_heat.svg" 
+          alt="Iron low heat" 
+          className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+        />
       )
     }
-    if (lowerFeature.includes('dry') && !lowerFeature.includes('clean')) {
+    if (lowerFeature.includes('line') && lowerFeature.includes('dry')) {
       return (
-        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-        </svg>
+        <img 
+          src="/images/fabric_care_line_dry.svg" 
+          alt="Line dry" 
+          className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+        />
       )
     }
     if (lowerFeature.includes('sunlight') || lowerFeature.includes('sun')) {
       return (
-        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
+        <img 
+          src="/images/fabric_care_no_direct_sunlight.svg" 
+          alt="No direct sunlight" 
+          className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+        />
       )
     }
     if (lowerFeature.includes('dry clean')) {
       return (
-        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        <img 
+          src="/images/fabric_care_dry_clean.svg" 
+          alt="Dry clean" 
+          className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+        />
       )
     }
     // Default icon
     return (
-      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 sm:w-10 sm:h-10 text-dark-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
       </svg>
     )
@@ -402,8 +417,8 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                           </tr>
                           <tr className="border-b border-dark-green/10">
                             <td className="py-2 pr-2 sm:pr-4">Shoulder Width</td>
-                            <td className="text-center py-2 px-1 sm:px-2">41</td>
-                            <td className="text-center py-2 px-1 sm:px-2">45</td>
+                            <td className="text-center py-2 px-1 sm:px-2">52</td>
+                            <td className="text-center py-2 px-1 sm:px-2">55</td>
                           </tr>
                         </>
                       ) : (
@@ -421,7 +436,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                           <tr className="border-b border-dark-green/10">
                             <td className="py-2 pr-2 sm:pr-4">Waist</td>
                             <td className="text-center py-2 px-1 sm:px-2">100</td>
-                            <td className="text-center py-2 px-1 sm:px-2">109</td>
+                            <td className="text-center py-2 px-1 sm:px-2">119</td>
                           </tr>
                           <tr className="border-b border-dark-green/10">
                             <td className="py-2 pr-2 sm:pr-4">Hip</td>
@@ -431,7 +446,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                           <tr className="border-b border-dark-green/10">
                             <td className="py-2 pr-2 sm:pr-4">Shoulder Width</td>
                             <td className="text-center py-2 px-1 sm:px-2">45</td>
-                            <td className="text-center py-2 px-1 sm:px-2">50</td>
+                            <td className="text-center py-2 px-1 sm:px-2">48</td>
                           </tr>
                         </>
                       )}
@@ -478,7 +493,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     key={index}
                     className="bg-white rounded-lg p-3 sm:p-4 border border-dark-brown/10 text-center shadow-sm"
                   >
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-dark-brown/10 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center mx-auto mb-2 sm:mb-3">
                       {getCareIcon(feature)}
                     </div>
                     <p className="text-dark-brown font-semibold text-xs sm:text-sm">{feature}</p>
@@ -651,8 +666,8 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                           </tr>
                           <tr className="border-b border-dark-green/10">
                             <td className="py-2 pr-4">Shoulder Width</td>
-                            <td className="text-center py-2 px-2">41</td>
-                            <td className="text-center py-2 px-2">45</td>
+                            <td className="text-center py-2 px-2">52</td>
+                            <td className="text-center py-2 px-2">55</td>
                           </tr>
                         </>
                       ) : (
@@ -670,7 +685,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                           <tr className="border-b border-dark-green/10">
                             <td className="py-2 pr-4">Waist</td>
                             <td className="text-center py-2 px-2">100</td>
-                            <td className="text-center py-2 px-2">109</td>
+                            <td className="text-center py-2 px-2">119</td>
                           </tr>
                           <tr className="border-b border-dark-green/10">
                             <td className="py-2 pr-4">Hip</td>
@@ -680,7 +695,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                           <tr className="border-b border-dark-green/10">
                             <td className="py-2 pr-4">Shoulder Width</td>
                             <td className="text-center py-2 px-2">45</td>
-                            <td className="text-center py-2 px-2">50</td>
+                            <td className="text-center py-2 px-2">48</td>
                           </tr>
                         </>
                       )}
@@ -726,7 +741,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                       key={index}
                       className="bg-white rounded-lg p-5 border border-dark-brown/10 hover:shadow-lg transition-all"
                     >
-                      <div className="w-10 h-10 bg-dark-brown/10 rounded-full flex items-center justify-center mb-3">
+                      <div className="w-14 h-14 flex items-center justify-center mb-3">
                         {getCareIcon(feature)}
                       </div>
                       <p className="text-dark-brown font-semibold text-sm">{feature}</p>

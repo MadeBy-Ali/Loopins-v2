@@ -59,7 +59,7 @@ export default function CollectionsPage() {
 
                   {/* Content Overlay */}
                   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-white to-white/95">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-dark-brown mb-2">
+                    <h2 className="text-sm sm:text-xl font-bold text-dark-brown mb-2">
                       {collection.title}
                     </h2>
                     <p className="text-dark-brown/70 mb-2 text-sm sm:text-base">

@@ -34,6 +34,16 @@ export interface PaymentResponse {
   message?: string
 }
 
+export interface MidtransSnapResponse {
+  success: boolean
+  data: {
+    token: string
+    redirectUrl: string
+    orderId: string
+    grossAmount: number
+  }
+}
+
 // ==================== MOCK DATA ====================
 const mockDelay = (ms: number = 1000) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -84,6 +94,26 @@ const mockAPI = {
       items: [],
       total: 0
     }
+  },
+
+  // Midtrans Snap payment token (mock - will use real API)
+  getMidtransToken: async (orderId: string, authToken?: string): Promise<MidtransSnapResponse> => {
+    console.log('🎫 [MOCK->REAL] Calling real Midtrans API for order:', orderId)
+    
+    // Even in mock mode, call the real Spring backend for Midtrans
+    const response = await fetch(`http://localhost:8080/api/payments/snap/${orderId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+      }
+    })
+    
+    if (!response.ok) {
+      const error = await response.json()
+      throw new Error(error.message || 'Failed to get payment token')
+    }
+    return response.json()
   }
 }
 
@@ -138,6 +168,23 @@ const realAPI = {
     })
     
     if (!response.ok) throw new Error('Failed to fetch order')
+    return response.json()
+  },
+
+  // Midtrans Snap payment token
+  getMidtransToken: async (orderId: string, authToken?: string): Promise<MidtransSnapResponse> => {
+    const response = await fetch(`http://localhost:8080/api/payments/snap/${orderId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+      }
+    })
+    
+    if (!response.ok) {
+      const error = await response.json()
+      throw new Error(error.message || 'Failed to get payment token')
+    }
     return response.json()
   }
 }
