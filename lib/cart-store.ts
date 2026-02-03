@@ -50,11 +50,18 @@ export const useCartStore = create<CartStore>()(
         })),
 
       updateQuantity: (id, quantity) =>
-        set((state) => ({
-          items: state.items.map((item) =>
-            item.id === id ? { ...item, quantity } : item
-          ),
-        })),
+        set((state) => {
+          if (quantity <= 0) {
+            return {
+              items: state.items.filter((item) => item.id !== id),
+            }
+          }
+          return {
+            items: state.items.map((item) =>
+              item.id === id ? { ...item, quantity } : item
+            ),
+          }
+        }),
 
       setOrderNotes: (notes) => set({ orderNotes: notes }),
 
