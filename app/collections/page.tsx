@@ -10,6 +10,7 @@ const collections = [
     slug: 'mbok-jamu/men',
     description: 'Premium collection designed for the modern gentleman',
     itemCount: 1,
+    image: '/images/featured_ptrt_3.png',
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ const collections = [
     slug: 'mbok-jamu/women',
     description: 'Elegant collection for the contemporary woman',
     itemCount: 1,
+    image: '/images/featured_ptrt_1.png',
   },
 ]
 
@@ -47,14 +49,14 @@ export default function CollectionsPage() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <Link href={`/collections/${collection.slug}`}>
-                <div className="group relative h-80 sm:h-96 bg-white rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border border-soft-brown/20">
-                  {/* Placeholder */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-light-cream to-white">
-                    <div className="w-48 sm:w-64 h-48 sm:h-64 bg-dark-green/5 rounded-lg border-2 border-dark-green/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                      <span className="text-dark-green/30 text-6xl sm:text-8xl font-bold">
-                        {collection.title.charAt(0)}
-                      </span>
-                    </div>
+                <div className="group relative h-[500px] sm:h-[600px] bg-white rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border border-soft-brown/20">
+                  {/* Collection Image */}
+                  <div className="absolute inset-0">
+                    <img
+                      src={collection.image}
+                      alt={collection.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
                   </div>
 
                   {/* Content Overlay */}
