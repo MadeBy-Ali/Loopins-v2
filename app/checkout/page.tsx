@@ -98,7 +98,7 @@ export default function CheckoutPage() {
 
   const generateWhatsAppLink = (orderId: string): string => {
     const brandName = "Loopins Studio"
-    const phoneNumber = "6281393220729"
+    const phoneNumber = "628211695547"
     const { orderNotes } = useCartStore.getState()
     
     // Get product details
