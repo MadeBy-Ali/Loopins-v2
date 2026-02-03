@@ -11,7 +11,7 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: 'Loopins - Premium Vest Collection',
+  title: 'Loopins Studio',
   description: 'Discover our exclusive collection of premium vests for men and women',
   icons: {
     icon: [
