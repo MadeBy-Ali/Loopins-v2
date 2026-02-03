@@ -7,8 +7,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, getTotalPrice } = useCartStore()
-  const [orderNotes, setOrderNotes] = useState('')
+  const { items, removeItem, updateQuantity, getTotalPrice, orderNotes, setOrderNotes } = useCartStore()
   const router = useRouter()
 
   const handleClose = () => {

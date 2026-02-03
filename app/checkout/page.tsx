@@ -50,13 +50,47 @@ export default function CheckoutPage() {
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {}
     
-    if (!formData.name.trim()) newErrors.name = 'Name is required'
-    if (!formData.email.trim()) newErrors.email = 'Email is required'
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Invalid email format'
-    if (!formData.phone.trim()) newErrors.phone = 'Phone is required'
-    if (!formData.address.trim()) newErrors.address = 'Address is required'
-    if (!formData.city.trim()) newErrors.city = 'City is required'
-    if (!formData.postalCode.trim()) newErrors.postalCode = 'Postal code is required'
+    // Name validation - only letters and spaces
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required'
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.name)) {
+      newErrors.name = 'Name can only contain letters and spaces'
+    }
+    
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required'
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Invalid email format'
+    }
+    
+    // Phone validation - only numbers, min 10 digits
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone is required'
+    } else if (!/^[0-9]+$/.test(formData.phone)) {
+      newErrors.phone = 'Phone can only contain numbers'
+    } else if (formData.phone.length < 10) {
+      newErrors.phone = 'Phone must be at least 10 digits'
+    }
+    
+    // City validation - only letters and spaces
+    if (!formData.city.trim()) {
+      newErrors.city = 'City is required'
+    } else if (!/^[a-zA-Z\s]+$/.test(formData.city)) {
+      newErrors.city = 'City can only contain letters and spaces'
+    }
+    
+    // Address validation
+    if (!formData.address.trim()) {
+      newErrors.address = 'Address is required'
+    }
+    
+    // Postal code validation - alphanumeric only
+    if (!formData.postalCode.trim()) {
+      newErrors.postalCode = 'Postal code is required'
+    } else if (!/^[a-zA-Z0-9]+$/.test(formData.postalCode)) {
+      newErrors.postalCode = 'Postal code can only contain letters and numbers'
+    }
     
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -65,11 +99,15 @@ export default function CheckoutPage() {
   const generateWhatsAppLink = (orderId: string): string => {
     const brandName = "Loopins Studio"
     const phoneNumber = "6281393220729"
+    const { orderNotes } = useCartStore.getState()
     
     // Get product details
     const productDetails = items.map((item, index) => 
       `${index + 1}. ${item.name} (Size: ${item.size || 'N/A'}, Qty: ${item.quantity}) - Rp ${(item.price * item.quantity).toLocaleString('id-ID')}`
     ).join('%0A')
+    
+    // Add order notes if available
+    const notesSection = orderNotes.trim() ? `%0A*Order Notes:*%0A${encodeURIComponent(orderNotes)}%0A` : ''
     
     // Create the message template
     const message = `*Checkout Details:*%0A%0A` +
@@ -83,7 +121,8 @@ export default function CheckoutPage() {
       `4. Phone Number: ${formData.phone}%0A` +
       `5. Order ID: ${orderId}%0A%0A` +
       `*Products:*%0A` +
-      `${productDetails}%0A%0A` +
+      `${productDetails}%0A` +
+      `${notesSection}%0A` +
       `*Total: Rp ${getTotalPrice().toLocaleString('id-ID')}*%0A` +
       `━━━━━━━━━━━━━━━━━━━━%0A%0A` +
       `Please complete your payment to proceed with your order.%0A` +
