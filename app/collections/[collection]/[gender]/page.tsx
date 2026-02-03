@@ -8,6 +8,11 @@ export function generateStaticParams() {
   ]
 }
 
-export default function CollectionGenderPage({ params }: { params: { collection: string; gender: string } }) {
-  return <ProductDetailClient collection={params.collection} gender={params.gender} />
+export default async function CollectionGenderPage({ 
+  params 
+}: { 
+  params: Promise<{ collection: string; gender: string }> 
+}) {
+  const { collection, gender } = await params
+  return <ProductDetailClient collection={collection} gender={gender} />
 }

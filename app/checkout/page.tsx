@@ -453,10 +453,6 @@ export default function CheckoutPage() {
                   <span>Subtotal</span>
                   <span>Rp {getTotalPrice().toLocaleString('id-ID')}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
-                  <span>Shipping</span>
-                  <span className="text-soft-brown font-medium">FREE</span>
-                </div>
                 <div className="h-px bg-gray-200"></div>
                 <div className="flex justify-between text-gray-800 text-xl font-bold">
                   <span>Total</span>
