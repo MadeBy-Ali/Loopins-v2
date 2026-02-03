@@ -19,8 +19,8 @@ interface Product {
 const PRODUCTS: Product[] = [
   {
     id: '1',
-    name: 'Classic Vest',
-    price: 850000,
+    name: 'Mbok Jamu Men Vest',
+    price: 599000,
     image: '/images/featured_ptrt_1.png',
     collection: 'mbok-jamu',
     gender: 'men',
@@ -28,8 +28,8 @@ const PRODUCTS: Product[] = [
   },
   {
     id: '2',
-    name: 'Premium Vest',
-    price: 950000,
+    name: 'Mbok Jamu Women Vest',
+    price: 649000,
     image: '/images/featured_ptrt_2.png',
     collection: 'mbok-jamu',
     gender: 'women',
