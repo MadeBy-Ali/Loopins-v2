@@ -214,7 +214,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
             className="relative mb-6"
           >
               {/* Main Image Display */}
-              <div className="relative aspect-square rounded-lg sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl bg-white">
+              <div className="relative aspect-square rounded-lg sm:rounded-2xl overflow-hidden bg-white">
                 <motion.img
                   key={currentImageIndex}
                   src={product.images[currentImageIndex]}

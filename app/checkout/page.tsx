@@ -449,14 +449,14 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-3 mb-6">
-                <div className="flex justify-between text-gray-600">
-                  <span>Subtotal</span>
-                  <span>Rp {getTotalPrice().toLocaleString('id-ID')}</span>
+                <div className="text-left text-gray-600">
+                  <div>Subtotal</div>
+                  <div>Rp {getTotalPrice().toLocaleString('id-ID')}</div>
                 </div>
                 <div className="h-px bg-gray-200"></div>
-                <div className="flex justify-between text-gray-800 text-xl font-bold">
-                  <span>Total</span>
-                  <span className="text-soft-brown">Rp {getTotalPrice().toLocaleString('id-ID')}</span>
+                <div className="text-left text-gray-800 text-xl font-bold">
+                  <div>Total</div>
+                  <div className="text-soft-brown">Rp {getTotalPrice().toLocaleString('id-ID')}</div>
                 </div>
               </div>
 

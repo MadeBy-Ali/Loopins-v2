@@ -192,8 +192,10 @@ export default function CartPage() {
           <div className="lg:col-span-3">
             <div className="space-y-6 sm:space-y-8 sticky top-4">
               {/* Subtotal */}
-              <div className="flex justify-between items-center">
-                <span className="text-xl sm:text-2xl font-semibold text-dark-brown">Subtotal</span>
+              <div className="flex flex-col items-start">
+                <span className="text-xl sm:text-2xl font-semibold text-dark-brown">
+                  Subtotal
+                </span>
                 <span className="text-xl sm:text-2xl font-semibold text-dark-brown">
                   Rp {getTotalPrice().toLocaleString('id-ID')}
                 </span>

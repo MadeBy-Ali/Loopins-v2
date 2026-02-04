@@ -21,7 +21,7 @@ export default function AboutPage() {
               To become a global fashion brand that delivers meaningful luxury through the exploration of Nusantara’s cultural heritage and social issues.
             </p>
 
-            <p className="mt-4 text-black text-lg leading-relaxed text-justify">
+            <p className="mt-4 text-black text-lg leading-relaxed text-justify indent-8">
               We believe fashion is not merely about style, but a medium for storytelling. Loopins Studio aims to bridge aesthetic beauty and social awareness, bringing the stories of Nusantara to the global stage through timeless, valuable, and purpose-driven creations.
             </p>
           </div>
@@ -32,19 +32,26 @@ export default function AboutPage() {
             <ul className="text-black text-lg leading-relaxed text-justify list-disc pl-6 space-y-6">
               <li>
                 <span className="font-light block mb-1">Product & Innovation</span>
-                To create timeless and luxurious products rooted in Nusantara’s cultural heritage, guided by research, authenticity, and purposeful design.
+                <p className="indent-8">
+                  To create timeless and luxurious products rooted in Nusantara’s cultural heritage, guided by research, authenticity, and purposeful design.
+                </p>
               </li>
 
               <li>
                 <span className="font-light block mb-1">Culture & Education</span>
-                To use fashion as a medium to preserve and share Nusantara’s stories through meaningful narratives and cultural collaboration.
+                <p className="indent-8">
+                  To use fashion as a medium to preserve and share Nusantara’s stories through meaningful narratives and cultural collaboration.
+                </p>
               </li>
 
               <li>
                 <span className="font-light block mb-1">Sustainability & Awareness</span>
-                To practice ethical production and promote conscious fashion that drives cultural awareness and positive impact.
+                <p className="indent-8">
+                  To practice ethical production and promote conscious fashion that drives cultural awareness and positive impact.
+                </p>
               </li>
             </ul>
+
           </div>
         </div>
 
