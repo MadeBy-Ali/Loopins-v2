@@ -88,7 +88,7 @@ function PaymentSuccessContent() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-4xl md:text-5xl font-bold text-light-cream mb-4"
+              className="text-4xl md:text-5xl font-bold text-soft-brown mb-4"
             >
               Order Created!
             </motion.h1>
@@ -97,7 +97,7 @@ function PaymentSuccessContent() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-xl text-light-cream/80 mb-2"
+              className="text-xl text-soft-brown/80 mb-2"
             >
               Thank you for your purchase
             </motion.p>
@@ -106,7 +106,7 @@ function PaymentSuccessContent() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-light-cream/60 mb-8"
+              className="text-soft-brown/60 mb-8"
             >
               Order ID: <span className="font-mono text-soft-brown">{orderId}</span>
             </motion.p>
@@ -115,7 +115,7 @@ function PaymentSuccessContent() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="bg-earth-green/20 backdrop-blur-sm rounded-lg p-8 border border-light-cream/10 mb-8"
+              className="bg-earth-green/50 backdrop-blur-sm rounded-lg p-8 border border-light-cream/10 mb-8"
             >
               <h2 className="text-2xl font-bold text-light-cream mb-4">What&apos;s Next?</h2>
               <div className="space-y-4 text-left">
@@ -171,7 +171,7 @@ function PaymentSuccessContent() {
               </button>
               <button
                 onClick={() => router.push('/collections')}
-                className="px-8 py-3 bg-earth-green/20 border border-light-cream/20 text-light-cream font-bold rounded-full hover:bg-earth-green/30 transition-all duration-300"
+                className="px-8 py-3 bg-soft-brown/50 border border-light-cream/20 text-light-cream font-bold rounded-full hover:bg-soft-brown/30 transition-all duration-300"
               >
                 Continue Shopping
               </button>

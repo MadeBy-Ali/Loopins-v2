@@ -16,10 +16,10 @@ const products = {
       price: 599000,
       originalPrice: 699000,
       images: [
-        '/images/mbok jamu_detail_men_front.PNG',
-        '/images/mbok jamu_detail_men_left.PNG',
-        '/images/mbok jamu_detail_men_right.PNG',
-        '/images/mbok jamu_detail_men_back.PNG',
+        '/images/mbok jamu_detail_men_front.png',
+        '/images/mbok jamu_detail_men_left.png',
+        '/images/mbok jamu_detail_men_right.png',
+        '/images/mbok jamu_detail_men_back.png',
       ],
       description: 'A masterpiece of traditional Indonesian craftsmanship meets contemporary design. The Mbok Jamu collection pays homage to the iconic traditional Indonesian beverage sellers, known for their distinctive style and elegance.',
       story: [
@@ -41,13 +41,14 @@ const products = {
     women: {
       id: 'mbok-jamu-women-vest-001',
       name: 'Mbok Jamu Batik Vest - Women',
+      showcaseImage: '/images/mbok jamu_detail_women_front.png',
       price: 649000,
       originalPrice: 749000,
       images: [
-        '/images/mbok jamu_detail_women_front.PNG',
-        '/images/mbok jamu_detail_women_left.PNG',
-        '/images/mbok jamu_detail_women_right.PNG',
-        '/images/mbok jamu_detail_women_back.PNG',
+        '/images/mbok jamu_detail_women_front.png',
+        '/images/mbok jamu_detail_women_left.png',
+        '/images/mbok jamu_detail_women_right.png',
+        '/images/mbok jamu_detail_women_back.png',
       ],
       description: 'A masterpiece of traditional Indonesian craftsmanship meets contemporary design. The Mbok Jamu collection celebrates the iconic traditional Indonesian beverage sellers and their timeless elegance.',
       story: [
@@ -83,9 +84,39 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
 
   // Get product data
   const product = products[collection as keyof typeof products]?.[gender as 'men' | 'women']
+
+  // Minimum swipe distance (in px) to trigger navigation
+  const minSwipeDistance = 50
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(0) // Reset touchEnd
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+
+    if (isLeftSwipe) {
+      // Swipe left - next image
+      setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1))
+    } else if (isRightSwipe) {
+      // Swipe right - previous image
+      setCurrentImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1))
+    }
+  }
 
   // Helper function to get icon for each care instruction
   const getCareIcon = (feature: string) => {
@@ -191,7 +222,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
       name: product.name,
       price: product.price,
       quantity: quantity,
-      image: '',
+      image: product.images[0],
       size: selectedSize,
     })
 
@@ -214,7 +245,12 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
             className="relative mb-6"
           >
               {/* Main Image Display */}
-              <div className="relative aspect-square rounded-lg sm:rounded-2xl overflow-hidden bg-white">
+              <div 
+                className="relative aspect-square rounded-lg sm:rounded-2xl overflow-hidden bg-white"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
                 <motion.img
                   key={currentImageIndex}
                   src={product.images[currentImageIndex]}
@@ -525,7 +561,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
             {product.images.map((image, index) => (
               <div
                 key={index}
-                className="relative aspect-square rounded-2xl overflow-hidden shadow-xl bg-white"
+                className="relative aspect-square rounded-2xl overflow-hidden bg-white"
               >
                 <img
                   src={image}

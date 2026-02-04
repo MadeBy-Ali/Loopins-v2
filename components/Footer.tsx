@@ -46,7 +46,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.tokopedia.com/loopins-studio"
+                href="https://www.tiktok.com/@loopinsstudio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-soft-brown/20 rounded-full flex items-center justify-center text-light-cream hover:bg-soft-brown hover:text-white transition-all duration-300"
@@ -205,7 +205,7 @@ export default function Footer() {
         <div className="border-t border-light-cream/10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-light-cream/50 text-sm text-center md:text-left">
-              © {currentYear} Loopins. All rights reserved. Made with ❤️ in Indonesia
+              © {currentYear} Loopins. All rights reserved.
             </p>
           </div>
         </div>

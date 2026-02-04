@@ -428,12 +428,20 @@ export default function CheckoutPage() {
               <h2 className="text-2xl font-bold text-gray-800 mb-6">Order Summary</h2>
               
               <div className="space-y-4 mb-6 max-h-64 overflow-y-auto">
-                {items.map((item) => (
-                  <div key={item.id} className="flex gap-3 pb-4 border-b border-gray-100">
+                {items.map((item) => {
+                  return <div key={item.id} className="flex gap-3 pb-4 border-b border-gray-100">
                     <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-soft-brown text-xl font-bold">
-                        {item.name.charAt(0)}
-                      </span>
+                      {item.image ? (
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-full object-cover rounded-lg"
+                        />
+                      ) : (
+                        <span className="text-soft-brown text-xl font-bold">
+                          {item.name.charAt(0)}
+                        </span>
+                      )}
                     </div>
                     <div className="flex-grow">
                       <h3 className="text-gray-800 font-semibold text-sm mb-1">{item.name}</h3>
@@ -444,8 +452,8 @@ export default function CheckoutPage() {
                         Rp {(item.price * item.quantity).toLocaleString('id-ID')}
                       </p>
                     </div>
-                  </div>
-                ))}
+                  </div>;
+                })}
               </div>
 
               <div className="space-y-3 mb-6">

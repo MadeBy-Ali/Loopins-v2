@@ -65,10 +65,18 @@ export default function CartPage() {
                     <div className="hidden md:grid grid-cols-12 gap-4 md:gap-8 items-center pb-6 md:pb-8 border-b border-gray-200">
                       {/* Product Column */}
                       <div className="col-span-5 flex items-center gap-4">
-                        <div className="w-20 h-20 bg-gray-100 flex-shrink-0">
-                          <div className="w-full h-full flex items-center justify-center text-gray-400">
-                            <span className="text-2xl font-bold">{item.name.charAt(0)}</span>
-                          </div>
+                        <div className="w-20 h-20 bg-gray-100 flex-shrink-0 rounded-lg overflow-hidden">
+                          {item.image ? (
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                              <span className="text-2xl font-bold">{item.name.charAt(0)}</span>
+                            </div>
+                          )}
                         </div>
                         <div className="flex flex-col">
                           <span className="text-dark-brown font-medium text-base mb-1">{item.name}</span>
@@ -127,10 +135,18 @@ export default function CartPage() {
                     {/* Mobile Layout */}
                     <div className="md:hidden flex flex-col gap-3 p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
                       <div className="flex gap-3">
-                        <div className="w-20 h-20 bg-gray-100 flex-shrink-0 rounded">
-                          <div className="w-full h-full flex items-center justify-center text-gray-400">
-                            <span className="text-xl font-bold">{item.name.charAt(0)}</span>
-                          </div>
+                        <div className="w-20 h-20 bg-gray-100 flex-shrink-0 rounded-lg overflow-hidden">
+                          {item.image ? (
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                              <span className="text-xl font-bold">{item.name.charAt(0)}</span>
+                            </div>
+                          )}
                         </div>
                         <div className="flex-1">
                           <h3 className="text-dark-brown font-medium text-base mb-1">{item.name}</h3>

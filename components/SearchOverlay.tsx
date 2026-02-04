@@ -11,27 +11,30 @@ interface Product {
   price: number
   image: string
   collection: string
+  collectionLabel: string
   gender: string
   slug: string
 }
 
-// Mock products - replace with actual API call later
+// Mock products
 const PRODUCTS: Product[] = [
   {
     id: '1',
-    name: 'Mbok Jamu Men Vest',
+    name: 'Men Vest',
     price: 599000,
-    image: '/images/featured_ptrt_1.png',
+    image: '/images/mbok jamu_detail_men_front.png',
     collection: 'mbok-jamu',
+    collectionLabel:'Mbok Jamu',
     gender: 'men',
     slug: 'classic-vest'
   },
   {
     id: '2',
-    name: 'Mbok Jamu Women Vest',
+    name: 'Women Vest',
     price: 649000,
-    image: '/images/featured_ptrt_2.png',
+    image: '/images/mbok jamu_detail_women_front.png',
     collection: 'mbok-jamu',
+    collectionLabel:'Mbok Jamu',
     gender: 'women',
     slug: 'premium-vest'
   }
@@ -143,7 +146,12 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                           {/* Product Image */}
                           <div className="w-20 h-20 bg-gray-100 flex-shrink-0">
                             <div className="w-full h-full flex items-center justify-center text-gray-400">
-                              <span className="text-2xl font-bold">{product.name.charAt(0)}</span>
+                              {/* <span className="text-2xl font-bold">{product.name.charAt(0)}</span> */}
+                              <img
+                                src={product.image}
+                                alt={product.name}
+                                className="w-full h-full object-cover"
+                              />
                             </div>
                           </div>
                           
@@ -153,7 +161,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                               {product.name}
                             </h3>
                             <p className="text-gray-500 text-sm mb-2 capitalize">
-                              {product.gender}'s Collection
+                              {product.collectionLabel}'s Collection
                             </p>
                             <p className="text-dark-brown font-semibold">
                               Rp {product.price.toLocaleString('id-ID')}
