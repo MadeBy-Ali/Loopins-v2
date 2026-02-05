@@ -180,7 +180,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
       return (
         <img 
           src="/images/fabric_care_dry_clean.svg" 
-          alt="Dry clean" 
+          alt="Dry clean." 
           className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
         />
       )
