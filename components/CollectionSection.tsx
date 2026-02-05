@@ -71,7 +71,7 @@ export default function CollectionSection({ title, description, slug, imagePosit
               {description}
             </p>
             <Link
-              href={`/collections/${slug}`}
+              href="/collections"
               className="inline-block px-12 py-4 bg-dark-brown text-light-cream font-medium text-sm uppercase tracking-widest hover:bg-earth-green transition-all duration-500 hover:scale-105"
             >
               Explore {title}
