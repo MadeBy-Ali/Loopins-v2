@@ -738,7 +738,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     </tbody>
                   </table>
                   <p className="text-dark-brown/60 text-xs mt-3">
-                    <span className="font-medium">Care:</span> Wash separately by hand / Dry clean, Iron medium
+                    Wash separately by hand / Dry clean, Iron medium
                   </p>
                 </div>
               </div>
