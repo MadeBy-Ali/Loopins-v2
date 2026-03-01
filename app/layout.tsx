@@ -39,8 +39,10 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         <Script
-          src="https://app.sandbox.midtrans.com/snap/snap.js"
-          data-client-key="Mid-client-CfTuWl9fMeHWbf1_"
+          src={process.env.NEXT_PUBLIC_MIDTRANS_IS_PRODUCTION === 'true'
+            ? 'https://app.midtrans.com/snap/snap.js'
+            : 'https://app.sandbox.midtrans.com/snap/snap.js'}
+          data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || 'Mid-client-fbWMz-0o6VzM0tsk'}
           strategy="beforeInteractive"
         />
       </head>

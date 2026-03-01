@@ -1,7 +1,7 @@
 // API Service Layer - Easy to switch between mock and real backend
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
-const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === 'true' || true // Set to false when backend is ready
+const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === 'true'
 
 // Types
 export interface CartItem {
@@ -96,19 +96,16 @@ const mockAPI = {
     }
   },
 
-  // Midtrans Snap payment token (mock - will use real API)
+  // Midtrans Snap payment token
   getMidtransToken: async (orderId: string, authToken?: string): Promise<MidtransSnapResponse> => {
     console.log('🎫 [MOCK->REAL] Calling real Midtrans API for order:', orderId)
-    
-    // Even in mock mode, call the real Spring backend for Midtrans
-    const response = await fetch(`http://localhost:8080/api/payments/snap/${orderId}`, {
+    const response = await fetch(`${API_BASE_URL}/payments/snap/${orderId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         ...(authToken && { 'Authorization': `Bearer ${authToken}` })
       }
     })
-    
     if (!response.ok) {
       const error = await response.json()
       throw new Error(error.message || 'Failed to get payment token')
@@ -135,16 +132,60 @@ const realAPI = {
   },
 
   createOrder: async (checkoutData: CheckoutData): Promise<PaymentResponse> => {
-    const response = await fetch(`${API_BASE_URL}/orders/create`, {
+    const sessionId = `session-${Date.now()}`
+
+    // Step 1: Create cart
+    const cartRes = await fetch(`${API_BASE_URL}/carts`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(checkoutData)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: null, sessionId })
     })
-    
-    if (!response.ok) throw new Error('Failed to create order')
-    return response.json()
+    if (!cartRes.ok) throw new Error('Failed to create cart')
+    const cartData = await cartRes.json()
+    const cartId = cartData.data.id
+
+    // Step 2: Add items to cart
+    for (const item of checkoutData.items) {
+      const itemRes = await fetch(`${API_BASE_URL}/carts/${cartId}/items`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId: item.id,
+          productName: item.name,
+          unitPrice: item.price,
+          quantity: item.quantity
+        })
+      })
+      if (!itemRes.ok) throw new Error(`Failed to add item ${item.name} to cart`)
+    }
+
+    // Step 3: Checkout
+    const { name, email, phone, address, city, postalCode } = checkoutData.customerInfo
+    const checkoutRes = await fetch(`${API_BASE_URL}/orders/checkout`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cartId,
+        userId: null,
+        shippingAddress: `${address}, ${city}, ${postalCode}`,
+        guestEmail: email,
+        guestName: name,
+        guestPhone: phone,
+        originCity: 'jakarta',
+        destinationCity: city.toLowerCase(),
+        weightInKg: 1,
+        bypassShipping: true,
+        bypassPayment: false
+      })
+    })
+    if (!checkoutRes.ok) throw new Error('Failed to checkout')
+    const checkoutResult = await checkoutRes.json()
+
+    return {
+      success: true,
+      orderId: checkoutResult.data.orderId,
+      message: 'Order created successfully'
+    }
   },
 
   verifyPayment: async (orderId: string): Promise<{ success: boolean; status: string }> => {
@@ -173,14 +214,13 @@ const realAPI = {
 
   // Midtrans Snap payment token
   getMidtransToken: async (orderId: string, authToken?: string): Promise<MidtransSnapResponse> => {
-    const response = await fetch(`http://localhost:8080/api/payments/snap/${orderId}`, {
+    const response = await fetch(`${API_BASE_URL}/payments/snap/${orderId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         ...(authToken && { 'Authorization': `Bearer ${authToken}` })
       }
     })
-    
     if (!response.ok) {
       const error = await response.json()
       throw new Error(error.message || 'Failed to get payment token')
