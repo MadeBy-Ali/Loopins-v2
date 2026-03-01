@@ -151,8 +151,6 @@ const realAPI = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           productId: item.id,
-          productName: item.name,
-          unitPrice: item.price,
           quantity: item.quantity
         })
       })
