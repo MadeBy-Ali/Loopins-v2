@@ -5,12 +5,20 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCartStore } from '@/lib/cart-store'
 import { api, type CheckoutData } from '@/lib/api'
+import PaymentPanel from '@/components/PaymentPanel'
 
 // Declare Midtrans Snap types
 declare global {
   interface Window {
     snap: {
       pay: (token: string, options: {
+        onSuccess?: (result: any) => void
+        onPending?: (result: any) => void
+        onError?: (result: any) => void
+        onClose?: () => void
+      }) => void
+      embed: (token: string, options: {
+        embedId: string
         onSuccess?: (result: any) => void
         onPending?: (result: any) => void
         onError?: (result: any) => void
@@ -24,6 +32,9 @@ export default function CheckoutPage() {
   const router = useRouter()
   const { items, getTotalPrice, clearCart } = useCartStore()
   const [isProcessing, setIsProcessing] = useState(false)
+  const [snapToken, setSnapToken] = useState<string | null>(null)
+  const [currentOrderId, setCurrentOrderId] = useState<string | null>(null)
+  const [grossAmount, setGrossAmount] = useState<number>(0)
   
   const [formData, setFormData] = useState({
     name: '',
@@ -172,69 +183,21 @@ export default function CheckoutPage() {
         // ========== MIDTRANS PAYMENT INTEGRATION ==========
         try {
           console.log('💳 Fetching Midtrans payment token...')
-          
-          // Call Spring backend to get Midtrans Snap token
           const midtransResponse = await api.getMidtransToken(response.orderId)
           console.log('🎫 Midtrans Token Response:', midtransResponse)
-          
+
           if (midtransResponse.success && midtransResponse.data.token) {
-            console.log('✅ Midtrans token received:', midtransResponse.data.token)
-            
-            // Check if Snap is loaded
-            if (typeof window.snap === 'undefined') {
-              throw new Error('Midtrans Snap is not loaded. Please refresh the page.')
-            }
-            
-            // Show Midtrans payment popup
-            console.log('🎬 Opening Midtrans payment popup...')
-            window.snap.pay(midtransResponse.data.token, {
-              onSuccess: (result) => {
-                console.log('✅ Payment Success:', result)
-                clearCart()
-                router.push(`/payment/success?orderId=${response.orderId}`)
-              },
-              onPending: (result) => {
-                console.log('⏳ Payment Pending:', result)
-                alert('Payment is pending. Please complete your payment.')
-              },
-              onError: (result) => {
-                console.error('❌ Payment Error:', result)
-                alert('Payment failed. Please try again.')
-                setIsProcessing(false)
-              },
-              onClose: () => {
-                console.log('🔒 Payment popup closed')
-                setIsProcessing(false)
-              }
-            })
+            setCurrentOrderId(response.orderId)
+            setGrossAmount(midtransResponse.data.grossAmount)
+            setSnapToken(midtransResponse.data.token)
+            setIsProcessing(false)
           } else {
             throw new Error('Failed to get payment token from backend')
           }
         } catch (midtransError) {
           console.error('❌ Midtrans integration error:', midtransError)
-          console.log('📱 Falling back to WhatsApp...')
-          
-          // FALLBACK: Use WhatsApp if Midtrans fails
-          const whatsappLink = generateWhatsAppLink(response.orderId)
-          console.log('💬 WhatsApp Link Generated:', whatsappLink)
-          console.log('💬 Link Length:', whatsappLink.length)
-          
-          const whatsappWindow = window.open(whatsappLink, '_blank')
-          
-          if (!whatsappWindow) {
-            console.error('❌ Pop-up blocked! Please allow pop-ups for this site.')
-            alert('Please allow pop-ups to open WhatsApp. Then click "Place Order" again.')
-            setIsProcessing(false)
-            return
-          }
-          
-          console.log('✅ WhatsApp window opened successfully')
-          clearCart()
-          
-          setTimeout(() => {
-            console.log('🔄 Redirecting to success page...')
-            router.push(`/payment/success?orderId=${response.orderId}`)
-          }, 1000)
+          alert('Failed to initiate payment. Please try again.')
+          setIsProcessing(false)
         }
         // ========== END MIDTRANS INTEGRATION ==========
       } else {
@@ -494,6 +457,32 @@ export default function CheckoutPage() {
           </div>
         </form>
       </div>
+
+      <PaymentPanel
+        snapToken={snapToken}
+        orderId={currentOrderId}
+        grossAmount={grossAmount}
+        onSuccess={(result) => {
+          console.log('✅ Payment Success:', result)
+          clearCart()
+          setSnapToken(null)
+          router.push(`/payment/success?orderId=${currentOrderId}`)
+        }}
+        onPending={(result) => {
+          console.log('⏳ Payment Pending:', result)
+          setSnapToken(null)
+          router.push(`/payment/success?orderId=${currentOrderId}`)
+        }}
+        onError={(result) => {
+          console.error('❌ Payment Error:', result)
+          setSnapToken(null)
+          alert('Payment failed. Please try again.')
+        }}
+        onClose={() => {
+          console.log('🔒 Payment panel closed')
+          setSnapToken(null)
+        }}
+      />
     </main>
   )
 }
