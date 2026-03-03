@@ -12,6 +12,10 @@ const products = {
   'mbok-jamu': {
     men: {
       id: 'mbok-jamu-men-vest-001',
+      sizeIds: {
+        '1': 'LSTD-MJC-VST-1-M-BRWN',
+        '2': 'LSTD-MJC-VST-2-M-BRWN',
+      } as Record<string, string>,
       name: 'Mbok Jamu Batik Vest - Men',
       price: 599000,
       originalPrice: 699000,
@@ -40,6 +44,10 @@ const products = {
     },
     women: {
       id: 'mbok-jamu-women-vest-001',
+      sizeIds: {
+        '1': 'LSTD-MJC-VST-1-WM-GRN',
+        '2': 'LSTD-MJC-VST-2-WM-GRN',
+      } as Record<string, string>,
       name: 'Mbok Jamu Batik Vest - Women',
       showcaseImage: '/images/mbok_jamu_detail_women_front.png',
       price: 649000,
@@ -218,7 +226,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
     setIsAdding(true)
     
     addItem({
-      id: `${product.id}-${selectedSize}`,
+      id: product.sizeIds[selectedSize] || `${product.id}-${selectedSize}`,
       name: product.name,
       price: product.price,
       quantity: quantity,
@@ -350,9 +358,14 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                       Rp {product.price.toLocaleString('id-ID')}
                     </p>
                     {product.originalPrice && (
-                      <p className="text-lg sm:text-xl font-medium text-gray-400 line-through">
-                        Rp {product.originalPrice.toLocaleString('id-ID')}
-                      </p>
+                      <>
+                        <p className="text-xl font-medium text-gray-400 line-through">
+                          Rp {product.originalPrice.toLocaleString('id-ID')}
+                        </p>
+                        <p className="text-sm text-gray-400 italic">
+                          *price includes free shipping
+                        </p>
+                      </>
                     )}
                   </div>
                 </div>
@@ -599,9 +612,14 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                       Rp {product.price.toLocaleString('id-ID')}
                     </p>
                     {product.originalPrice && (
-                      <p className="text-xl font-medium text-gray-400 line-through">
-                        Rp {product.originalPrice.toLocaleString('id-ID')}
-                      </p>
+                      <>
+                        <p className="text-xl font-medium text-gray-400 line-through">
+                          Rp {product.originalPrice.toLocaleString('id-ID')}
+                        </p>
+                        <p className="text-sm text-gray-400 italic">
+                          *price includes free shipping
+                        </p>
+                      </>
                     )}
                   </div>
                 </div>
