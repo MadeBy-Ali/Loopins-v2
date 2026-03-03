@@ -31,7 +31,7 @@ export default function Footer() {
               Wear Meaning, Wear Loopins
             </p>
             <p className="text-light-cream/70 mb-6 leading-relaxed text-sm">
-              Premium vest collections inspired by Indonesian heritage. Where style meets sophistication.
+              Modern batik vest collections inspired by Indonesian heritage. Where style meets sophistication.
             </p>
             <div className="flex gap-3">
               <a
@@ -54,6 +54,22 @@ export default function Footer() {
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+                </svg>
+              </a>
+              <a
+                href="https://shopee.co.id/loopinsstudio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-soft-brown/20 rounded-full flex items-center justify-center text-light-cream hover:bg-soft-brown hover:text-white transition-all duration-300"
+                aria-label="Shopee"
+              >
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M17 7h-1V6a4 4 0 10-8 0v1H7a1 1 0 00-1 1l-1 11a2 2 0 002 2h10a2 2 0 002-2L18 8a1 1 0 00-1-1zM10 6a2 2 0 114 0v1h-4V6zm2 12c-1.66 0-3-1.12-3-2.5h2a1 1 0 002 0c0-.55-.45-.9-1.4-1.2C10.6 13.9 9 13.2 9 11.5 9 10.12 10.34 9 12 9s3 1.12 3 2.5h-2a1 1 0 00-2 0c0 .55.45.9 1.4 1.2 1 .4 2.6 1.1 2.6 2.8 0 1.38-1.34 2.5-3 2.5z"/>
                 </svg>
               </a>
               <a
@@ -123,8 +139,8 @@ export default function Footer() {
                 <svg className="w-5 h-5 text-light-cream flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <a href="mailto:contact@loopins.com" className="text-light-cream/70 hover:text-light-cream transition-colors text-sm">
-                  contact@loopins.com
+                <a href="mailto:info@loopinsstudio.com" className="text-light-cream/70 hover:text-light-cream transition-colors text-sm">
+                  info@loopinsstudio.com
                 </a>
               </li>
               <li className="flex items-center gap-3">

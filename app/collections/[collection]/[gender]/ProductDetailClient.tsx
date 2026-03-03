@@ -42,7 +42,7 @@ const products = {
       id: 'mbok-jamu-women-vest-001',
       name: 'Mbok Jamu Batik Vest - Women',
       showcaseImage: '/images/mbok_jamu_detail_women_front.png',
-      price: 10000,
+      price: 699000,
       originalPrice: 749000,
       images: [
         '/images/mbok_jamu_detail_women_front.png',
