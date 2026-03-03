@@ -315,7 +315,7 @@ export default function CheckoutPage() {
                       className={`w-full px-4 py-3 bg-gray-50 border rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-earth-green/30 focus:border-earth-green transition-all ${
                         errors.phone ? 'border-red-400 bg-red-50' : 'border-gray-200'
                       }`}
-                      placeholder="+62 812 3456 7890"
+                      placeholder="62 812 3456 7890"
                     />
                     {errors.phone && <p className="text-red-500 text-xs mt-1.5">{errors.phone}</p>}
                   </div>
