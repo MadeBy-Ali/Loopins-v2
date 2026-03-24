@@ -18,25 +18,37 @@ function PaymentSuccessContent() {
 
   useEffect(() => {
     const verifyPaymentAsync = async () => {
-      try {
-        setIsVerifying(true)
-        const response = await api.verifyPayment(orderId!)
-        
-        if (response.success && response.status === 'paid') {
-          setPaymentStatus('success')
-          // Show success notification after a short delay
-          setTimeout(() => {
-            showNotification()
-          }, 500)
-        } else {
-          setPaymentStatus('failed')
+      const MAX_RETRIES = 6
+      const RETRY_DELAY_MS = 2000
+
+      setIsVerifying(true)
+
+      for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+          const response = await api.verifyPayment(orderId!)
+
+          if (response.success && response.status === 'paid') {
+            setPaymentStatus('success')
+            setTimeout(() => showNotification(), 500)
+            setIsVerifying(false)
+            return
+          }
+
+          // Backend not ready yet — wait before retrying
+          if (attempt < MAX_RETRIES) {
+            await new Promise(r => setTimeout(r, RETRY_DELAY_MS))
+          }
+        } catch (error) {
+          console.error(`Payment verification attempt ${attempt} error:`, error)
+          if (attempt < MAX_RETRIES) {
+            await new Promise(r => setTimeout(r, RETRY_DELAY_MS))
+          }
         }
-      } catch (error) {
-        console.error('Payment verification error:', error)
-        setPaymentStatus('failed')
-      } finally {
-        setIsVerifying(false)
       }
+
+      // All retries exhausted
+      setPaymentStatus('failed')
+      setIsVerifying(false)
     }
 
     if (orderId) {
@@ -58,6 +70,7 @@ function PaymentSuccessContent() {
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
           <p className="text-light-cream text-xl">Verifying your payment...</p>
+          <p className="text-light-cream/50 text-sm mt-2">This may take a few seconds</p>
         </div>
       </main>
     )

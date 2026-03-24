@@ -60,6 +60,9 @@ const products = {
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide1.png',
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide2.png',
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide3.png',
+        'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide4.png',
+        'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide5.png',
+        'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide6.png',
       ],
       description: 'A masterpiece of traditional Indonesian craftsmanship meets contemporary design. The Mbok Jamu collection celebrates the iconic traditional Indonesian beverage sellers and their timeless elegance.',
       story: [
