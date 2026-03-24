@@ -33,7 +33,7 @@ export default function Home() {
           {/* Women's Image */}
           <div className="w-full md:w-1/2 aspect-square relative overflow-hidden group">
             <img
-              src="/images/featured_ptrt_5.png"
+              src="https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_cover.png"
               alt="Women's Collection"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
@@ -63,7 +63,7 @@ export default function Home() {
           {/* Men's Image */}
           <div className="w-full md:w-1/2 aspect-square relative overflow-hidden group">
             <img
-              src="https://media.loopinsstudio.com/loopinsfe/homepage_men_vest_cover.png"
+              src="https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_cover.png"
               alt="Men's Collection"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
@@ -94,7 +94,7 @@ export default function Home() {
         <div className="text-center px-4 sm:px-6 md:px-8 max-w-6xl mx-auto">
           <div className="flex justify-center mb-8 sm:mb-12">
             <img 
-              src="https://media.loopinsstudio.com/loopinsfe/homepage_women_vest_cover.png"
+              src="/images/poetic_divider.svg"
               alt="Divider" 
               className="h-8 sm:h-10 md:h-12 w-auto"
             />
