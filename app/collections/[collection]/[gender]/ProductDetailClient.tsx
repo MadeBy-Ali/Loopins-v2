@@ -16,11 +16,11 @@ const products = {
         '1': 'LSTD-MJC-VST-1-M-BRWN',
         '2': 'LSTD-MJC-VST-2-M-BRWN',
       } as Record<string, string>,
-      name: 'Mbok Jamu Batik Vest - Men',
+      name: 'Mbok Jamu Batik Vest Bahri - Men',
       price: 599000,
       originalPrice: 699000,
       images: [
-        'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_cover.png',
+        'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_cover.jpg',
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_slide1.png',
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_slide2.png',
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_slide3.png',
