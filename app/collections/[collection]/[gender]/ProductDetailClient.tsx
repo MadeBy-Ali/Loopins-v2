@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -16,7 +17,7 @@ const products = {
         '1': 'LSTD-MJC-VST-1-M-BRWN',
         '2': 'LSTD-MJC-VST-2-M-BRWN',
       } as Record<string, string>,
-      name: 'Mbok Jamu Batik Vest Bahri - Men',
+      name: 'Mbok Jamu Batik Vest - Men',
       showcaseImage: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_cover.jpg',
       price: 599000,
       originalPrice: 699000,
@@ -29,6 +30,16 @@ const products = {
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_slide5.jpg',
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_slide6.jpg',
       ],
+      // Tune each slide: backgroundPosition 'X% Y%', backgroundSize '130%' gives room to shift
+      imagePositions: [
+        { backgroundPosition: '50% 30%', backgroundSize: '130%' }, // cover
+        { backgroundPosition: '50% 50%', backgroundSize: '130%' }, // slide1
+        { backgroundPosition: '50% 50%', backgroundSize: '130%' }, // slide2
+        { backgroundPosition: '50% 50%', backgroundSize: '130%' }, // slide3
+        { backgroundPosition: '50% 50%', backgroundSize: '130%' }, // slide4
+        { backgroundPosition: '50% 50%', backgroundSize: '130%' }, // slide5
+        { backgroundPosition: '50% 50%', backgroundSize: '130%' }, // slide6
+      ] as React.CSSProperties[],
       description: 'A masterpiece of traditional Indonesian craftsmanship meets contemporary design. The Mbok Jamu collection pays homage to the iconic traditional Indonesian beverage sellers, known for their distinctive style and elegance.',
       story: [
         'Each vest tells a story of heritage and modernity. Inspired by the timeless elegance of Mbok Jamu, the traditional herb sellers who have been part of Indonesian culture for generations, this collection embodies their spirit of resilience, grace, and authenticity.',
@@ -65,6 +76,16 @@ const products = {
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide5.jpg',
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide6.jpg',
       ],
+      // Tune each slide: backgroundPosition 'X% Y%', backgroundSize '130%' gives room to shift
+      imagePositions: [
+        { backgroundPosition: '50% 10%', backgroundSize: '130%' }, // cover
+        { backgroundPosition: '50% 22%', backgroundSize: '130%' }, // slide1
+        { backgroundPosition: '50% 22%', backgroundSize: '130%' }, // slide2
+        { backgroundPosition: '50% 25%', backgroundSize: '130%' }, // slide3
+        { backgroundPosition: '50% 50%', backgroundSize: '100%' }, // slide4
+        { backgroundPosition: '50% 30%', backgroundSize: '100%' }, // slide5
+        { backgroundPosition: '50% 25%', backgroundSize: '130%' }, // slide6
+      ] as React.CSSProperties[],
       description: 'A masterpiece of traditional Indonesian craftsmanship meets contemporary design. The Mbok Jamu collection celebrates the iconic traditional Indonesian beverage sellers and their timeless elegance.',
       story: [
         'Each vest tells a story of heritage and modernity. Inspired by the timeless elegance of Mbok Jamu, the traditional herb sellers who have been part of Indonesian culture for generations, this collection embodies their spirit of resilience, grace, and authenticity.',
@@ -266,15 +287,17 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
               >
-                <motion.img
+                <motion.div
                   key={currentImageIndex}
-                  src={product.images[currentImageIndex]}
-                  alt={`${product.name} - View ${currentImageIndex + 1}`}
                   initial={{ opacity: 0, x: 100 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -100 }}
                   transition={{ duration: 0.5 }}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full bg-no-repeat"
+                  style={{
+                    backgroundImage: `url(${product.images[currentImageIndex]})`,
+                    ...product.imagePositions[currentImageIndex],
+                  }}
                 />
                 
                 {/* Limited Edition Badge */}
@@ -583,10 +606,12 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 key={index}
                 className="relative aspect-square rounded-2xl overflow-hidden bg-white"
               >
-                <img
-                  src={image}
-                  alt={`${product.name} - View ${index + 1}`}
-                  className="w-full h-full object-cover"
+                <div
+                  className="w-full h-full bg-no-repeat"
+                  style={{
+                    backgroundImage: `url(${image})`,
+                    ...product.imagePositions[index],
+                  }}
                 />
               </div>
             ))}
