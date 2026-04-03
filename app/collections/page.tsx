@@ -10,7 +10,7 @@ const collections = [
     slug: 'mbok-jamu/men',
     description: 'Premium collection designed for the modern gentleman',
     itemCount: 1,
-    image: '/images/featured_ptrt_3.png',
+    image: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_slide6.jpg',
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const collections = [
     slug: 'mbok-jamu/women',
     description: 'Elegant collection for the contemporary woman',
     itemCount: 1,
-    image: '/images/featured_ptrt_1.png',
+    image: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide2.jpg',
   },
 ]
 
