@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
@@ -10,7 +11,10 @@ const collections = [
     slug: 'mbok-jamu/men',
     description: 'Premium collection designed for the modern gentleman',
     itemCount: 1,
-    image: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_slide6.jpg',
+    image: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_cover.jpg',
+    // Tune backgroundPosition: 'X% Y%' → lower X = more left, lower Y = more up
+    // Tune backgroundSize: 'cover' fills container, or e.g. '120%' zooms in
+    bgStyle: { backgroundPosition: '60% 63%', backgroundSize: '130%' } as React.CSSProperties,
   },
   {
     id: 2,
@@ -18,7 +22,9 @@ const collections = [
     slug: 'mbok-jamu/women',
     description: 'Elegant collection for the contemporary woman',
     itemCount: 1,
-    image: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide2.jpg',
+    image: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_cover.jpg',
+    // Tune backgroundSize: '80%' = scaled down, 'cover' = full fill, '100%' = fit width
+    bgStyle: { backgroundPosition: '50% 30%', backgroundSize: '100%' } as React.CSSProperties,
   },
 ]
 
@@ -49,15 +55,16 @@ export default function CollectionsPage() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <Link href={`/collections/${collection.slug}`}>
-                <div className="group relative h-[500px] sm:h-[600px] bg-white rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border border-soft-brown/20">
+                {/* Card height: change h-[600px] (mobile) and sm:h-[750px] (desktop) to tune */}
+                <div className="group relative h-[600px] sm:h-[750px] bg-white rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border border-soft-brown/20">
                   {/* Collection Image */}
-                  <div className="absolute inset-0">
-                    <img
-                      src={collection.image}
-                      alt={collection.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
+                  <div
+                    className="absolute inset-0 bg-no-repeat group-hover:scale-105 transition-transform duration-700"
+                    style={{
+                      backgroundImage: `url(${collection.image})`,
+                      ...collection.bgStyle,
+                    }}
+                  />
 
                   {/* Content Overlay */}
                   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-white to-white/95">

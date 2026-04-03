@@ -17,6 +17,7 @@ const products = {
         '2': 'LSTD-MJC-VST-2-M-BRWN',
       } as Record<string, string>,
       name: 'Mbok Jamu Batik Vest Bahri - Men',
+      showcaseImage: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_cover.jpg',
       price: 599000,
       originalPrice: 699000,
       images: [
