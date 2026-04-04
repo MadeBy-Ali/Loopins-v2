@@ -9,7 +9,7 @@ const collections = [
     id: 1,
     title: "Mbok Jamu - Men's Collection",
     slug: 'mbok-jamu/men',
-    description: 'Premium collection designed for the modern gentleman',
+    description: 'Modern collection designed for the modern gentleman',
     itemCount: 1,
     image: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_cover.jpg',
     // Tune backgroundPosition: 'X% Y%' → lower X = more left, lower Y = more up

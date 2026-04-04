@@ -13,7 +13,7 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: 'Loopins Studio',
-  description: 'Discover our exclusive collection of premium vests for men and women',
+  description: 'Discover our exclusive collection of modern batik vests for men and women',
   icons: {
     icon: [
       { url: '/images/loopins.ico', sizes: 'any' },

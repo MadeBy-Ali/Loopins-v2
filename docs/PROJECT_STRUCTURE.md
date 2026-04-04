@@ -565,7 +565,7 @@ Set in `layout.tsx` or `page.tsx`:
 
 ```tsx
 export const metadata = {
-  title: "Loopins - Premium Vests",
+  title: "Loopins - Modern Batik Vests",
   description: "Traditional Indonesian-inspired vests",
 };
 ```
