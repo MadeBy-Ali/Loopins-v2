@@ -160,7 +160,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
     if (lowerFeature.includes('wash') && lowerFeature.includes('hand')) {
       return (
         <img 
-          src="/images/fabric_care_hand_wash.svg" 
+          src="https://media.loopinsstudio.com/loopinsfe/fabric_care_hand_wash.svg" 
           alt="Hand wash" 
           className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
         />
@@ -169,7 +169,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
     if (lowerFeature.includes('bleach')) {
       return (
         <img 
-          src="/images/fabric_care_do_not_bleach.svg" 
+          src="https://media.loopinsstudio.com/loopinsfe/fabric_care_do_not_bleach.svg" 
           alt="Do not bleach" 
           className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
         />
@@ -178,7 +178,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
     if (lowerFeature.includes('machine')) {
       return (
         <img 
-          src="/images/fabric_care_do_not_machine_wash.svg" 
+          src="https://media.loopinsstudio.com/loopinsfe/fabric_care_do_not_machine_wash.svg" 
           alt="Do not machine wash" 
           className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
         />
@@ -187,7 +187,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
     if (lowerFeature.includes('iron')) {
       return (
         <img 
-          src="/images/fabric_care_iron_low_heat.svg" 
+          src="https://media.loopinsstudio.com/loopinsfe/fabric_care_iron_low_heat.svg" 
           alt="Iron low heat" 
           className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
         />
@@ -196,7 +196,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
     if (lowerFeature.includes('line') && lowerFeature.includes('dry')) {
       return (
         <img 
-          src="/images/fabric_care_line_dry.svg" 
+          src="https://media.loopinsstudio.com/loopinsfe/fabric_care_line_dry.svg" 
           alt="Line dry" 
           className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
         />
@@ -205,7 +205,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
     if (lowerFeature.includes('sunlight') || lowerFeature.includes('sun')) {
       return (
         <img 
-          src="/images/fabric_care_no_direct_sunlight.svg" 
+          src="https://media.loopinsstudio.com/loopinsfe/fabric_care_no_direct_sunlight.svg" 
           alt="No direct sunlight" 
           className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
         />
@@ -214,7 +214,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
     if (lowerFeature.includes('dry clean')) {
       return (
         <img 
-          src="/images/fabric_care_dry_clean.svg" 
+          src="https://media.loopinsstudio.com/loopinsfe/fabric_care_dry_clean.svg" 
           alt="Dry clean." 
           className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
         />
