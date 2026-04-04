@@ -55,19 +55,20 @@ export default function CollectionsPage() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <Link href={`/collections/${collection.slug}`}>
-                {/* Card height: change h-[600px] (mobile) and sm:h-[750px] (desktop) to tune */}
-                <div className="group relative h-[600px] sm:h-[750px] bg-white rounded-lg overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border border-soft-brown/20">
-                  {/* Collection Image */}
-                  <div
-                    className="absolute inset-0 bg-no-repeat group-hover:scale-105 transition-transform duration-700"
-                    style={{
-                      backgroundImage: `url(${collection.image})`,
-                      ...collection.bgStyle,
-                    }}
-                  />
+                <div className="group cursor-pointer hover:shadow-2xl transition-all duration-300 rounded-lg border border-soft-brown/20 overflow-hidden bg-white">
+                  {/* 1:1 Image */}
+                  <div className="relative aspect-square overflow-hidden">
+                    <div
+                      className="absolute inset-0 bg-no-repeat group-hover:scale-105 transition-transform duration-700"
+                      style={{
+                        backgroundImage: `url(${collection.image})`,
+                        ...collection.bgStyle,
+                      }}
+                    />
+                  </div>
 
-                  {/* Content Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-white to-white/95">
+                  {/* Text below image */}
+                  <div className="p-4 sm:p-6">
                     <h2 className="text-sm sm:text-xl font-bold text-dark-brown mb-2">
                       {collection.title}
                     </h2>
