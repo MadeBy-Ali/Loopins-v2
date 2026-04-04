@@ -292,7 +292,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -100 }}
                   transition={{ duration: 0.5 }}
-                  className="w-full h-full bg-no-repeat"
+                  className="absolute inset-0 bg-no-repeat"
                   style={{
                     backgroundImage: `url(${product.images[currentImageIndex]})`,
                     ...product.imagePositions[currentImageIndex],
@@ -343,22 +343,24 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               </div>
 
               {/* Thumbnail Strip */}
-              <div className="flex gap-2 sm:gap-3 mt-3 sm:mt-4 overflow-x-auto pb-2">
+              <div className="flex gap-2 sm:gap-3 mt-3 sm:mt-4 overflow-x-auto px-1 pt-1 pb-2">
                 {product.images.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+                    className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg border-2 transition-all duration-300 ${
                       currentImageIndex === index
                         ? 'border-dark-brown shadow-lg scale-110'
                         : 'border-dark-brown/20 hover:border-dark-brown/50'
                     }`}
                   >
-                    <img
-                      src={image}
-                      alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
+                    <div className="w-full h-full rounded-md overflow-hidden">
+                      <img
+                        src={image}
+                        alt={`Thumbnail ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </button>
                 ))}
               </div>
@@ -606,7 +608,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 className="relative aspect-square rounded-2xl overflow-hidden bg-white"
               >
                 <div
-                  className="w-full h-full bg-no-repeat"
+                  className="absolute inset-0 bg-no-repeat"
                   style={{
                     backgroundImage: `url(${image})`,
                     ...product.imagePositions[index],
