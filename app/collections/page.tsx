@@ -14,7 +14,7 @@ const collections = [
     image: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_cover.jpg',
     // Tune backgroundPosition: 'X% Y%' → lower X = more left, lower Y = more up
     // Tune backgroundSize: 'cover' fills container, or e.g. '120%' zooms in
-    bgStyle: { backgroundPosition: '60% 63%', backgroundSize: '130%' } as React.CSSProperties,
+    bgStyle: { backgroundPosition: '60% 63%', backgroundSize: '100%' } as React.CSSProperties,
   },
   {
     id: 2,
