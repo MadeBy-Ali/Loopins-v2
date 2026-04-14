@@ -32,13 +32,13 @@ const products = {
       ],
       // Tune each slide: backgroundPosition 'X% Y%', backgroundSize '130%' gives room to shift
       imagePositions: [
-        { backgroundPosition: '50% 30%', backgroundSize: '130%' }, // cover
-        { backgroundPosition: '50% 30%', backgroundSize: '130%' }, // slide1
-        { backgroundPosition: '50% 30%', backgroundSize: '130%' }, // slide2
-        { backgroundPosition: '50% 30%', backgroundSize: '130%' }, // slide3
-        { backgroundPosition: '50% 50%', backgroundSize: '130%' }, // slide4
-        { backgroundPosition: '50% 50%', backgroundSize: '130%' }, // slide5
-        { backgroundPosition: '50% 30%', backgroundSize: '130%' }, // slide6
+        { backgroundPosition: '50% 30%', backgroundSize: '100%' }, // cover
+        { backgroundPosition: '50% 30%', backgroundSize: '100%' }, // slide1
+        { backgroundPosition: '50% 30%', backgroundSize: '100%' }, // slide2
+        { backgroundPosition: '50% 30%', backgroundSize: '100%' }, // slide3
+        { backgroundPosition: '50% 50%', backgroundSize: '100%' }, // slide4
+        { backgroundPosition: '50% 50%', backgroundSize: '100%' }, // slide5
+        { backgroundPosition: '50% 30%', backgroundSize: '100%' }, // slide6
       ] as React.CSSProperties[],
       description: 'A masterpiece of traditional Indonesian craftsmanship meets contemporary design. The Mbok Jamu collection pays homage to the iconic traditional Indonesian beverage sellers, known for their distinctive style and elegance.',
       story: [
@@ -77,13 +77,13 @@ const products = {
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_slide6.jpg',
       ],
       imagePositions: [
-        { backgroundPosition: '50% 10%', backgroundSize: '130%' }, // cover
-        { backgroundPosition: '50% 22%', backgroundSize: '130%' }, // slide1
-        { backgroundPosition: '50% 22%', backgroundSize: '130%' }, // slide2
-        { backgroundPosition: '50% 25%', backgroundSize: '130%' }, // slide3
+        { backgroundPosition: '50%', backgroundSize: '100%' }, // cover
+        { backgroundPosition: '50%', backgroundSize: '100%' }, // slide1
+        { backgroundPosition: '50%', backgroundSize: '100%' }, // slide2
+        { backgroundPosition: '50% 25%', backgroundSize: '100%' }, // slide3
         { backgroundPosition: '50% 50%', backgroundSize: '100%' }, // slide4
         { backgroundPosition: '50% 30%', backgroundSize: '100%' }, // slide5
-        { backgroundPosition: '50% 25%', backgroundSize: '130%' }, // slide6
+        { backgroundPosition: '50% 25%', backgroundSize: '100%' }, // slide6
       ] as React.CSSProperties[],
       description: 'A masterpiece of traditional Indonesian craftsmanship meets contemporary design. The Mbok Jamu collection celebrates the iconic traditional Indonesian beverage sellers and their timeless elegance.',
       story: [
