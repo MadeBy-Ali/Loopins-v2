@@ -299,18 +299,19 @@ function PaymentSuccessContent() {
             transition={{ delay: 0.85 }}
             className="flex flex-col sm:flex-row gap-3"
           >
-            <button
-              onClick={() => router.push('/')}
-              className="flex-1 py-3.5 bg-soft-brown text-white font-bold rounded-full hover:bg-soft-brown/80 transition-all duration-300 hover:scale-[1.02] text-sm"
-            >
-              Back to Home
-            </button>
-            <button
-              onClick={() => router.push('/collections')}
-              className="flex-1 py-3.5 bg-white border border-soft-brown/50 text-soft-brown font-bold rounded-full hover:bg-soft-brown/10 transition-all duration-300 text-sm"
-            >
-              Continue Shopping
-            </button>
+          <button
+            onClick={() => router.push('/')}
+            className="flex-1 py-3.5 bg-white border border-soft-brown/50 text-soft-brown font-bold rounded-full hover:bg-soft-brown/10 transition-all duration-300 text-sm"
+          >
+            Back to Home
+          </button>
+
+          <button
+            onClick={() => router.push('/collections')}
+            className="flex-1 py-3.5 bg-soft-brown text-white font-bold rounded-full hover:bg-soft-brown/80 transition-all duration-300 hover:scale-[1.02] text-sm"
+          >
+            Continue Shopping
+          </button>
           </motion.div>
 
         </div>
