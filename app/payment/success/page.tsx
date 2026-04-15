@@ -35,6 +35,10 @@ function formatCurrency(amount: number) {
   }).format(amount)
 }
 
+function formatProductName(name: string) {
+  return name.replace(/ s-/gi, ' Size ')
+}
+
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('id-ID', {
     day: 'numeric',
@@ -106,14 +110,14 @@ function PaymentSuccessContent() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-dark-green flex items-center justify-center">
+      <main className="min-h-screen bg-light-cream flex items-center justify-center">
         <div className="text-center">
           <svg className="animate-spin h-16 w-16 text-soft-brown mx-auto mb-4" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          <p className="text-light-cream text-xl">Confirming your order...</p>
-          <p className="text-light-cream/50 text-sm mt-2">This may take a few seconds</p>
+          <p className="text-dark-brown text-xl">Confirming your order...</p>
+          <p className="text-dark-brown/50 text-sm mt-2">This may take a few seconds</p>
         </div>
       </main>
     )
@@ -123,8 +127,8 @@ function PaymentSuccessContent() {
     const firstName = customerName.split(' ')[0]
 
     return (
-      <main className="min-h-screen bg-dark-green pt-20 pb-16">
-        <div className="container mx-auto px-4 max-w-2xl">
+      <main className="min-h-screen bg-light-cream pt-16 sm:pt-20 pb-12 sm:pb-16">
+        <div className="container mx-auto px-4 sm:px-6 max-w-2xl">
 
           {/* Header */}
           <motion.div
@@ -139,7 +143,7 @@ function PaymentSuccessContent() {
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: 'spring', stiffness: 200, damping: 18, delay: 0.1 }}
               className="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center"
-              style={{ background: 'radial-gradient(circle, rgba(90,107,59,0.5) 0%, rgba(90,107,59,0.15) 100%)', border: '2px solid rgba(196,155,122,0.4)' }}
+              style={{ background: 'radial-gradient(circle, rgba(112,51,21,0.2) 0%, rgba(112,51,21,0.05) 100%)', border: '2px solid rgba(112,51,21,0.3)' }}
             >
               <svg className="w-12 h-12 text-soft-brown" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <motion.path
@@ -158,7 +162,7 @@ function PaymentSuccessContent() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-soft-brown/70 text-sm uppercase tracking-widest font-medium mb-2"
+              className="text-soft-brown text-sm uppercase tracking-widest font-medium mb-2"
             >
               Purchase Confirmed
             </motion.p>
@@ -167,7 +171,7 @@ function PaymentSuccessContent() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-3xl md:text-4xl font-bold text-light-cream mb-3"
+              className="text-3xl md:text-4xl font-bold text-dark-brown mb-3"
             >
               {firstName ? `Thank you, ${firstName}!` : 'Thank you!'}
             </motion.h1>
@@ -176,7 +180,7 @@ function PaymentSuccessContent() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-light-cream/60 text-base"
+              className="text-dark-brown/60 text-base"
             >
               Your order has been confirmed and is being prepared.
             </motion.p>
@@ -187,14 +191,14 @@ function PaymentSuccessContent() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55 }}
-            className="flex items-center justify-center gap-3 mb-6"
+            className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6"
           >
-            <span className="text-light-cream/40 text-sm">Order</span>
-            <span className="font-mono text-soft-brown text-sm bg-earth-green/30 border border-soft-brown/20 px-3 py-1 rounded-full">
+            <span className="text-dark-brown/50 text-sm">Order</span>
+            <span className="font-mono text-soft-brown text-xs sm:text-sm bg-soft-brown/10 border border-soft-brown/30 px-3 py-1 rounded-full break-all">
               {orderDetails.id}
             </span>
             {orderDetails.paidAt && (
-              <span className="text-light-cream/40 text-xs">{formatDate(orderDetails.paidAt)}</span>
+              <span className="text-dark-brown/50 text-xs w-full text-center sm:w-auto">{formatDate(orderDetails.paidAt)}</span>
             )}
           </motion.div>
 
@@ -203,26 +207,25 @@ function PaymentSuccessContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="rounded-2xl border border-light-cream/10 overflow-hidden mb-4"
-            style={{ background: 'rgba(44,62,45,0.6)', backdropFilter: 'blur(12px)' }}
+            className="bg-white rounded-2xl border border-gray-200 overflow-hidden mb-4 shadow-sm"
           >
-            <div className="px-6 py-4 border-b border-light-cream/10">
-              <h2 className="text-light-cream font-semibold text-sm uppercase tracking-wider">Items Purchased</h2>
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+              <h2 className="text-dark-brown font-semibold text-sm uppercase tracking-wider">Items Purchased</h2>
             </div>
 
-            <div className="divide-y divide-light-cream/5">
+            <div className="divide-y divide-gray-100">
               {orderDetails.items.map((item, i) => (
                 <motion.div
                   key={item.id}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.65 + i * 0.05 }}
-                  className="flex items-center justify-between px-6 py-4 gap-4"
+                  className="flex items-center justify-between px-4 sm:px-6 py-4 gap-3 sm:gap-4"
                 >
                   {/* Product icon placeholder */}
                   <div
                     className="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center"
-                    style={{ background: 'rgba(90,107,59,0.3)', border: '1px solid rgba(196,155,122,0.2)' }}
+                    style={{ background: 'rgba(112,51,21,0.1)', border: '1px solid rgba(112,51,21,0.2)' }}
                   >
                     <svg className="w-5 h-5 text-soft-brown/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
@@ -230,8 +233,8 @@ function PaymentSuccessContent() {
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <p className="text-light-cream font-medium text-sm leading-tight truncate">{item.productName}</p>
-                    <p className="text-light-cream/40 text-xs mt-0.5">Qty: {item.quantity}</p>
+                    <p className="text-dark-brown font-medium text-sm leading-tight truncate">{formatProductName(item.productName)}</p>
+                    <p className="text-gray-500 text-xs mt-0.5">Qty: {item.quantity}</p>
                   </div>
 
                   <p className="text-soft-brown font-semibold text-sm flex-shrink-0">{formatCurrency(item.lineTotal)}</p>
@@ -245,25 +248,24 @@ function PaymentSuccessContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.75 }}
-            className="rounded-2xl border border-light-cream/10 overflow-hidden mb-4"
-            style={{ background: 'rgba(44,62,45,0.6)', backdropFilter: 'blur(12px)' }}
+            className="bg-white rounded-2xl border border-gray-200 overflow-hidden mb-4 shadow-sm"
           >
-            <div className="px-6 py-4 border-b border-light-cream/10">
-              <h2 className="text-light-cream font-semibold text-sm uppercase tracking-wider">Order Summary</h2>
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+              <h2 className="text-dark-brown font-semibold text-sm uppercase tracking-wider">Order Summary</h2>
             </div>
-            <div className="px-6 py-4 space-y-3">
+            <div className="px-4 sm:px-6 py-4 space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-light-cream/60">Subtotal</span>
-                <span className="text-light-cream">{formatCurrency(orderDetails.subtotal)}</span>
+                <span className="text-gray-600">Subtotal</span>
+                <span className="text-dark-brown">{formatCurrency(orderDetails.subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-light-cream/60">Shipping</span>
-                <span className="text-light-cream">
+                <span className="text-gray-600">Shipping</span>
+                <span className="text-dark-brown">
                   {orderDetails.shippingFee === 0 ? 'Free' : formatCurrency(orderDetails.shippingFee)}
                 </span>
               </div>
-              <div className="border-t border-light-cream/10 pt-3 flex justify-between">
-                <span className="text-light-cream font-semibold">Total</span>
+              <div className="border-t border-gray-200 pt-3 flex justify-between">
+                <span className="text-dark-brown font-semibold">Total</span>
                 <span className="text-soft-brown font-bold text-lg">{formatCurrency(orderDetails.totalAmount)}</span>
               </div>
             </div>
@@ -275,18 +277,17 @@ function PaymentSuccessContent() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="rounded-2xl border border-light-cream/10 overflow-hidden mb-8"
-              style={{ background: 'rgba(44,62,45,0.6)', backdropFilter: 'blur(12px)' }}
+              className="bg-white rounded-2xl border border-gray-200 overflow-hidden mb-8 shadow-sm"
             >
-              <div className="px-6 py-4 border-b border-light-cream/10">
-                <h2 className="text-light-cream font-semibold text-sm uppercase tracking-wider">Shipping To</h2>
+              <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+                <h2 className="text-dark-brown font-semibold text-sm uppercase tracking-wider">Shipping To</h2>
               </div>
-              <div className="px-6 py-4 flex items-start gap-3">
+              <div className="px-4 sm:px-6 py-4 flex items-start gap-3">
                 <svg className="w-4 h-4 text-soft-brown/60 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <p className="text-light-cream/70 text-sm leading-relaxed">{orderDetails.shippingAddress}</p>
+                <p className="text-gray-600 text-sm leading-relaxed">{orderDetails.shippingAddress}</p>
               </div>
             </motion.div>
           )}
@@ -300,13 +301,13 @@ function PaymentSuccessContent() {
           >
             <button
               onClick={() => router.push('/')}
-              className="flex-1 py-3.5 bg-soft-brown text-dark-green font-bold rounded-full hover:bg-soft-brown/80 transition-all duration-300 hover:scale-[1.02] text-sm"
+              className="flex-1 py-3.5 bg-soft-brown text-white font-bold rounded-full hover:bg-soft-brown/80 transition-all duration-300 hover:scale-[1.02] text-sm"
             >
               Back to Home
             </button>
             <button
               onClick={() => router.push('/collections')}
-              className="flex-1 py-3.5 border border-light-cream/20 text-light-cream font-bold rounded-full hover:bg-earth-green/20 transition-all duration-300 text-sm"
+              className="flex-1 py-3.5 bg-white border border-soft-brown/50 text-soft-brown font-bold rounded-full hover:bg-soft-brown/10 transition-all duration-300 text-sm"
             >
               Continue Shopping
             </button>
@@ -319,7 +320,7 @@ function PaymentSuccessContent() {
 
   // Payment Failed / Unknown state
   return (
-    <main className="min-h-screen bg-dark-green pt-24 pb-16">
+    <main className="min-h-screen bg-light-cream pt-24 pb-16">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -332,29 +333,29 @@ function PaymentSuccessContent() {
             </svg>
           </div>
 
-          <h1 className="text-3xl font-bold text-light-cream mb-3">Payment Not Confirmed</h1>
-          <p className="text-light-cream/60 mb-2">
+          <h1 className="text-3xl font-bold text-dark-brown mb-3">Payment Not Confirmed</h1>
+          <p className="text-dark-brown/60 mb-2">
             We could not confirm your payment status for:
           </p>
           {orderId && (
-            <p className="font-mono text-soft-brown text-sm bg-earth-green/20 inline-block px-4 py-2 rounded-full mb-8">
+            <p className="font-mono text-soft-brown text-sm bg-soft-brown/10 inline-block px-4 py-2 rounded-full mb-8">
               {orderId}
             </p>
           )}
-          <p className="text-light-cream/40 text-sm mb-8">
+          <p className="text-dark-brown/40 text-sm mb-8">
             If you completed the payment, please contact our support — your order may still have gone through.
           </p>
 
           <div className="flex gap-4 justify-center">
             <button
               onClick={() => router.push('/cart')}
-              className="px-8 py-3 bg-soft-brown text-dark-green font-bold rounded-full hover:bg-soft-brown/80 transition-all duration-300"
+              className="px-8 py-3 bg-soft-brown text-white font-bold rounded-full hover:bg-soft-brown/80 transition-all duration-300"
             >
               Back to Cart
             </button>
             <button
               onClick={() => router.push('/')}
-              className="px-8 py-3 border border-light-cream/20 text-light-cream font-bold rounded-full hover:bg-earth-green/20 transition-all duration-300"
+              className="px-8 py-3 border border-soft-brown/30 text-dark-brown font-bold rounded-full hover:bg-soft-brown/10 transition-all duration-300"
             >
               Back to Home
             </button>
@@ -368,13 +369,13 @@ function PaymentSuccessContent() {
 export default function PaymentSuccessPage() {
   return (
     <Suspense fallback={
-      <main className="min-h-screen bg-dark-green flex items-center justify-center">
+      <main className="min-h-screen bg-light-cream flex items-center justify-center">
         <div className="text-center">
           <svg className="animate-spin h-16 w-16 text-soft-brown mx-auto mb-4" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          <p className="text-light-cream text-xl">Loading...</p>
+          <p className="text-dark-brown text-xl">Loading...</p>
         </div>
       </main>
     }>
