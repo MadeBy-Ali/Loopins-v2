@@ -464,12 +464,14 @@ export default function CheckoutPage() {
         grossAmount={grossAmount}
         onSuccess={(result) => {
           console.log('✅ Payment Success:', result)
+          sessionStorage.setItem('loopins-last-customer-name', formData.name)
           clearCart()
           setSnapToken(null)
           router.push(`/payment/success?orderId=${currentOrderId}`)
         }}
         onPending={(result) => {
           console.log('⏳ Payment Pending:', result)
+          sessionStorage.setItem('loopins-last-customer-name', formData.name)
           setSnapToken(null)
           router.push(`/payment/success?orderId=${currentOrderId}`)
         }}
