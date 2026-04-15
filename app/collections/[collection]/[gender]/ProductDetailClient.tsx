@@ -44,7 +44,7 @@ const products = {
       story: [
         'Each vest tells a story of heritage and modernity. Inspired by the timeless elegance of Mbok Jamu, the traditional herb sellers who have been part of Indonesian culture for generations, this collection embodies their spirit of resilience, grace, and authenticity.',
         'Crafted from premium materials with meticulous attention to detail, every stitch reflects our commitment to quality. The earth-toned palette draws inspiration from natural herbs and spices, creating a connection between tradition and contemporary fashion.',
-        'This vest is more than just clothing—it&apos;s a statement piece that bridges cultures and generations. Whether you&apos;re dressing for a business meeting or a casual gathering, the Mbok Jamu vest brings sophistication and cultural pride to your wardrobe.',
+        'This vest is more than just clothing—it`s a statement piece that bridges cultures and generations. Whether you&apos;re dressing for a business meeting or a casual gathering, the Mbok Jamu vest brings sophistication and cultural pride to your wardrobe.',
       ],
       sizes: ['1', '2'],
       features: [
@@ -89,7 +89,7 @@ const products = {
       story: [
         'Each vest tells a story of heritage and modernity. Inspired by the timeless elegance of Mbok Jamu, the traditional herb sellers who have been part of Indonesian culture for generations, this collection embodies their spirit of resilience, grace, and authenticity.',
         'Crafted from premium materials with meticulous attention to detail, every stitch reflects our commitment to quality. The earth-toned palette draws inspiration from natural herbs and spices, creating a connection between tradition and contemporary fashion.',
-        'This vest is more than just clothing—it&apos;s a statement piece that bridges cultures and generations. Perfect for both professional settings and casual elegance, the Mbok Jamu vest brings sophistication and cultural pride to your wardrobe.',
+        'This vest is more than just clothing—it`s a statement piece that bridges cultures and generations. Perfect for both professional settings and casual elegance, the Mbok Jamu vest brings sophistication and cultural pride to your wardrobe.',
       ],
       sizes: ['1', '2'],
       features: [
