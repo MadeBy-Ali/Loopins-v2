@@ -19,7 +19,7 @@ export const magazines: MagazineData[] = [
     year: '2024',
     issue: 'No. I',
     cover: `${S3}/magazine_mbokjamu_cover.jpg`,
-    collectionHref: '/collections/mbok-jamu',
+    collectionHref: '/collections',
     pages: Array.from({ length: 9 }, (_, i) => `${S3}/magazine_mbokjamu_page_${i + 1}.jpg`),
   },
 ]
