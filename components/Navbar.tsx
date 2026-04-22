@@ -18,6 +18,10 @@ export default function Navbar() {
   
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
   const isHomePage = pathname === '/'
+  const isMagazineListPage = pathname === '/magazine'
+  const isMagazineReaderPage = pathname.startsWith('/magazine/') && pathname !== '/magazine'
+  // Pages where the navbar starts transparent over a dark background
+  const isDarkHeroPage = isHomePage || isMagazineListPage
 
   useEffect(() => {
     let ticking = false
@@ -63,29 +67,32 @@ export default function Navbar() {
   }, [isMobileMenuOpen])
 
   // Determine navbar styles based on page and scroll state
-  const navbarBg = isHomePage 
+  const navbarBg = isDarkHeroPage 
     ? (isScrolled ? 'bg-white shadow-md' : 'bg-transparent')
     : 'bg-white shadow-md'
   
-  const navbarPadding = isHomePage
+  const navbarPadding = isDarkHeroPage
     ? (isScrolled ? 'py-3 md:py-4' : 'py-4 md:py-6')
     : 'py-3 md:py-4'
   
-  const textColor = isHomePage && !isScrolled
+  const textColor = isDarkHeroPage && !isScrolled
     ? 'text-white hover:text-white/80'
     : 'text-gray-800 hover:text-earth-green'
   
-  const logoFilter = isHomePage && !isScrolled
+  const logoFilter = isDarkHeroPage && !isScrolled
     ? 'brightness-0 invert'
     : 'brightness-0'
   
-  const iconColor = isHomePage && !isScrolled
+  const iconColor = isDarkHeroPage && !isScrolled
     ? 'text-white hover:text-white/80'
     : 'text-gray-800 hover:text-earth-green'
   
-  const badgeBg = isHomePage && !isScrolled
+  const badgeBg = isDarkHeroPage && !isScrolled
     ? 'bg-white text-earth-green'
     : 'bg-earth-green text-white'
+
+  // Magazine reader has its own fixed header — hide the site navbar entirely
+  if (isMagazineReaderPage) return null
 
   return (
     <>
@@ -107,6 +114,12 @@ export default function Navbar() {
                 className={`nav-link transition-colors duration-500 ${textColor}`}
               >
                 Collections
+              </Link>
+              <Link 
+                href="/magazine" 
+                className={`nav-link transition-colors duration-500 ${textColor}`}
+              >
+                Magazine
               </Link>
               <Link 
                 href="/about" 
@@ -246,6 +259,13 @@ export default function Navbar() {
                   className="block py-3 px-4 text-base font-medium text-gray-800 hover:bg-earth-green/10 hover:text-earth-green rounded-lg transition-all uppercase tracking-wide"
                 >
                   Collections
+                </Link>
+                <Link 
+                  href="/magazine" 
+                  onClick={() => setIsMobileMenuOpen(false)} 
+                  className="block py-3 px-4 text-base font-medium text-gray-800 hover:bg-earth-green/10 hover:text-earth-green rounded-lg transition-all uppercase tracking-wide"
+                >
+                  Magazine
                 </Link>
                 <Link 
                   href="/about" 
