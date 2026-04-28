@@ -20,7 +20,7 @@ export const magazines: MagazineData[] = [
     issue: 'No. I',
     cover: `${S3}/magazine_mbokjamu_cover.jpg`,
     collectionHref: '/collections',
-    pages: Array.from({ length: 9 }, (_, i) => `${S3}/magazine_mbokjamu_page_${i + 1}.jpg`),
+    pages: Array.from({ length: 17 }, (_, i) => `${S3}/magazine_mbokjamu_page_${i + 1}.jpg`),
   },
 ]
 
