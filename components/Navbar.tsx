@@ -102,7 +102,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
           <div className="flex justify-between items-center">
             {/* Left: Navigation Links - Desktop Only */}
-            <div className="hidden lg:flex items-center space-x-10 flex-1">
+            <div className="hidden lg:flex items-center space-x-6">
               <Link 
                 href="/" 
                 className={`nav-link transition-colors duration-500 ${textColor}`}
