@@ -2,12 +2,51 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const pathname = usePathname()
+
+  // Pages with a deep dark background — footer must blend, not clash
+  const isDarkPage =
+    pathname === '/magazine' || /^\/collections\/[^/]+$/.test(pathname)
 
   return (
-    <footer className="relative z-30 bg-dark-brown text-light-cream mt-auto">
+    <footer className="relative z-30 text-light-cream mt-auto" style={{ background: isDarkPage ? '#0c0905' : '#703315' }}>
+
+      {/* ── Blend strip: only on dark pages — gradient fades from page bg into footer ── */}
+      {isDarkPage && (
+        <div
+          aria-hidden
+          className="pointer-events-none"
+          style={{
+            height: '80px',
+            background: 'linear-gradient(to bottom, transparent 0%, #0c0905 100%)',
+          }}
+        />
+      )}
+
+      {/* ── Decorative top separator on dark pages ── */}
+      {isDarkPage && (
+        <div className="px-6 md:px-12 mb-10">
+          <div
+            className="h-px mx-auto"
+            style={{
+              background:
+                'linear-gradient(to right, transparent 0%, rgba(196,155,122,0.35) 30%, rgba(196,155,122,0.5) 50%, rgba(196,155,122,0.35) 70%, transparent 100%)',
+            }}
+          />
+          <div className="flex items-center justify-center mt-4 gap-3">
+            <div className="h-px w-12" style={{ background: 'linear-gradient(to right, transparent, rgba(196,155,122,0.3))' }} />
+            <span style={{ fontFamily: "'Cormorant SC', serif", letterSpacing: '0.3em', fontSize: '11px', color: 'rgba(196,155,122,0.5)' }}>
+              LOOPINS STUDIO
+            </span>
+            <div className="h-px w-12" style={{ background: 'linear-gradient(to left, transparent, rgba(196,155,122,0.3))' }} />
+          </div>
+        </div>
+      )}
+
       <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-16 mb-8 sm:mb-12">

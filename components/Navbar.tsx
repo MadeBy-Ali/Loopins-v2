@@ -20,8 +20,12 @@ export default function Navbar() {
   const isHomePage = pathname === '/'
   const isMagazineListPage = pathname === '/magazine'
   const isMagazineReaderPage = pathname.startsWith('/magazine/') && pathname !== '/magazine'
+  // Collection detail page: /collections/[slug] (exactly one segment, not /collections/[slug]/[gender])
+  const isCollectionDetailPage = /^\/collections\/[^/]+$/.test(pathname)
+  // Pages that are ALWAYS transparent — dark bg throughout, never flip to white on scroll
+  const isAlwaysTransparentPage = isMagazineListPage || isCollectionDetailPage
   // Pages where the navbar starts transparent over a dark background
-  const isDarkHeroPage = isHomePage || isMagazineListPage
+  const isDarkHeroPage = isHomePage || isAlwaysTransparentPage
 
   useEffect(() => {
     let ticking = false
@@ -67,27 +71,29 @@ export default function Navbar() {
   }, [isMobileMenuOpen])
 
   // Determine navbar styles based on page and scroll state
-  const navbarBg = isDarkHeroPage 
-    ? (isScrolled ? 'bg-white shadow-md' : 'bg-transparent')
-    : 'bg-white shadow-md'
-  
+  const navbarBg = isAlwaysTransparentPage
+    ? 'backdrop-blur-md bg-black/[0.12]'
+    : isDarkHeroPage
+      ? (isScrolled ? 'bg-white shadow-md' : 'backdrop-blur-md bg-black/[0.08]')
+      : 'bg-white shadow-md'
+
   const navbarPadding = isDarkHeroPage
-    ? (isScrolled ? 'py-3 md:py-4' : 'py-4 md:py-6')
+    ? (isScrolled && !isAlwaysTransparentPage ? 'py-3 md:py-4' : 'py-4 md:py-6')
     : 'py-3 md:py-4'
-  
-  const textColor = isDarkHeroPage && !isScrolled
+
+  const textColor = isDarkHeroPage && (!isScrolled || isAlwaysTransparentPage)
     ? 'text-white hover:text-white/80'
     : 'text-gray-800 hover:text-earth-green'
-  
-  const logoFilter = isDarkHeroPage && !isScrolled
+
+  const logoFilter = isDarkHeroPage && (!isScrolled || isAlwaysTransparentPage)
     ? 'brightness-0 invert'
     : 'brightness-0'
-  
-  const iconColor = isDarkHeroPage && !isScrolled
+
+  const iconColor = isDarkHeroPage && (!isScrolled || isAlwaysTransparentPage)
     ? 'text-white hover:text-white/80'
     : 'text-gray-800 hover:text-earth-green'
-  
-  const badgeBg = isDarkHeroPage && !isScrolled
+
+  const badgeBg = isDarkHeroPage && (!isScrolled || isAlwaysTransparentPage)
     ? 'bg-white text-earth-green'
     : 'bg-earth-green text-white'
 
