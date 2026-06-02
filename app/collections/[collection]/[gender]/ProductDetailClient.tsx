@@ -19,7 +19,7 @@ const products = {
       } as Record<string, string>,
       name: 'Mbok Jamu Batik Vest - Men',
       showcaseImage: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_cover.jpg',
-      price: 599000,
+      price: 249000,
       originalPrice: 699000,
       images: [
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_men_vest_cover.jpg',
@@ -65,7 +65,7 @@ const products = {
       } as Record<string, string>,
       name: 'Mbok Jamu Batik Vest - Women',
       showcaseImage: 'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_cover.jpg',
-      price: 649000,
+      price: 299000,
       originalPrice: 749000,
       images: [
         'https://media.loopinsstudio.com/loopinsfe/catalog_page_women_vest_cover.jpg',
