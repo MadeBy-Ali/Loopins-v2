@@ -17,7 +17,6 @@ interface Props {
 
 export default function SubProductDetailClient({ collectionSlug, collectionName, subProduct }: Props) {
   const [currentImage, setCurrentImage] = useState(0)
-  const [selectedSize, setSelectedSize] = useState('')
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [touchStart, setTouchStart] = useState(0)
@@ -27,20 +26,13 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
   const { isVisible, message, showNotification } = useNotificationStore()
 
   const handleAddToCart = () => {
-    if (subProduct.sizes.length > 0 && !selectedSize) {
-      alert('Please select a size')
-      return
-    }
     setIsAdding(true)
     addItem({
-      id: selectedSize
-        ? (subProduct.sizeIds[selectedSize] || `${subProduct.id}-${selectedSize}`)
-        : subProduct.id,
+      id: subProduct.sizeIds || subProduct.id,
       name: subProduct.name,
       price: subProduct.price,
       quantity,
       image: subProduct.images[0],
-      size: selectedSize || undefined,
     })
     setTimeout(() => {
       setIsAdding(false)
@@ -343,7 +335,7 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
               {/* Product name */}
               <h1
                 className="sp-title text-[#f5f0e8] mb-5"
-                style={{ fontSize: 'clamp(38px, 5vw, 54px)' }}
+                style={{ fontSize: 'clamp(28px, 4vw, 38px)' }}
               >
                 {subProduct.name}
               </h1>
@@ -378,7 +370,7 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
               )}
 
               {/* Size selector */}
-              {subProduct.sizes.length > 0 && (
+              {/* {subProduct.sizes.length > 0 && (
                 <div className="mb-6">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="sp-label" style={{ color: '#c49b7a' }}>SIZE</span>
@@ -411,7 +403,7 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
                     ))}
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* Qty + Add to cart */}
               <div className="flex items-stretch gap-3">

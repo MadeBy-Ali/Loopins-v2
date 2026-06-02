@@ -12,7 +12,6 @@ import SuccessNotification from '@/components/SuccessNotification'
 
 export default function CollectionPageClient({ collection: col }: { collection: Collection }) {
   const [hoveredGender, setHoveredGender] = useState<string | null>(null)
-  const [subSelectedSizes, setSubSelectedSizes] = useState<Record<string, string>>({})
   const [subQuantities, setSubQuantities] = useState<Record<string, number>>({})
   const [subIsAdding, setSubIsAdding] = useState<Record<string, boolean>>({})
 
@@ -20,20 +19,14 @@ export default function CollectionPageClient({ collection: col }: { collection: 
   const { isVisible, message, showNotification } = useNotificationStore()
 
   const handleSubAddToCart = (sub: CollectionSubProduct) => {
-    const size = subSelectedSizes[sub.id]
-    if (!size) {
-      alert('Please select a size')
-      return
-    }
     const qty = subQuantities[sub.id] || 1
     setSubIsAdding(prev => ({ ...prev, [sub.id]: true }))
     addItem({
-      id: sub.sizeIds[size] || `${sub.id}-${size}`,
+      id: sub.sizeIds || sub.id,
       name: sub.name,
       price: sub.price,
       quantity: qty,
       image: sub.images[0],
-      size,
     })
     setTimeout(() => {
       setSubIsAdding(prev => ({ ...prev, [sub.id]: false }))
@@ -399,16 +392,16 @@ export default function CollectionPageClient({ collection: col }: { collection: 
                         {/* Top: name + price */}
                         <div className="flex items-start justify-between gap-3 mb-2">
                           <Link href={`/collections/${col.slug}/accessories/${sub.id}`}>
-                            <h3 className="col-label text-[#f5f0e8]/90 text-[13px] leading-snug flex-1 hover:text-[#c49b7a] transition-colors duration-200">
+                            <h3 className="col-label text-[#f5f0e8]/90 text-[16px] leading-snug flex-1 hover:text-[#c49b7a] transition-colors duration-200">
                               {sub.name}
                             </h3>
                           </Link>
                           <div className="text-right flex-shrink-0">
-                            <span className="col-body text-[#c49b7a] font-semibold text-[15px] block">
+                            <span className="col-body text-[#c49b7a] font-semibold text-[18px] block">
                               {sub.price > 0 ? `Rp ${sub.price.toLocaleString('id-ID')}` : '—'}
                             </span>
                             {sub.originalPrice > sub.price && sub.price > 0 && (
-                              <span className="col-body text-[#c49b7a] text-[12px] line-through block">
+                              <span className="col-body text-[#c49b7a] text-[14px] line-through block">
                                 Rp {sub.originalPrice.toLocaleString('id-ID')}
                               </span>
                             )}
@@ -416,14 +409,14 @@ export default function CollectionPageClient({ collection: col }: { collection: 
                         </div>
 
                         {/* Description */}
-                        <p className="col-tagline text-[#e8e0d4]/45 text-[13px] mb-3 leading-relaxed">
+                        <p className="col-tagline text-[#e8e0d4]/45 text-[15px] mb-3 leading-relaxed">
                           {sub.description}
                         </p>
 
                         {/* Controls row */}
                         <div className="flex items-center gap-3 flex-wrap">
                           {/* Size selector */}
-                          <div className="flex items-center gap-2">
+                          {/* <div className="flex items-center gap-2">
                             <span className="col-label text-[#c49b7a] text-[9px]">SZ</span>
                             {sub.sizes.map(sz => (
                               <button
@@ -450,39 +443,8 @@ export default function CollectionPageClient({ collection: col }: { collection: 
                                 {sz}
                               </button>
                             ))}
-                          </div>
+                          </div> */}
 
-                          {/* Qty stepper */}
-                          <div className="flex items-center gap-1">
-                            <button
-                              className="sub-qty-btn"
-                              onClick={() =>
-                                setSubQuantities(prev => ({
-                                  ...prev,
-                                  [sub.id]: Math.max(1, (prev[sub.id] || 1) - 1),
-                                }))
-                              }
-                            >
-                              −
-                            </button>
-                            <span
-                              className="col-body text-[#f5f0e8]/70 text-[13px]"
-                              style={{ width: '22px', textAlign: 'center' }}
-                            >
-                              {subQuantities[sub.id] || 1}
-                            </span>
-                            <button
-                              className="sub-qty-btn"
-                              onClick={() =>
-                                setSubQuantities(prev => ({
-                                  ...prev,
-                                  [sub.id]: (prev[sub.id] || 1) + 1,
-                                }))
-                              }
-                            >
-                              +
-                            </button>
-                          </div>
 
                           {/* Add to cart */}
                           <button

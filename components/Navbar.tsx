@@ -22,8 +22,10 @@ export default function Navbar() {
   const isMagazineReaderPage = pathname.startsWith('/magazine/') && pathname !== '/magazine'
   // Collection detail page: /collections/[slug] (exactly one segment, not /collections/[slug]/[gender])
   const isCollectionDetailPage = /^\/collections\/[^/]+$/.test(pathname)
+  // Sub product detail page: /collections/[slug]/accessories/[id]
+  const isSubProductDetailPage = /^\/collections\/[^/]+\/accessories\/[^/]+$/.test(pathname)
   // Pages that are ALWAYS transparent — dark bg throughout, never flip to white on scroll
-  const isAlwaysTransparentPage = isMagazineListPage || isCollectionDetailPage
+  const isAlwaysTransparentPage = isMagazineListPage || isCollectionDetailPage || isSubProductDetailPage
   // Pages where the navbar starts transparent over a dark background
   const isDarkHeroPage = isHomePage || isAlwaysTransparentPage
 
