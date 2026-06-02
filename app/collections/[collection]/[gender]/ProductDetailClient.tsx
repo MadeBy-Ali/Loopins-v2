@@ -8,8 +8,23 @@ import { useCartStore } from '@/lib/cart-store'
 import { useNotificationStore } from '@/lib/notification-store'
 import SuccessNotification from '@/components/SuccessNotification'
 
+interface Product {
+  id: string
+  sizeIds: Record<string, string>
+  name: string
+  showcaseImage: string
+  price: number
+  originalPrice: number
+  images: string[]
+  imagePositions: React.CSSProperties[]
+  description: string
+  story: string[]
+  sizes: string[]
+  features: string[]
+}
+
 // Mock product data - this will come from your API later
-const products = {
+const products: Record<string, Record<string, Product>> = {
   'mbok-jamu': {
     men: {
       id: 'mbok-jamu-men-vest-001',
@@ -266,6 +281,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
       showNotification()
     }, 500)
   }
+
 
   return (
     <main className="min-h-screen bg-white">
@@ -833,6 +849,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                   ))}
                 </div>
               </div>
+
             </motion.div>
           </div>
         </div>
