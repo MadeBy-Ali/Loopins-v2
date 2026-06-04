@@ -411,7 +411,7 @@ export default function CollectionPageClient({ collection: col }: { collection: 
                           {/* Top: name + price */}
                           <div className="flex items-start justify-between gap-3 mb-2">
                             <Link href={`/collections/${col.slug}/accessories/${sub.id}`}>
-                              <h3 className="col-label text-[#f5f0e8]/90 text-[16px] leading-snug flex-1 hover:text-[#c49b7a] transition-colors duration-200">
+                              <h3 className="col-label text-[#f5f0e8]/90 text-[24px] leading-snug flex-1 hover:text-[#c49b7a] transition-colors duration-200">
                                 {sub.storeTitle || sub.name}
                               </h3>
                             </Link>
