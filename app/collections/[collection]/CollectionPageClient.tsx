@@ -366,100 +366,108 @@ export default function CollectionPageClient({ collection: col }: { collection: 
 
               {/* Sub-product cards */}
               <div className="max-w-4xl mx-auto space-y-4">
-                {col.subProducts.map((sub, index) => (
-                  <motion.div
-                    key={sub.id}
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.8,
-                      delay: 1.0 + index * 0.12,
-                      ease: [0.25, 0.46, 0.45, 0.94],
-                    }}
-                  >
-                    <div className="sub-card">
-                      {/* Thumbnail — links to detail page */}
-                      <Link href={`/collections/${col.slug}/accessories/${sub.id}`} className="sub-thumb block flex-shrink-0">
-                        <img
-                          src={sub.showcaseImage}
-                          alt={sub.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </Link>
+                {(() => {
+                  // Group products by storeTitle or use individual products
+                  const groupedProducts: { id: string; displayProduct: CollectionSubProduct; variants?: CollectionSubProduct[] }[] = []
+                  const processedIds = new Set<string>()
+                  
+                  col.subProducts.forEach((sub) => {
+                    if (processedIds.has(sub.id)) return
+                    
+                    if (sub.storeTitle) {
+                      // Find all variants with the same storeTitle
+                      const variants = col.subProducts!.filter(p => p.storeTitle === sub.storeTitle)
+                      variants.forEach(v => processedIds.add(v.id))
+                      groupedProducts.push({ id: sub.id, displayProduct: sub, variants })
+                    } else {
+                      processedIds.add(sub.id)
+                      groupedProducts.push({ id: sub.id, displayProduct: sub })
+                    }
+                  })
+                  
+                  return groupedProducts.map(({ id, displayProduct: sub, variants }, index) => (
+                    <motion.div
+                      key={id}
+                      initial={{ opacity: 0, y: 24 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.8,
+                        delay: 1.0 + index * 0.12,
+                        ease: [0.25, 0.46, 0.45, 0.94],
+                      }}
+                    >
+                      <div className="sub-card">
+                        {/* Thumbnail — links to detail page */}
+                        <Link href={`/collections/${col.slug}/accessories/${sub.id}`} className="sub-thumb block flex-shrink-0">
+                          <img
+                            src={sub.showcaseImage}
+                            alt={sub.storeTitle || sub.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </Link>
 
-                      {/* Details */}
-                      <div className="flex-1 min-w-0 flex flex-col justify-between">
-                        {/* Top: name + price */}
-                        <div className="flex items-start justify-between gap-3 mb-2">
-                          <Link href={`/collections/${col.slug}/accessories/${sub.id}`}>
-                            <h3 className="col-label text-[#f5f0e8]/90 text-[16px] leading-snug flex-1 hover:text-[#c49b7a] transition-colors duration-200">
-                              {sub.name}
-                            </h3>
-                          </Link>
-                          <div className="text-right flex-shrink-0">
-                            <span className="col-body text-[#c49b7a] font-semibold text-[18px] block">
-                              {sub.price > 0 ? `Rp ${sub.price.toLocaleString('id-ID')}` : '—'}
-                            </span>
-                            {sub.originalPrice > sub.price && sub.price > 0 && (
-                              <span className="col-body text-[#c49b7a] text-[14px] line-through block">
-                                Rp {sub.originalPrice.toLocaleString('id-ID')}
-                              </span>
+                        {/* Details */}
+                        <div className="flex-1 min-w-0 flex flex-col justify-between">
+                          {/* Top: name + price */}
+                          <div className="flex items-start justify-between gap-3 mb-2">
+                            <Link href={`/collections/${col.slug}/accessories/${sub.id}`}>
+                              <h3 className="col-label text-[#f5f0e8]/90 text-[16px] leading-snug flex-1 hover:text-[#c49b7a] transition-colors duration-200">
+                                {sub.storeTitle || sub.name}
+                              </h3>
+                            </Link>
+                            <div className="text-right flex-shrink-0">
+                              {variants ? (
+                                <>
+                                  <span className="col-body text-[#c49b7a] font-semibold text-[18px] block">
+                                    Rp {Math.min(...variants.map(v => v.price)).toLocaleString('id-ID')} - Rp {Math.max(...variants.map(v => v.price)).toLocaleString('id-ID')}
+                                  </span>
+                                </>
+                              ) : (
+                                <>
+                                  <span className="col-body text-[#c49b7a] font-semibold text-[18px] block">
+                                    {sub.price > 0 ? `Rp ${sub.price.toLocaleString('id-ID')}` : '—'}
+                                  </span>
+                                  {sub.originalPrice > sub.price && sub.price > 0 && (
+                                    <span className="col-body text-[#c49b7a] text-[14px] line-through block">
+                                      Rp {sub.originalPrice.toLocaleString('id-ID')}
+                                    </span>
+                                  )}
+                                </>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Description */}
+                          <p className="col-tagline text-[#e8e0d4]/45 text-[15px] mb-3 leading-relaxed">
+                            {sub.description}
+                          </p>
+
+                          {/* Controls row */}
+                          <div className="flex items-center gap-3 flex-wrap">
+                            {variants ? (
+                              <Link 
+                                href={`/collections/${col.slug}/accessories/${sub.id}`}
+                                className="sub-add-btn ml-auto"
+                              >
+                                VIEW OPTIONS
+                                <ArrowRight className="w-2.5 h-2.5" />
+                              </Link>
+                            ) : (
+                              <button
+                                className="sub-add-btn ml-auto"
+                                disabled={subIsAdding[sub.id]}
+                                onClick={() => handleSubAddToCart(sub)}
+                              >
+                                {subIsAdding[sub.id] ? 'ADDING' : 'ADD TO CART'}
+                                {!subIsAdding[sub.id] && <ArrowRight className="w-2.5 h-2.5" />}
+                              </button>
                             )}
                           </div>
                         </div>
-
-                        {/* Description */}
-                        <p className="col-tagline text-[#e8e0d4]/45 text-[15px] mb-3 leading-relaxed">
-                          {sub.description}
-                        </p>
-
-                        {/* Controls row */}
-                        <div className="flex items-center gap-3 flex-wrap">
-                          {/* Size selector */}
-                          {/* <div className="flex items-center gap-2">
-                            <span className="col-label text-[#c49b7a] text-[9px]">SZ</span>
-                            {sub.sizes.map(sz => (
-                              <button
-                                key={sz}
-                                onClick={() =>
-                                  setSubSelectedSizes(prev => ({ ...prev, [sub.id]: sz }))
-                                }
-                                className="sub-sz-btn"
-                                style={{
-                                  border:
-                                    subSelectedSizes[sub.id] === sz
-                                      ? '1px solid rgba(196,155,122,0.75)'
-                                      : '1px solid rgba(196,155,122,0.2)',
-                                  background:
-                                    subSelectedSizes[sub.id] === sz
-                                      ? 'rgba(196,155,122,0.14)'
-                                      : 'transparent',
-                                  color:
-                                    subSelectedSizes[sub.id] === sz
-                                      ? '#c49b7a'
-                                      : 'rgba(196,155,122,0.45)',
-                                }}
-                              >
-                                {sz}
-                              </button>
-                            ))}
-                          </div> */}
-
-
-                          {/* Add to cart */}
-                          <button
-                            className="sub-add-btn ml-auto"
-                            disabled={subIsAdding[sub.id]}
-                            onClick={() => handleSubAddToCart(sub)}
-                          >
-                            {subIsAdding[sub.id] ? 'ADDING' : 'ADD TO CART'}
-                            {!subIsAdding[sub.id] && <ArrowRight className="w-2.5 h-2.5" />}
-                          </button>
-                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  ))
+                })()}
               </div>
             </>
           )}

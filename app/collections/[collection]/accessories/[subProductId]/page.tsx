@@ -23,11 +23,17 @@ export default function SubProductPage({ params }: Props) {
   const sub = col.subProducts?.find(s => s.id === params.subProductId)
   if (!sub) notFound()
 
+  // Find all variants if this product has a storeTitle
+  const variants = sub.storeTitle 
+    ? col.subProducts?.filter(s => s.storeTitle === sub.storeTitle) 
+    : undefined
+
   return (
     <SubProductDetailClient
       collectionSlug={col.slug}
       collectionName={col.name}
       subProduct={sub}
+      variants={variants}
     />
   )
 }

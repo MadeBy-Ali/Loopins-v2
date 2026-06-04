@@ -4,6 +4,7 @@ export interface CollectionSubProduct {
   id: string
   sizeIds: string
   name: string
+  storeTitle?: string  // Display title for grouped variants (optional)
   showcaseImage: string
   price: number
   originalPrice: number
@@ -126,7 +127,8 @@ export const collections: Collection[] = [
         id: 'mbok-jamu-scarf-1',
         sizeIds: 'LSTD-MJC-SP-SCRF-5',
         name: 'Scarf ( 50 x 50 )',
-        showcaseImage: 'https://media.loopinsstudio.com/loopinsfe/scarf_page4_ratio1_1.jpg',
+        storeTitle: 'Scarf',
+        showcaseImage: 'https://media.loopinsstudio.com/loopinsfe/scarf_cover_ratio1_1.jpg',
         price: 59000,
         originalPrice: 79000,
         images: [
@@ -143,7 +145,7 @@ export const collections: Collection[] = [
           { backgroundPosition: '50% 50%', backgroundSize: '100%' },
           { backgroundPosition: '50% 50%', backgroundSize: '100%' },
         ],
-        description: 'Lightweight scarf with traditional patterns - Small variant.',
+        description: 'Lightweight scarf with traditional patterns.',
         story: [
           'Our scarves celebrate the heritage of Indonesian textile art.',
           'Each pattern tells a story of tradition and craftsmanship.',
@@ -156,6 +158,7 @@ export const collections: Collection[] = [
         id: 'mbok-jamu-scarf-2',
         sizeIds: 'SCARF-L',
         name: 'Scarf ( 70 x 70 )',
+        storeTitle: 'Scarf',
         showcaseImage: 'https://media.loopinsstudio.com/loopinsfe/scarf_cover_ratio1_1.jpg',
         price: 79000,
         originalPrice: 99000,
@@ -173,7 +176,7 @@ export const collections: Collection[] = [
           { backgroundPosition: '50% 50%', backgroundSize: '100%' },
           { backgroundPosition: '50% 50%', backgroundSize: '100%' },
         ],
-        description: 'Lightweight scarf with traditional patterns - Large variant.',
+        description: 'Lightweight scarf with traditional patterns.',
         story: [
           'Our scarves celebrate the heritage of Indonesian textile art.',
           'Each pattern tells a story of tradition and craftsmanship.',

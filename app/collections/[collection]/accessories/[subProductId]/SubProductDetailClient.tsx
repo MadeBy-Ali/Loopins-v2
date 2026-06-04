@@ -13,26 +13,36 @@ interface Props {
   collectionSlug: string
   collectionName: string
   subProduct: CollectionSubProduct
+  variants?: CollectionSubProduct[]
 }
 
-export default function SubProductDetailClient({ collectionSlug, collectionName, subProduct }: Props) {
+export default function SubProductDetailClient({ collectionSlug, collectionName, subProduct, variants }: Props) {
   const [currentImage, setCurrentImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
+  const [selectedVariant, setSelectedVariant] = useState(subProduct)
 
   const addItem = useCartStore(s => s.addItem)
   const { isVisible, message, showNotification } = useNotificationStore()
 
+  // Update selected variant when changing sizes
+  const handleSizeChange = (variant: CollectionSubProduct) => {
+    setSelectedVariant(variant)
+    setCurrentImage(0) // Reset to first image when changing variant
+    // Update URL without reload
+    window.history.replaceState(null, '', `/collections/${collectionSlug}/accessories/${variant.id}`)
+  }
+
   const handleAddToCart = () => {
     setIsAdding(true)
     addItem({
-      id: subProduct.sizeIds || subProduct.id,
-      name: subProduct.name,
-      price: subProduct.price,
+      id: selectedVariant.sizeIds || selectedVariant.id,
+      name: selectedVariant.name,
+      price: selectedVariant.price,
       quantity,
-      image: subProduct.images[0],
+      image: selectedVariant.images[0],
     })
     setTimeout(() => {
       setIsAdding(false)
@@ -41,9 +51,9 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
   }
 
   const prev = () =>
-    setCurrentImage(i => (i === 0 ? subProduct.images.length - 1 : i - 1))
+    setCurrentImage(i => (i === 0 ? selectedVariant.images.length - 1 : i - 1))
   const next = () =>
-    setCurrentImage(i => (i === subProduct.images.length - 1 ? 0 : i + 1))
+    setCurrentImage(i => (i === selectedVariant.images.length - 1 ? 0 : i + 1))
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(0)
@@ -268,19 +278,19 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={currentImage}
-                    src={subProduct.images[currentImage]}
-                    alt={`${subProduct.name} — view ${currentImage + 1}`}
+                    src={selectedVariant.images[currentImage]}
+                    alt={`${selectedVariant.name} — view ${currentImage + 1}`}
                     className="w-full h-full object-cover"
                     initial={{ opacity: 0, scale: 1.04 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.97 }}
                     transition={{ duration: 0.38, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    style={subProduct.imagePositions[currentImage]}
+                    style={selectedVariant.imagePositions[currentImage]}
                   />
                 </AnimatePresence>
 
                 {/* Nav arrows */}
-                {subProduct.images.length > 1 && (
+                {selectedVariant.images.length > 1 && (
                   <>
                     <button className="sp-nav-btn" style={{ left: '12px' }} onClick={prev}>
                       <ChevronLeft className="w-4 h-4" />
@@ -296,16 +306,16 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
                   className="absolute bottom-3 right-3 sp-label"
                   style={{ color: 'rgba(196,155,122,0.45)', fontSize: '9px' }}
                 >
-                  {String(currentImage + 1).padStart(2, '0')} / {String(subProduct.images.length).padStart(2, '0')}
+                  {String(currentImage + 1).padStart(2, '0')} / {String(selectedVariant.images.length).padStart(2, '0')}
                 </div>
               </div>
 
               {/* Thumbnail strip */}
               <div
                 className="grid gap-2"
-                style={{ gridTemplateColumns: `repeat(${subProduct.images.length}, 1fr)` }}
+                style={{ gridTemplateColumns: `repeat(${selectedVariant.images.length}, 1fr)` }}
               >
-                {subProduct.images.map((img, i) => (
+                {selectedVariant.images.map((img, i) => (
                   <button
                     key={i}
                     className={`sp-thumb ${i === currentImage ? 'active' : ''}`}
@@ -337,22 +347,22 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
                 className="sp-title text-[#f5f0e8] mb-5"
                 style={{ fontSize: 'clamp(28px, 4vw, 38px)' }}
               >
-                {subProduct.name}
+                {selectedVariant.storeTitle || selectedVariant.name}
               </h1>
 
               {/* Price */}
               <div className="flex items-baseline gap-3 mb-1">
                 <span className="sp-body font-semibold text-[#c49b7a]" style={{ fontSize: '22px' }}>
-                  {subProduct.price > 0
-                    ? `Rp ${subProduct.price.toLocaleString('id-ID')}`
+                  {selectedVariant.price > 0
+                    ? `Rp ${selectedVariant.price.toLocaleString('id-ID')}`
                     : '—'}
                 </span>
-                {subProduct.originalPrice > subProduct.price && subProduct.price > 0 && (
+                {selectedVariant.originalPrice > selectedVariant.price && selectedVariant.price > 0 && (
                   <span
                     className="sp-body line-through"
                     style={{ color: 'rgba(196,155,122,0.4)', fontSize: '14px' }}
                   >
-                    Rp {subProduct.originalPrice.toLocaleString('id-ID')}
+                    Rp {selectedVariant.originalPrice.toLocaleString('id-ID')}
                   </span>
                 )}
               </div>
@@ -360,50 +370,45 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
               <div className="sp-divider" />
 
               {/* Description */}
-              {subProduct.description && (
+              {selectedVariant.description && (
                 <p
                   className="sp-body italic mb-5 leading-relaxed"
                   style={{ fontSize: '16px', color: 'rgba(232,224,212,0.82)' }}
                 >
-                  {subProduct.description}
+                  {selectedVariant.description}
                 </p>
               )}
 
-              {/* Size selector */}
-              {/* {subProduct.sizes.length > 0 && (
+              {/* Size selector for variants */}
+              {variants && variants.length > 1 && (
                 <div className="mb-6">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="sp-label" style={{ color: '#c49b7a' }}>SIZE</span>
-                    {selectedSize && (
-                      <span className="sp-body text-[#c49b7a]" style={{ fontSize: '13px' }}>
-                        — {selectedSize}
-                      </span>
-                    )}
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {subProduct.sizes.map(sz => (
+                    {variants.map((variant, idx) => (
                       <button
-                        key={sz}
+                        key={variant.id}
                         className="sp-sz-btn"
-                        onClick={() => setSelectedSize(sz)}
+                        onClick={() => handleSizeChange(variant)}
                         style={{
-                          border: selectedSize === sz
+                          border: selectedVariant.id === variant.id
                             ? '1px solid rgba(196,155,122,0.75)'
                             : '1px solid rgba(196,155,122,0.2)',
-                          background: selectedSize === sz
+                          background: selectedVariant.id === variant.id
                             ? 'rgba(196,155,122,0.12)'
                             : 'transparent',
-                          color: selectedSize === sz
+                          color: selectedVariant.id === variant.id
                             ? '#c49b7a'
                             : 'rgba(196,155,122,0.5)',
                         }}
                       >
-                        {sz}
+                        {idx + 1}
                       </button>
                     ))}
                   </div>
                 </div>
-              )} */}
+              )}
 
               {/* Qty + Add to cart */}
               <div className="flex items-stretch gap-3">
@@ -426,17 +431,17 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
                 </button>
               </div>
 
-              {(subProduct.story.length > 0 || subProduct.features.length > 0) && (
+              {(selectedVariant.story.length > 0 || selectedVariant.features.length > 0) && (
                 <div className="sp-divider" style={{ marginTop: '2.25rem' }} />
               )}
 
               {/* Story */}
-              {subProduct.story.length > 0 && (
+              {selectedVariant.story.length > 0 && (
                 <div className="mb-7">
                   <span className="sp-label block mb-4" style={{ color: '#c49b7a' }}>
                     THE STORY
                   </span>
-                  {subProduct.story.map((para, i) => (
+                  {selectedVariant.story.map((para, i) => (
                     <p
                       key={i}
                       className="sp-body mb-3"
@@ -449,13 +454,13 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
               )}
 
               {/* Care instructions */}
-              {subProduct.features.length > 0 && (
+              {selectedVariant.features.length > 0 && (
                 <div>
                   <span className="sp-label block mb-4" style={{ color: '#c49b7a' }}>
                     CARE
                   </span>
                   <div className="flex flex-col gap-2">
-                    {subProduct.features.map((f, i) => (
+                    {selectedVariant.features.map((f, i) => (
                       <div key={i} className="flex items-start gap-3">
                         <div className="sp-care-dot" />
                         <span
