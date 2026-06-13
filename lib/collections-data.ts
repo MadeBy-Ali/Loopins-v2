@@ -14,6 +14,7 @@ export interface CollectionSubProduct {
   story: string[]
   sizes: string[]
   features: string[]
+  dimensions?: { length: number; width: number }
 }
 
 export interface CollectionVariant {
@@ -92,6 +93,7 @@ export const collections: Collection[] = [
         ],
         sizes: ['All Size'],
         features: ['Premium batik fabric', 'Versatile styling', 'One size fits most'],
+        dimensions: { length: 200, width: 105 },
       },
       {
         id: 'mbok-jamu-obi-belt',
@@ -122,6 +124,7 @@ export const collections: Collection[] = [
         ],
         sizes: ['All Size'],
         features: ['Wide belt design', 'Premium fabric', 'Adjustable fit'],
+        dimensions: { length: 108, width: 7 },
       },
       {
         id: 'mbok-jamu-scarf-1',
@@ -153,6 +156,7 @@ export const collections: Collection[] = [
         ],
         sizes: ['Small', 'Large'],
         features: ['Lightweight fabric', 'Traditional patterns', 'Two sizes available'],
+        dimensions: { length: 50, width: 50 },
       },
       {
         id: 'mbok-jamu-scarf-2',
@@ -184,6 +188,7 @@ export const collections: Collection[] = [
         ],
         sizes: ['Small', 'Large'],
         features: ['Lightweight fabric', 'Traditional patterns', 'Two sizes available'],
+        dimensions: { length: 70, width: 70 },
       },
       {
         id: 'mbok-jamu-tie',
@@ -214,6 +219,7 @@ export const collections: Collection[] = [
         ],
         sizes: ['All Size'],
         features: ['Batik patterns', 'Premium material', 'Standard tie length'],
+        dimensions: { length: 30, width: 8 },
       },
     ],
   },

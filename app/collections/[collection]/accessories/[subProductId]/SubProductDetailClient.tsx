@@ -367,6 +367,25 @@ export default function SubProductDetailClient({ collectionSlug, collectionName,
                 )}
               </div>
 
+              {/* Dimensions */}
+              {selectedVariant.dimensions && (
+                <div className="flex items-center gap-5 mt-3 mb-1">
+                  <div className="flex items-center gap-2">
+                    <span className="sp-label" style={{ color: 'rgba(196,155,122,0.55)', fontSize: '9px' }}>L</span>
+                    <span className="sp-body" style={{ fontSize: '13px', color: 'rgba(232,224,212,0.65)' }}>
+                      {selectedVariant.dimensions.length} cm
+                    </span>
+                  </div>
+                  <div style={{ width: '1px', height: '10px', background: 'rgba(196,155,122,0.2)' }} />
+                  <div className="flex items-center gap-2">
+                    <span className="sp-label" style={{ color: 'rgba(196,155,122,0.55)', fontSize: '9px' }}>W</span>
+                    <span className="sp-body" style={{ fontSize: '13px', color: 'rgba(232,224,212,0.65)' }}>
+                      {selectedVariant.dimensions.width} cm
+                    </span>
+                  </div>
+                </div>
+              )}
+
               <div className="sp-divider" />
 
               {/* Description */}
