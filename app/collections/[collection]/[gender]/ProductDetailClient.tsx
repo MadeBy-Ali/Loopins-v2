@@ -359,7 +359,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                 {/* Stock Badge - shown once a size is selected and its real stock is known */}
                 {selectedSize && typeof selectedStock === 'number' && (
                   <div className="absolute top-3 sm:top-6 right-3 sm:right-6 bg-bright-red text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-lg z-10">
-                    {selectedStock > 0 ? `Only ${selectedStock} Pcs` : 'Sold Out'}
+                    {selectedStock > 0 ? `Only ${selectedStock} Pcs Left` : 'Sold Out'}
                   </div>
                 )}
 
@@ -666,7 +666,7 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
             {selectedSize && typeof selectedStock === 'number' && (
               <div className="flex justify-end mb-4">
                 <div className="bg-bright-red text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg">
-                  {selectedStock > 0 ? `Only ${selectedStock} Pcs` : 'Sold Out'}
+                  {selectedStock > 0 ? `Only ${selectedStock} Pcs Left` : 'Sold Out'}
                 </div>
               </div>
             )}
