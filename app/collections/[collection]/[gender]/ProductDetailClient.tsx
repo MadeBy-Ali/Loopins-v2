@@ -2,10 +2,11 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCartStore } from '@/lib/cart-store'
 import { useNotificationStore } from '@/lib/notification-store'
+import { API_BASE_URL } from '@/lib/api'
 import SuccessNotification from '@/components/SuccessNotification'
 
 interface Product {
@@ -136,9 +137,39 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
+  // Live stock per size, fetched from the backend. null = not loaded yet.
+  const [stockBySize, setStockBySize] = useState<Record<string, number | null>>({})
 
   // Get product data
   const product = products[collection as keyof typeof products]?.[gender as 'men' | 'women']
+
+  // Fetch real stock for each size from the backend (product data above is otherwise static/mock)
+  useEffect(() => {
+    if (!product) return
+    Object.entries(product.sizeIds).forEach(([size, sku]) => {
+      fetch(`${API_BASE_URL}/products/${sku}`)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((json) => {
+          const stock = json?.data?.stock
+          if (typeof stock === 'number') {
+            setStockBySize((prev) => ({ ...prev, [size]: stock }))
+          }
+        })
+        .catch(() => {
+          // Leave as unknown (null) on failure rather than blocking the page
+        })
+    })
+  }, [product])
+
+  const selectedStock = selectedSize ? stockBySize[selectedSize] : undefined
+  const isSelectedSoldOut = selectedStock === 0
+
+  // Clamp quantity down whenever the selected size's stock is known and lower than current quantity
+  useEffect(() => {
+    if (typeof selectedStock === 'number' && selectedStock > 0 && quantity > selectedStock) {
+      setQuantity(selectedStock)
+    }
+  }, [selectedStock, quantity])
 
   // Minimum swipe distance (in px) to trigger navigation
   const minSwipeDistance = 50
@@ -265,6 +296,16 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
       return
     }
 
+    if (isSelectedSoldOut) {
+      alert('This size is sold out')
+      return
+    }
+
+    if (typeof selectedStock === 'number' && quantity > selectedStock) {
+      alert(`Only ${selectedStock} unit(s) left in this size`)
+      return
+    }
+
     setIsAdding(true)
     
     addItem({
@@ -315,10 +356,12 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                   }}
                 />
                 
-                {/* Limited Edition Badge */}
-                <div className="absolute top-3 sm:top-6 right-3 sm:right-6 bg-bright-red text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-lg z-10">
-                  Only 60 Pcs
-                </div>
+                {/* Stock Badge - shown once a size is selected and its real stock is known */}
+                {selectedSize && typeof selectedStock === 'number' && (
+                  <div className="absolute top-3 sm:top-6 right-3 sm:right-6 bg-bright-red text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-bold text-xs sm:text-sm shadow-lg z-10">
+                    {selectedStock > 0 ? `Only ${selectedStock} Pcs` : 'Sold Out'}
+                  </div>
+                )}
 
                 {/* Navigation Arrows */}
                 {product.images.length > 1 && (
@@ -427,19 +470,27 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                   Select Size
                 </label>
                 <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`px-4 sm:px-6 py-2.5 sm:py-4 rounded-lg font-bold text-base sm:text-lg transition-all duration-300 ${
-                        selectedSize === size
-                          ? 'bg-dark-brown text-white shadow-lg scale-105'
-                          : 'bg-white text-dark-brown border border-dark-brown/20 hover:border-dark-brown/50'
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
+                  {product.sizes.map((size) => {
+                    const sizeStock = stockBySize[size]
+                    const soldOut = sizeStock === 0
+                    return (
+                      <button
+                        key={size}
+                        onClick={() => !soldOut && setSelectedSize(size)}
+                        disabled={soldOut}
+                        className={`px-4 sm:px-6 py-2.5 sm:py-4 rounded-lg font-bold text-base sm:text-lg transition-all duration-300 relative ${
+                          soldOut
+                            ? 'bg-white text-dark-brown/30 border border-dark-brown/10 cursor-not-allowed'
+                            : selectedSize === size
+                              ? 'bg-dark-brown text-white shadow-lg scale-105'
+                              : 'bg-white text-dark-brown border border-dark-brown/20 hover:border-dark-brown/50'
+                        }`}
+                      >
+                        {size}
+                        {soldOut && <span className="block text-[10px] font-normal">Sold Out</span>}
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
 
@@ -459,8 +510,9 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     {quantity}
                   </span>
                   <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-10 h-10 sm:w-12 sm:h-12 bg-white border border-dark-brown/20 rounded-lg text-dark-brown font-bold text-lg sm:text-xl hover:border-dark-brown/50 transition-colors"
+                    onClick={() => setQuantity(typeof selectedStock === 'number' ? Math.min(selectedStock, quantity + 1) : quantity + 1)}
+                    disabled={typeof selectedStock === 'number' && quantity >= selectedStock}
+                    className="w-10 h-10 sm:w-12 sm:h-12 bg-white border border-dark-brown/20 rounded-lg text-dark-brown font-bold text-lg sm:text-xl hover:border-dark-brown/50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     +
                   </button>
@@ -470,10 +522,10 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               {/* Add to Cart Button */}
               <button
                 onClick={handleAddToCart}
-                disabled={isAdding}
+                disabled={isAdding || isSelectedSoldOut}
                 className="w-full py-3 sm:py-4 bg-dark-brown text-white font-bold text-base sm:text-lg rounded-full hover:bg-earth-green hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                {isAdding ? 'Adding...' : 'Add to Cart'}
+                {isAdding ? 'Adding...' : isSelectedSoldOut ? 'Sold Out' : 'Add to Cart'}
               </button>
 
               {/* Size Guide Table */}
@@ -610,12 +662,14 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
             transition={{ duration: 0.8 }}
             className="w-full max-w-2xl mx-auto space-y-6 pb-32"
           >
-            {/* Limited Edition Badge */}
-            <div className="flex justify-end mb-4">
-              <div className="bg-bright-red text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg">
-                Only 60 Pcs
+            {/* Stock Badge - shown once a size is selected and its real stock is known */}
+            {selectedSize && typeof selectedStock === 'number' && (
+              <div className="flex justify-end mb-4">
+                <div className="bg-bright-red text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg">
+                  {selectedStock > 0 ? `Only ${selectedStock} Pcs` : 'Sold Out'}
+                </div>
               </div>
-            </div>
+            )}
             
             {/* Vertically Stacked Images */}
             {product.images.map((image, index) => (
@@ -683,19 +737,27 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                   Select Size
                 </label>
                 <div className="flex gap-3">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 ${
-                        selectedSize === size
-                          ? 'bg-dark-brown text-white shadow-lg scale-105'
-                          : 'bg-white text-dark-brown border border-dark-brown/20 hover:border-dark-brown/50'
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
+                  {product.sizes.map((size) => {
+                    const sizeStock = stockBySize[size]
+                    const soldOut = sizeStock === 0
+                    return (
+                      <button
+                        key={size}
+                        onClick={() => !soldOut && setSelectedSize(size)}
+                        disabled={soldOut}
+                        className={`px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 ${
+                          soldOut
+                            ? 'bg-white text-dark-brown/30 border border-dark-brown/10 cursor-not-allowed'
+                            : selectedSize === size
+                              ? 'bg-dark-brown text-white shadow-lg scale-105'
+                              : 'bg-white text-dark-brown border border-dark-brown/20 hover:border-dark-brown/50'
+                        }`}
+                      >
+                        {size}
+                        {soldOut && <span className="block text-[10px] font-normal">Sold Out</span>}
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
 
@@ -715,8 +777,9 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
                     {quantity}
                   </span>
                   <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-12 h-12 bg-white border border-dark-brown/20 rounded-lg text-dark-brown font-bold text-xl hover:border-dark-brown/50 transition-colors"
+                    onClick={() => setQuantity(typeof selectedStock === 'number' ? Math.min(selectedStock, quantity + 1) : quantity + 1)}
+                    disabled={typeof selectedStock === 'number' && quantity >= selectedStock}
+                    className="w-12 h-12 bg-white border border-dark-brown/20 rounded-lg text-dark-brown font-bold text-xl hover:border-dark-brown/50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     +
                   </button>
@@ -726,10 +789,10 @@ export default function ProductDetailClient({ collection, gender }: ProductDetai
               {/* Add to Cart Button */}
               <button
                 onClick={handleAddToCart}
-                disabled={isAdding}
+                disabled={isAdding || isSelectedSoldOut}
                 className="w-full py-4 bg-dark-brown text-white font-bold text-lg rounded-full hover:bg-earth-green hover:shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                {isAdding ? 'Adding...' : 'Add to Cart'}
+                {isAdding ? 'Adding...' : isSelectedSoldOut ? 'Sold Out' : 'Add to Cart'}
               </button>
 
               {/* Size Guide Table */}
